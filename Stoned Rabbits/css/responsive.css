@@ -117,39 +117,75 @@
     padding: 1rem 0;
   }
 
+  /* Mobile menu overlay */
+  .nav-menu::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: -100vw;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    transition: left 0.3s ease;
+    z-index: -1;
+  }
+
+  .nav-menu.active::before {
+    left: 0;
+  }
+
   .nav-menu {
     position: fixed;
     top: 0;
     right: -100%;
-    width: 80%;
-    max-width: 300px;
+    width: 75%;
+    max-width: 280px;
     height: 100vh;
-    background: var(--bg-dark);
-    border-left: 1px solid var(--border-subtle);
-    padding: 2rem;
+    background-color: #000000 !important;
+    border-left: 3px solid var(--secondary-color);
+    padding: 5rem 0 2rem 0;
     transition: right 0.3s ease;
     z-index: 1000;
     overflow-y: auto;
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.8);
+    /* Make sure it's a column layout */
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    margin: 0 !important;
+    list-style: none !important;
   }
 
   .nav-menu.active {
     right: 0;
   }
 
-  .nav-menu ul {
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
+  .nav-menu .nav-item,
   .nav-menu li {
     width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: #000000 !important;
+    display: block !important;
   }
 
   .nav-link {
     display: block;
-    padding: 0.75rem 1rem;
+    padding: 1rem 1.5rem;
     width: 100%;
     text-align: left;
+    color: #ffffff !important;
+    background-color: #000000 !important;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+  }
+
+  .nav-link:hover,
+  .nav-link:focus {
+    background-color: rgba(237, 104, 62, 0.2) !important;
+    border-left-color: var(--secondary-color);
+    padding-left: 2rem;
   }
 
   .mobile-toggle {
@@ -165,7 +201,7 @@
   .mobile-toggle span {
     display: block;
     height: 3px;
-    background: var(--text-primary);
+    background: var(--light-color);
     border-radius: 2px;
     transition: all 0.3s ease;
   }

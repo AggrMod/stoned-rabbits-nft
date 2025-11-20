@@ -20,14 +20,24 @@
   <link rel="stylesheet" href="css/grid-styles.css"/>
   <!-- Responsive CSS -->
   <link rel="stylesheet" href="css/responsive.css"/>
+  <!-- Mobile Menu Fix - Inline styles to override caching -->
+  <style>
+    @media (max-width: 768px) {
+      .nav-menu {
+        background-color: #000000 !important;
+      }
+      .nav-menu .nav-item,
+      .nav-menu li {
+        background-color: #000000 !important;
+      }
+      .nav-link {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Crypto Price Ticker -->
-  <div class="crypto-ticker">
-    <div class="ticker-container">
-      <!-- JS will populate this -->
-    </div>
-  </div>
   <!-- Header -->
   <header>
     <div class="container header-container">
@@ -236,10 +246,10 @@
           Want these utilities for YOUR project? We build custom staking, lottery, airdrop tools, Discord bots, and more for other Solana NFT collections!
         </p>
         <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-          <a href="../NFT Utility Factory/index.html" class="btn" style="font-size: 1.1rem; padding: 1rem 2rem;">
+          <a href="./NFT Utility Factory/index.html" class="btn" style="font-size: 1.1rem; padding: 1rem 2rem;">
             <i class="fas fa-tools"></i> View Services & Pricing
           </a>
-          <a href="../NFT Utility Factory/index.html#contact" class="btn btn-outline" style="font-size: 1.1rem; padding: 1rem 2rem;">
+          <a href="./NFT Utility Factory/index.html#contact" class="btn btn-outline" style="font-size: 1.1rem; padding: 1rem 2rem;">
             <i class="fas fa-envelope"></i> Get a Quote
           </a>
         </div>
