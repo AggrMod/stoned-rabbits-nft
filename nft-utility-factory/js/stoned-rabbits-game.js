@@ -19,6 +19,48 @@ document.addEventListener('DOMContentLoaded', function() {
     return;
   }
 
+  // Image Assets
+  const images = {
+    rabbit: new Image(),
+    crab: new Image(),
+    coin: new Image(),
+    chest: new Image(),
+    ground: new Image(),
+    crate: new Image(),
+    bg: new Image()
+  };
+
+  let imagesLoaded = 0;
+  const totalImages = Object.keys(images).length;
+
+  // Load all images
+  function loadImages() {
+    return new Promise((resolve) => {
+      const basePath = '../images/game/';
+
+      Object.keys(images).forEach(key => {
+        images[key].onload = () => {
+          imagesLoaded++;
+          console.log(`✓ Loaded ${key}.png (${imagesLoaded}/${totalImages})`);
+          if (imagesLoaded === totalImages) {
+            console.log('✓ All images loaded successfully!');
+            resolve();
+          }
+        };
+
+        images[key].onerror = () => {
+          console.warn(`⚠ Failed to load ${key}.png, using fallback graphics`);
+          imagesLoaded++;
+          if (imagesLoaded === totalImages) {
+            resolve();
+          }
+        };
+
+        images[key].src = `${basePath}${key}.png`;
+      });
+    });
+  }
+
   // Game Constants
   const GRAVITY = 0.6;
   const JUMP_POWER = -13;
@@ -54,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
     TREASURE: 8
   };
 
-  // Colors for tiles (pirate theme)
+  // Colors for tiles (pirate theme - fallback if images fail)
   const TILE_COLORS = {
     [TILES.GROUND]: '#8B4513',
     [TILES.BRICK]: '#A0522D',
@@ -70,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const player = {
     x: 100,
     y: 400,
-    width: 28,
+    width: 32,
     height: 32,
     vx: 0,
     vy: 0,
@@ -191,8 +233,8 @@ document.addEventListener('DOMContentLoaded', function() {
       enemies = (level.enemies || []).map(e => ({
         x: e.x,
         y: e.y,
-        width: 28,
-        height: 28,
+        width: 32,
+        height: 32,
         vx: e.type === 'parrot' ? 2 : 1.5,
         type: e.type,
         direction: -1,
@@ -203,8 +245,8 @@ document.addEventListener('DOMContentLoaded', function() {
       collectibles = (level.collectibles || []).map(c => ({
         x: c.x,
         y: c.y,
-        width: 24,
-        height: 24,
+        width: 28,
+        height: 28,
         type: c.type,
         collected: false,
         animation: 0
@@ -575,39 +617,47 @@ document.addEventListener('DOMContentLoaded', function() {
     }).join('');
   }
 
-  // Drawing functions
+  // Drawing functions with image support
   function drawTile(tile, x, y) {
-    const color = TILE_COLORS[tile] || '#000000';
+    const tileX = x * TILE_SIZE;
+    const tileY = y * TILE_SIZE;
 
-    ctx.fillStyle = color;
-    ctx.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+    if (tile === TILES.GROUND && images.ground.complete) {
+      ctx.drawImage(images.ground, tileX, tileY, TILE_SIZE, TILE_SIZE);
+    } else if (tile === TILES.BRICK && images.crate.complete) {
+      ctx.drawImage(images.crate, tileX, tileY, TILE_SIZE, TILE_SIZE);
+    } else if (tile === TILES.TREASURE && images.chest.complete) {
+      ctx.drawImage(images.chest, tileX, tileY, TILE_SIZE, TILE_SIZE);
+    } else {
+      // Fallback to colored rectangles
+      const color = TILE_COLORS[tile] || '#000000';
+      ctx.fillStyle = color;
+      ctx.fillRect(tileX, tileY, TILE_SIZE, TILE_SIZE);
 
-    // Add details based on tile type
-    ctx.strokeStyle = 'rgba(0,0,0,0.3)';
-    ctx.lineWidth = 2;
-    ctx.strokeRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+      ctx.strokeStyle = 'rgba(0,0,0,0.3)';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(tileX, tileY, TILE_SIZE, TILE_SIZE);
 
-    if (tile === TILES.QUESTION) {
-      ctx.fillStyle = '#FF6347';
-      ctx.font = 'bold 20px Arial';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText('?', x * TILE_SIZE + TILE_SIZE/2, y * TILE_SIZE + TILE_SIZE/2);
-    } else if (tile === TILES.TREASURE) {
-      ctx.fillStyle = '#FF6347';
-      ctx.font = 'bold 24px Arial';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText('💎', x * TILE_SIZE + TILE_SIZE/2, y * TILE_SIZE + TILE_SIZE/2);
-    } else if (tile === TILES.WATER) {
-      // Animated water
-      ctx.fillStyle = 'rgba(65, 105, 225, 0.8)';
-      ctx.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+      if (tile === TILES.QUESTION) {
+        ctx.fillStyle = '#FF6347';
+        ctx.font = 'bold 20px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('?', tileX + TILE_SIZE/2, tileY + TILE_SIZE/2);
+      } else if (tile === TILES.TREASURE) {
+        ctx.fillStyle = '#FF6347';
+        ctx.font = 'bold 24px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('💎', tileX + TILE_SIZE/2, tileY + TILE_SIZE/2);
+      } else if (tile === TILES.WATER) {
+        ctx.fillStyle = 'rgba(65, 105, 225, 0.8)';
+        ctx.fillRect(tileX, tileY, TILE_SIZE, TILE_SIZE);
+      }
     }
   }
 
   function drawPlayer() {
-    // Draw rabbit character
     ctx.save();
 
     // Flicker when invincible
@@ -615,42 +665,40 @@ document.addEventListener('DOMContentLoaded', function() {
       ctx.globalAlpha = 0.5;
     }
 
-    // Body (pirate rabbit)
-    ctx.fillStyle = player.invincible > 0 ? '#FFD700' : '#E0E0E0';
-    ctx.fillRect(player.x + 6, player.y + 8, 16, 20);
+    if (images.rabbit.complete) {
+      // Draw rabbit image
+      if (player.direction === -1) {
+        // Flip horizontally
+        ctx.scale(-1, 1);
+        ctx.drawImage(images.rabbit, -player.x - player.width, player.y, player.width, player.height);
+      } else {
+        ctx.drawImage(images.rabbit, player.x, player.y, player.width, player.height);
+      }
+    } else {
+      // Fallback: Draw simple rabbit character
+      ctx.fillStyle = player.invincible > 0 ? '#FFD700' : '#E0E0E0';
+      ctx.fillRect(player.x + 6, player.y + 8, 16, 20);
 
-    // Head
-    ctx.fillStyle = player.invincible > 0 ? '#FFD700' : '#F0F0F0';
-    ctx.beginPath();
-    ctx.arc(player.x + 14, player.y + 8, 8, 0, Math.PI * 2);
-    ctx.fill();
+      ctx.fillStyle = player.invincible > 0 ? '#FFD700' : '#F0F0F0';
+      ctx.beginPath();
+      ctx.arc(player.x + 14, player.y + 8, 8, 0, Math.PI * 2);
+      ctx.fill();
 
-    // Pirate hat
-    ctx.fillStyle = '#8B0000';
-    ctx.beginPath();
-    ctx.moveTo(player.x + 8, player.y + 4);
-    ctx.lineTo(player.x + 20, player.y + 4);
-    ctx.lineTo(player.x + 18, player.y);
-    ctx.lineTo(player.x + 10, player.y);
-    ctx.closePath();
-    ctx.fill();
+      // Pirate hat
+      ctx.fillStyle = '#8B0000';
+      ctx.beginPath();
+      ctx.moveTo(player.x + 8, player.y + 4);
+      ctx.lineTo(player.x + 20, player.y + 4);
+      ctx.lineTo(player.x + 18, player.y);
+      ctx.lineTo(player.x + 10, player.y);
+      ctx.closePath();
+      ctx.fill();
 
-    // Eye patch
-    ctx.fillStyle = '#000000';
-    ctx.beginPath();
-    ctx.arc(player.x + (player.direction > 0 ? 16 : 12), player.y + 8, 2, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Ears (long rabbit ears)
-    ctx.fillStyle = player.invincible > 0 ? '#FFD700' : '#F0F0F0';
-    ctx.fillRect(player.x + 8, player.y - 4, 3, 8);
-    ctx.fillRect(player.x + 17, player.y - 4, 3, 8);
-
-    // Legs (animated when moving)
-    const legOffset = Math.abs(player.vx) > 0 ? Math.sin(player.animation / 5) * 2 : 0;
-    ctx.fillStyle = player.invincible > 0 ? '#FFD700' : '#E0E0E0';
-    ctx.fillRect(player.x + 8, player.y + 28, 5, 4 + legOffset);
-    ctx.fillRect(player.x + 15, player.y + 28, 5, 4 - legOffset);
+      // Ears
+      ctx.fillStyle = player.invincible > 0 ? '#FFD700' : '#F0F0F0';
+      ctx.fillRect(player.x + 8, player.y - 4, 3, 8);
+      ctx.fillRect(player.x + 17, player.y - 4, 3, 8);
+    }
 
     ctx.restore();
   }
@@ -659,56 +707,41 @@ document.addEventListener('DOMContentLoaded', function() {
     enemies.forEach(enemy => {
       if (!enemy.alive) return;
 
-      if (enemy.type === 'crab') {
-        // Draw crab
-        ctx.fillStyle = '#FF4500';
-        ctx.fillRect(enemy.x + 4, enemy.y + 10, 20, 12);
+      ctx.save();
 
-        // Eyes
-        ctx.fillStyle = '#000000';
-        ctx.beginPath();
-        ctx.arc(enemy.x + 8, enemy.y + 8, 3, 0, Math.PI * 2);
-        ctx.arc(enemy.x + 20, enemy.y + 8, 3, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Claws
-        ctx.fillStyle = '#FF6347';
-        ctx.fillRect(enemy.x, enemy.y + 14, 4, 6);
-        ctx.fillRect(enemy.x + 24, enemy.y + 14, 4, 6);
-
-        // Legs
-        ctx.fillStyle = '#FF4500';
-        for (let i = 0; i < 3; i++) {
-          ctx.fillRect(enemy.x + 6 + i * 6, enemy.y + 22, 2, 4);
+      if (enemy.type === 'crab' && images.crab.complete) {
+        // Draw crab image
+        if (enemy.direction === -1) {
+          ctx.scale(-1, 1);
+          ctx.drawImage(images.crab, -enemy.x - enemy.width, enemy.y, enemy.width, enemy.height);
+        } else {
+          ctx.drawImage(images.crab, enemy.x, enemy.y, enemy.width, enemy.height);
         }
-      } else if (enemy.type === 'parrot') {
-        // Draw parrot
-        ctx.fillStyle = '#32CD32';
-        ctx.beginPath();
-        ctx.ellipse(enemy.x + 14, enemy.y + 14, 10, 8, 0, 0, Math.PI * 2);
-        ctx.fill();
+      } else {
+        // Fallback: Draw simple enemy shapes
+        if (enemy.type === 'crab') {
+          ctx.fillStyle = '#FF4500';
+          ctx.fillRect(enemy.x + 4, enemy.y + 10, 20, 12);
 
-        // Wings (flapping)
-        const wingFlap = Math.sin(Date.now() / 100) * 3;
-        ctx.fillStyle = '#228B22';
-        ctx.fillRect(enemy.x + 4 - wingFlap, enemy.y + 10, 6, 8);
-        ctx.fillRect(enemy.x + 18 + wingFlap, enemy.y + 10, 6, 8);
+          ctx.fillStyle = '#000000';
+          ctx.beginPath();
+          ctx.arc(enemy.x + 8, enemy.y + 8, 3, 0, Math.PI * 2);
+          ctx.arc(enemy.x + 20, enemy.y + 8, 3, 0, Math.PI * 2);
+          ctx.fill();
+        } else if (enemy.type === 'parrot') {
+          ctx.fillStyle = '#32CD32';
+          ctx.beginPath();
+          ctx.ellipse(enemy.x + 14, enemy.y + 14, 10, 8, 0, 0, Math.PI * 2);
+          ctx.fill();
 
-        // Beak
-        ctx.fillStyle = '#FFD700';
-        ctx.beginPath();
-        ctx.moveTo(enemy.x + 14, enemy.y + 16);
-        ctx.lineTo(enemy.x + 8, enemy.y + 14);
-        ctx.lineTo(enemy.x + 14, enemy.y + 14);
-        ctx.closePath();
-        ctx.fill();
-
-        // Eye
-        ctx.fillStyle = '#000000';
-        ctx.beginPath();
-        ctx.arc(enemy.x + 16, enemy.y + 12, 2, 0, Math.PI * 2);
-        ctx.fill();
+          const wingFlap = Math.sin(Date.now() / 100) * 3;
+          ctx.fillStyle = '#228B22';
+          ctx.fillRect(enemy.x + 4 - wingFlap, enemy.y + 10, 6, 8);
+          ctx.fillRect(enemy.x + 18 + wingFlap, enemy.y + 10, 6, 8);
+        }
       }
+
+      ctx.restore();
     });
   }
 
@@ -718,34 +751,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
       const bounce = Math.sin(item.animation / 10) * 3;
 
-      if (item.type === 'coin') {
-        // Gold coin
-        ctx.fillStyle = '#FFD700';
-        ctx.beginPath();
-        ctx.arc(item.x + item.width/2, item.y + item.height/2 + bounce, 10, 0, Math.PI * 2);
-        ctx.fill();
+      if (item.type === 'coin' && images.coin.complete) {
+        ctx.drawImage(images.coin, item.x, item.y + bounce, item.width, item.height);
+      } else {
+        // Fallback
+        if (item.type === 'coin') {
+          ctx.fillStyle = '#FFD700';
+          ctx.beginPath();
+          ctx.arc(item.x + item.width/2, item.y + item.height/2 + bounce, 10, 0, Math.PI * 2);
+          ctx.fill();
 
-        ctx.strokeStyle = '#DAA520';
-        ctx.lineWidth = 2;
-        ctx.stroke();
+          ctx.strokeStyle = '#DAA520';
+          ctx.lineWidth = 2;
+          ctx.stroke();
 
-        // Coin detail
-        ctx.fillStyle = '#DAA520';
-        ctx.font = 'bold 12px Arial';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText('$', item.x + item.width/2, item.y + item.height/2 + bounce);
-      } else if (item.type === 'rum') {
-        // Rum bottle (power-up)
-        ctx.fillStyle = '#8B4513';
-        ctx.fillRect(item.x + 6, item.y + 4 + bounce, 12, 16);
+          ctx.fillStyle = '#DAA520';
+          ctx.font = 'bold 12px Arial';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('$', item.x + item.width/2, item.y + item.height/2 + bounce);
+        } else if (item.type === 'rum') {
+          ctx.fillStyle = '#8B4513';
+          ctx.fillRect(item.x + 6, item.y + 4 + bounce, 12, 16);
 
-        ctx.fillStyle = '#654321';
-        ctx.fillRect(item.x + 8, item.y + bounce, 8, 4);
+          ctx.fillStyle = '#654321';
+          ctx.fillRect(item.x + 8, item.y + bounce, 8, 4);
 
-        // Label
-        ctx.fillStyle = '#FFD700';
-        ctx.fillRect(item.x + 7, item.y + 10 + bounce, 10, 6);
+          ctx.fillStyle = '#FFD700';
+          ctx.fillRect(item.x + 7, item.y + 10 + bounce, 10, 6);
+        }
       }
     });
   }
@@ -760,7 +794,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function drawHUD() {
-    // Level name
     ctx.fillStyle = '#FFFFFF';
     ctx.font = 'bold 18px Georgia';
     ctx.textAlign = 'left';
@@ -827,12 +860,18 @@ document.addEventListener('DOMContentLoaded', function() {
       // Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw background gradient
-      const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-      gradient.addColorStop(0, '#87CEEB');
-      gradient.addColorStop(1, '#E0F6FF');
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      // Draw background
+      if (images.bg.complete) {
+        // Draw background image (tiled or stretched)
+        ctx.drawImage(images.bg, 0, 0, canvas.width, canvas.height);
+      } else {
+        // Fallback gradient
+        const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        gradient.addColorStop(0, '#87CEEB');
+        gradient.addColorStop(1, '#E0F6FF');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
 
       // Draw level
       if (currentMap && currentMap.length > 0) {
@@ -922,15 +961,17 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Initialize game
-  try {
-    initLevel(0);
-    updateLeaderboardDisplay();
-    gameState.initialized = true;
-    gameLoop();
-    console.log('🏴‍☠️ Stoned Rabbits: Pirate Adventure loaded successfully! Ahoy matey! 🏴‍☠️');
-  } catch (error) {
-    console.error('Failed to initialize game:', error);
-    alert('Failed to initialize game. Please refresh the page. Error: ' + error.message);
-  }
+  loadImages().then(() => {
+    try {
+      initLevel(0);
+      updateLeaderboardDisplay();
+      gameState.initialized = true;
+      gameLoop();
+      console.log('🏴‍☠️ Stoned Rabbits: Pirate Adventure loaded successfully! Ahoy matey! 🏴‍☠️');
+    } catch (error) {
+      console.error('Failed to initialize game:', error);
+      alert('Failed to initialize game. Please refresh the page. Error: ' + error.message);
+    }
+  });
 
 }); // End of DOMContentLoaded
