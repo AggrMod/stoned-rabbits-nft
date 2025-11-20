@@ -16,68 +16,75 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"/>
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css"/>
-  <!-- Grid Generator CSS -->
-  <link rel="stylesheet" href="css/grid-styles.css"/>
-
+  <!-- Responsive CSS -->
+  <link rel="stylesheet" href="css/responsive.css"/>
+  <!-- Mobile Menu Fix - Inline styles to override caching -->
   <style>
-    /* Passes-style card styling */
-    .stat-card {
+    /* Hero height override to bypass CSS caching */
+    .hero {
+      height: 18vh !important;
+      min-height: 175px !important;
+      padding-top: 2rem !important;
+      padding-bottom: 1rem !important;
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        background-color: #000000 !important;
+      }
+      .nav-menu .nav-item,
+      .nav-menu li {
+        background-color: #000000 !important;
+      }
+      .nav-link {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+      }
+    }
+
+    /* Summary cards styling */
+    .summary-card {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 16px;
-      padding: 2rem;
-      text-align: center;
+      padding: 2.5rem;
       transition: all 0.3s ease;
+      height: 100%;
     }
 
-    .stat-card:hover {
+    .summary-card:hover {
       transform: translateY(-5px);
       border-color: rgba(255, 209, 102, 0.5);
       box-shadow: 0 10px 30px rgba(255, 209, 102, 0.2);
     }
 
-    .stat-number {
-      font-size: 3rem;
-      font-weight: 700;
+    .summary-icon {
+      font-size: 3.5rem;
       color: #ffd166;
-      display: block;
-      margin-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
     }
 
-    .stat-label {
-      font-size: 1rem;
-      color: #999;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .benefit-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      padding: 2rem;
-      transition: all 0.3s ease;
-    }
-
-    .benefit-card:hover {
-      border-color: rgba(237, 104, 62, 0.5);
-      background: rgba(255, 255, 255, 0.05);
-    }
-
-    .benefit-icon {
-      font-size: 3rem;
+    .summary-card h3 {
       color: #ffd166;
+      font-size: 1.5rem;
       margin-bottom: 1rem;
+    }
+
+    .summary-card p {
+      color: #ccc;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
     }
   </style>
 </head>
 <body>
-  <!-- Crypto Price Ticker -->
-  <div class="crypto-ticker">
-    <div class="ticker-container">
-      <!-- JS will populate this -->
-    </div>
-  </div>
   <!-- Header -->
   <header>
     <div class="container header-container">
@@ -86,465 +93,140 @@
         <i class="fas fa-bars"></i>
       </div>
       <ul class="nav-menu">
-        <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
-        <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
-        <li class="nav-item"><a href="#downloadnft" class="nav-link">NFT Actions</a></li>
+        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="./pages/stoned-rabbits.html" class="nav-link">Stoned Rabbits</a></li>
         <li class="nav-item"><a href="./pages/revenue-pass.html" class="nav-link">Revenue Pass</a></li>
         <li class="nav-item"><a href="./pages/lottery.html" class="nav-link">Lottery</a></li>
-        <li class="nav-item"><a href="#roadmap" class="nav-link">Roadmap</a></li>
-        <li class="nav-item"><a href="#utilities" class="nav-link">Utilities</a></li>
-        <li class="nav-item"><a href="#team" class="nav-link">Team</a></li>
-        <li class="nav-item"><a href="#partners" class="nav-link">Partners</a></li>
+        <li class="nav-item"><a href="./pages/utilities.html" class="nav-link">Utilities</a></li>
+        <li class="nav-item"><a href="./pages/team.html" class="nav-link">Team</a></li>
+        <li class="nav-item"><a href="./pages/partners.html" class="nav-link">Partners</a></li>
       </ul>
     </div>
   </header>
+
   <!-- Hero Section -->
   <section id="home" class="hero">
     <div class="hero-content">
       <h1 class="hero-title" data-aos="fade-up">Stoned Rabbits</h1>
       <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="100">No two trips are the same</p>
-      <div class="hero-btns" data-aos="fade-up" data-aos-delay="200">        
-        <a href="./pages/airdrop.html" class="btn btn-outline">Check Airdrop</a>
-        <a href="#about" class="btn btn-outline">Learn More</a>
-      </div>
-    </div>
-  </section>
-  <!-- About Section -->
-  <section id="about" class="about">
-    <div class="container">
-      <div class="section-title" data-aos="fade-up">
-        <h2>Welcome to the Stoned Rabbits gang</h2>
-      </div>
-      <div class="about-content">
-        <div class="about-img" data-aos="fade-right">
-          <img src="images/rabbits_6.jpg" alt="Stoned Rabbits Artwork">
-        </div>
-        <div class="about-text" data-aos="fade-left">
-          <h3>About us</h3>
-          <p>Welcome to the Stoned Rabbits gang - a collection of <span id="total-supply">3.333</span> unique NFTs living on the Solana blockchain. Each Stoned Rabbit is entirely unique and algorithmically generated from over 200 possible traits.</p>
-          <p>Our mission is to create an exclusive community of like-minded individuals who appreciate digital art and the possibilities of blockchain technology. By owning a Stoned Rabbit, you're not just collecting digital art - you're joining a movement.</p>
-          <p>Stoned Rabbits holders gain access to exclusive benefits, including future airdrops, community events, merchandise, and voting rights in our DAO.</p>
-          <a href="https://magiceden.us/marketplace/stonned_rabitts" target="_blank" class="btn">View Collection</a>
-        </div>
+      <div class="hero-btns" data-aos="fade-up" data-aos-delay="200">
+        <a href="./pages/stoned-rabbits.html" class="btn btn-primary">Explore Collection</a>
+        <a href="./pages/revenue-pass.html" class="btn btn-outline">Revenue Pass</a>
       </div>
     </div>
   </section>
 
-  <!-- Collection Stats -->
+  <!-- Summary Section -->
   <section class="about">
     <div class="container">
       <div class="section-title" data-aos="fade-up">
+        <h2>Welcome to Stoned Rabbits</h2>
+        <p>Explore our ecosystem of unique NFTs, utilities, and community benefits</p>
+      </div>
+
+      <div class="summary-grid">
+        <!-- Stoned Rabbits NFT Collection -->
+        <div class="summary-card" data-aos="fade-up">
+          <div class="summary-icon"><img src="images/rabbits_3.jpg" alt="Stoned Rabbits" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover;"></div>
+          <h3>Stoned Rabbits NFT</h3>
+          <p>A collection of 3,333 unique NFTs on Solana. Each rabbit is algorithmically generated from over 200 possible traits.</p>
+          <a href="./pages/stoned-rabbits.html" class="btn btn-outline">Learn More</a>
+        </div>
+
+        <!-- Revenue Pass -->
+        <div class="summary-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="summary-icon"><img src="images/royalty.png" alt="Revenue Pass" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover;"></div>
+          <h3>Revenue Pass</h3>
+          <p>Earn passive income through our monthly revenue sharing program from our themed slot machine on Gamblor.io.</p>
+          <a href="./pages/revenue-pass.html" class="btn btn-outline">Get Pass</a>
+        </div>
+
+        <!-- Lottery -->
+        <div class="summary-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="summary-icon"><img src="images/rafl.jpg" alt="Lottery System" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover;"></div>
+          <h3>Lottery System</h3>
+          <p>Participate in our community lottery. Mint entries with SOL or burn your Stoned Rabbits NFTs for a chance to win big!</p>
+          <a href="./pages/lottery.html" class="btn btn-outline">Enter Lottery</a>
+        </div>
+
+        <!-- Utilities -->
+        <div class="summary-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="summary-icon"><img src="images/poker.jpg" alt="Holder Utilities" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover;"></div>
+          <h3>Holder Utilities</h3>
+          <p>Exclusive benefits including monthly poker tournaments, treasure hunts, airdrops, and access to special channels.</p>
+          <a href="./pages/utilities.html" class="btn btn-outline">View Utilities</a>
+        </div>
+
+        <!-- Team -->
+        <div class="summary-card" data-aos="fade-up" data-aos-delay="400">
+          <div class="summary-icon"><img src="images/rabbits_1.jpg" alt="Our Team" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover;"></div>
+          <h3>Our Team</h3>
+          <p>Meet the stoned artists, developers, and community members behind the Stoned Rabbits project.</p>
+          <a href="./pages/team.html" class="btn btn-outline">Meet the Team</a>
+        </div>
+
+        <!-- Partners -->
+        <div class="summary-card" data-aos="fade-up" data-aos-delay="500">
+          <div class="summary-icon"><img src="images/gamblor.jpg" alt="Partners" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover;"></div>
+          <h3>Partners</h3>
+          <p>Collaborating with leading Web3 gaming studios and crypto casino platforms to bring you the best experiences.</p>
+          <a href="./pages/partners.html" class="btn btn-outline">View Partners</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Stats -->
+  <section class="about" style="background: rgba(0, 0, 0, 0.3);">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
         <h2>Collection Stats</h2>
-        <p>Real-time data from the Solana blockchain</p>
       </div>
 
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
-        <div class="stat-card" data-aos="fade-up">
-          <span class="stat-number" id="total-supply">3,333</span>
-          <span class="stat-label">Total Supply</span>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
+        <div class="summary-card" data-aos="fade-up" style="text-align: center; padding: 1.5rem;">
+          <div style="font-size: 2.5rem; font-weight: 700; color: #ffd166; margin-bottom: 0.5rem;">3,333</div>
+          <div style="color: #999; text-transform: uppercase; font-size: 0.875rem;">Total Supply</div>
         </div>
 
-        <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
-          <span class="stat-number" id="floor-price">Loading...</span>
-          <span class="stat-label">Floor Price (SOL)</span>
+        <div class="summary-card" data-aos="fade-up" data-aos-delay="100" style="text-align: center; padding: 1.5rem;">
+          <div style="font-size: 2.5rem; font-weight: 700; color: #ffd166; margin-bottom: 0.5rem;" id="floor-price">...</div>
+          <div style="color: #999; text-transform: uppercase; font-size: 0.875rem;">Floor Price (SOL)</div>
         </div>
 
-        <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
-          <span class="stat-number" id="volume-traded">Loading...</span>
-          <span class="stat-label">Volume Traded (SOL)</span>
+        <div class="summary-card" data-aos="fade-up" data-aos-delay="200" style="text-align: center; padding: 1.5rem;">
+          <div style="font-size: 2.5rem; font-weight: 700; color: #ffd166; margin-bottom: 0.5rem;" id="volume-traded">...</div>
+          <div style="color: #999; text-transform: uppercase; font-size: 0.875rem;">Volume (SOL)</div>
         </div>
 
-        <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
-          <span class="stat-number" id="listed-count">Loading...</span>
-          <span class="stat-label">Listed</span>
+        <div class="summary-card" data-aos="fade-up" data-aos-delay="300" style="text-align: center; padding: 1.5rem;">
+          <div style="font-size: 2.5rem; font-weight: 700; color: #ffd166; margin-bottom: 0.5rem;" id="listed-count">...</div>
+          <div style="color: #999; text-transform: uppercase; font-size: 0.875rem;">Listed</div>
         </div>
       </div>
     </div>
   </section>
-  <!-- Download NFT Section -->
-<!-- Download NFT Section -->
-    <section id="downloadnft">
-        <div class="container">
-            <div class="section-title" data-aos="fade-up">
-                <h2>NFT Grid Generator</h2>
-				 <p>Select up to 20 NFT's on a shareable grid!</p>
-            </div>
-            <div class="nft-form">
-                <div class="wallet-input-group">
-					<input type="text" id="wallet" class="form-control" placeholder="Enter Solana Wallet Address (.sol domain is not yet supported)">
-                    <button class="btn btn-primary" id="fetch-nfts-btn">Get NFTs</button>
-                </div>
-                <div id="selection-info" class="selection-info">
-                    <p id="selection-warning" class="selection-warning" style="display: none;" aria-live="polite"></p>
-                </div>
-                <div id="presets" style="display: none;">
-                    <div class="preset-buttons">
-                        <button class="btn btn-secondary" onclick="selectTop10()">Select Top 10</button>
-                        <button class="btn btn-secondary" onclick="selectTop20()">Select Top 20</button>
-                        <button class="btn btn-secondary" onclick="clearSelections()">Clear Selections</button>
-                    </div>
-                    <div class="trait-selection">
-                        <select id="trait_type" class="form-control"></select>
-                        <select id="trait_value" class="form-control"></select>
-                        <button class="btn btn-secondary" onclick="selectByTrait()">Select by Trait</button>
-                    </div>
-                </div>
-                <div id="nft-list" class="owned-nfts-grid"></div>
-                <div id="pagination" class="pagination" style="display: none;">
-                    <button class="btn btn-secondary" id="prev-page" disabled aria-label="Go to previous page">Previous</button>
-                    <span id="page-info">Page 1 of 1</span>
-                    <button class="btn btn-secondary" id="next-page" disabled aria-label="Go to next page">Next</button>
-                </div>
-                <button id="generate-btn" class="btn btn-primary" style="display: none;">Generate Grid</button>
-            </div>
-        </div>
-    </section>
 
-    <div id="modal" class="nft-modal">
-        <div class="nft-modal-content">
-            <div class="nft-modal-header">
-                <h3>Your Stoned Rabbits Grid</h3>
-                <button class="nft-modal-close" onclick="closeModal()" aria-label="Close NFT grid modal">&times;</button>
-            </div>
-            <div class="nft-modal-body">
-                <img id="modal-image" alt="Generated NFT Grid">
-                <p id="x-instructions">Copy or download the image to share it on X.</p>
-                <div id="share-buttons">
-                    <button class="btn btn-secondary" onclick="shareToX()">Share to X</button>
-                    <button class="btn btn-secondary" onclick="shareToTelegram()">Share to Telegram</button>
-                    <button class="btn btn-secondary" onclick="shareToWhatsApp()">Share to WhatsApp</button>
-                    <button class="btn btn-secondary" onclick="copyToClipboard()">Copy to Clipboard</button>
-                    <button class="btn btn-secondary" onclick="downloadImage()">Download Image</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <canvas id="canvas" style="display: none;"></canvas>
-  <!-- Real NFT Gallery Section -->
-  <section id="nft" class="nft-showcase">
-    <div class="container">
-      <div class="section-title" data-aos="fade-up">
-        <h2>Live NFT Collection</h2>
-        <p>Real listings from Magic Eden marketplace</p>
-      </div>
-      <div class="nft-filter">
-        <label>Filter by Rarity:</label>
-        <button class="btn" data-rarity="all">All</button>
-        <button class="btn" data-rarity="Common">Common</button>
-        <button class="btn" data-rarity="Rare">Rare</button>
-        <button class="btn" data-rarity="Epic">Epic</button>
-        <button class="btn" data-rarity="Legendary">Legendary</button>
-      </div>
-      <div id="real-nft-grid" class="nft-grid">
-        <!-- Real NFTs will be loaded here -->
-      </div>
-      <div class="nft-load-more" data-aos="fade-up">
-        <a href="pages/marketplace.html" class="btn">All listings</a>&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="https://magiceden.us/marketplace/stonned_rabitts" target="_blank" class="btn">
-          <i class="fas fa-external-link-alt"></i>
-          View Full Collection on Magic Eden
-        </a>
-      </div>
-    </div>
-  </section>
-  <!-- Roadmap Section -->
-  <section id="roadmap" class="roadmap">
-    <div class="container">
-      <div class="section-title" data-aos="fade-up">
-        <h2>Roadmap</h2>
-      </div>
-      <div class="timeline">
-        <div class="timeline-item" data-aos="fade-up">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <h3 class="timeline-date">Phase 1: Minting</h3>
-            <p>Launch of the Stoned Rabbits NFT collection with full minting functionality. 3,333 unique NFTs with over 200 traits. Community building and establishing our presence on Solana.</p>
-          </div>
-        </div>
-        <div class="timeline-item" data-aos="fade-up">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <h3 class="timeline-date">Phase 2: Utilities</h3>
-            <p>Launch of Stoned Rabbits themed Slots on Gamblor.io.</p>
-            <p>Stake your Stoned Rabbits NFTs to earn tokens, to buy rewards</p>
-            <p>Launch of $Stoned token.</p>
-          </div>
-        </div>
-        <div class="timeline-item" data-aos="fade-up">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <h3 class="timeline-date">Phase 3: Rewards</h3>
-            <p>Monthly revenue share from our themed slot</p>
-            <p>Buy rewards with earned tokens by staking</p>
-          </div>
-        </div>
-        <div class="timeline-item" data-aos="fade-up">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <h3 class="timeline-date">Phase 4: Merchandise</h3>
-            <p>Exclusive Stoned Rabbits merchandise store. Use tokens to purchase items</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- Utilities Section -->
-  <section id="utilities" class="utilities">
-    <div class="container">
-      <div class="section-title" data-aos="fade-up">
-        <h2>Utilities</h2>
-      </div>
-
-      <!-- NFT Utility Factory Banner -->
-      <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 3rem; text-align: center; margin-bottom: 3rem; transition: all 0.3s ease;" data-aos="fade-up">
-        <h3 style="font-size: 2rem; margin-bottom: 1rem; color: #ffd166;">🏭 NFT Utility Factory</h3>
-        <p style="font-size: 1.2rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto; color: #999;">
-          Want these utilities for YOUR project? We build custom staking, lottery, airdrop tools, Discord bots, and more for other Solana NFT collections!
-        </p>
-        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-          <a href="../NFT Utility Factory/index.html" class="btn">
-            <i class="fas fa-tools"></i> View Services & Pricing
-          </a>
-          <a href="../NFT Utility Factory/index.html#contact" class="btn btn-outline">
-            <i class="fas fa-envelope"></i> Get a Quote
-          </a>
-        </div>
-        <p style="margin-top: 1.5rem; font-size: 0.9rem; color: #999;">
-          From $500 | SOL/USDC payments | Built by the Stoned Rabbits team
-        </p>
-      </div>
-
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-        <div class="benefit-card" data-aos="fade-up">
-          <div class="benefit-icon">
-            <i class="fas fa-heart"></i>
-          </div>
-          <h3>Monthly Poker Tournament</h3>
-          <p class="team-role" style="color: #ffd166; font-weight: 600; margin: 0.5rem 0;">$100 prize pool</p>
-          <p>Everyone holding an NFT with the Poker Tophat (Headwear = Top Trickster) trait will get access to a specific channel in discord. In this channel we will hold a monthly $100 poker freeroll.</p>
-          <div style="margin-top: 1rem;">
-            <a href="https://discord.gg/px9kyxbBhc" target="_blank" class="btn btn-outline">
-              <i class="fab fa-discord"></i> Join Discord
-            </a>
-          </div>
-        </div>
-
-        <div class="benefit-card" data-aos="fade-up" data-aos-delay="100">
-          <div class="benefit-icon">
-            <i class="fas fa-clover"></i>
-          </div>
-          <h3>Monthly Lucky Draw</h3>
-          <p class="team-role" style="color: #ffd166; font-weight: 600; margin: 0.5rem 0;">$1-$100 prize pool</p>
-          <p>Everyone holding an NFT with the Lucky Leprechaun trait will get access to a specific channel in discord. In this channel we will draw a prize varying from $1 to $100 (decided by a duckrace) to one lucky winner.</p>
-          <div style="margin-top: 1rem;">
-            <a href="https://discord.gg/px9kyxbBhc" target="_blank" class="btn btn-outline">
-              <i class="fab fa-discord"></i> Join Discord
-            </a>
-          </div>
-        </div>
-
-        <div class="benefit-card" data-aos="fade-up" data-aos-delay="200">
-          <div class="benefit-icon">
-            <i class="fas fa-treasure-chest"></i>
-          </div>
-          <h3>Pirate's Treasure Hunt</h3>
-          <p class="team-role" style="color: #ffd166; font-weight: 600; margin: 0.5rem 0;">Mystery prize pool</p>
-          <p>Everyone holding a NFT with a pirate eye patch or pirate hat get's access to treasure hunts.</p>
-          <div style="margin-top: 1rem;">
-            <a href="https://discord.gg/px9kyxbBhc" target="_blank" class="btn btn-outline">
-              <i class="fab fa-discord"></i> Join Discord
-            </a>
-          </div>
-        </div>
-
-        <div class="benefit-card" data-aos="fade-up" data-aos-delay="300">
-          <div class="benefit-icon">
-            <i class="fas fa-crown"></i>
-          </div>
-          <h3>Top Ranks Royalty Share</h3>
-          <p class="team-role" style="color: #ffd166; font-weight: 600; margin: 0.5rem 0;">2 SOL prize pool every 100 SOL volume</p>
-          <p>Everyone with a top 1% rarity ranked Stoned Rabbit makes chance on an airdrop of 0.5 SOL!</p>
-          <div style="margin-top: 1rem;">
-            <a href="https://discord.gg/px9kyxbBhc" target="_blank" class="btn btn-outline">
-              <i class="fab fa-discord"></i> Join Discord
-            </a>
-          </div>
-        </div>
-
-        <div class="benefit-card" data-aos="fade-up" data-aos-delay="400">
-          <div class="benefit-icon">
-            <i class="fas fa-hat-winter"></i>
-          </div>
-          <h3>Siberian Flap Hat</h3>
-          <p class="team-role" style="color: #ffd166; font-weight: 600; margin: 0.5rem 0;">Multiple prizes monthly</p>
-          <p>Everyone holding an NFT with the Siberian flap hat trait will get access to a specific channel in discord. In this channel we will draw multiple prizes a month varying from NFT's to whitelists to cold hard cash.</p>
-          <div style="margin-top: 1rem;">
-            <a href="https://discord.gg/px9kyxbBhc" target="_blank" class="btn btn-outline">
-              <i class="fab fa-discord"></i> Join Discord
-            </a>
-          </div>
-        </div>
-
-        <div class="benefit-card" data-aos="fade-up" data-aos-delay="500">
-          <div class="benefit-icon">
-            <i class="fas fa-coins"></i>
-          </div>
-          <h3>Monthly Airdrop</h3>
-          <p class="team-role" style="color: #ffd166; font-weight: 600; margin: 0.5rem 0;">Revenue share from slot machines</p>
-          <p>Hold 1 or more Stoned Rabbits NFTs in your wallet—without listing them for sale on any marketplace—and you'll automatically receive a monthly airdrop sharing in the revenue from our Stoned Rabbits slot machine. It's our way of rewarding loyal holders with passive perks!</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- Team Section -->
-  <section id="team" class="team">
-    <div class="container">
-      <div class="section-title" data-aos="fade-up">
-        <h2>Our Team</h2>
-      </div>
-      <div class="team-grid">
-        <div class="team-card" data-aos="fade-up">
-          <div class="team-img">
-            <img src="images/post-3.jpg" alt="Team Member">
-          </div>
-          <div class="team-content">
-            <h3 class="team-name">Skyes</h3>
-            <p class="team-role">Stoned Artist and Founder</p>
-            <p>Visionary artist behind the Stoned Rabbits concept.</p>
-            <div class="team-social">
-              <a href="https://x.com/Skyes744/"><i class="fab fa-x-twitter"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="team-card" data-aos="fade-up" data-aos-delay="100">
-          <div class="team-img">
-            <img src="images/post-4.jpg" alt="Team Member">
-          </div>
-          <div class="team-content">
-            <h3 class="team-name">Roland K</h3>
-            <p class="team-role">Stoned Wiz</p>
-            <p>Just a stoner with the biggest ideas. Happens to be handy with the tech.</p>
-            <div class="team-social">
-              <a href="https://x.com/poenie88"><i class="fab fa-x-twitter"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="team-card" data-aos="fade-up" data-aos-delay="100">
-          <div class="team-img">
-            <img src="images/post-6.jpg" alt="Team Member">
-          </div>
-          <div class="team-content">
-            <h3 class="team-name">Trashpanda</h3>
-            <p class="team-role">Community stoner</p>
-            <p>Providing the 420's to the community.</p>
-            <div class="team-social">
-              <a href="https://x.com/yesshnuuu"><i class="fab fa-x-twitter"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="team-card" data-aos="fade-up" data-aos-delay="100">
-          <div class="team-img">
-            <img src="images/post-8.jpg" alt="Team Member">
-          </div>
-          <div class="team-content">
-            <h3 class="team-name">PandaFX</h3>
-            <p class="team-role">Community stoner</p>
-            <p>Providing the 420's to the community.</p>
-            <div class="team-social">
-              <a href="https://x.com/PandaFxGaming"><i class="fab fa-x-twitter"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="team-card" data-aos="fade-up" data-aos-delay="100">
-          <div class="team-img">
-            <img src="images/post-9.jpg" alt="Team Member">
-          </div>
-          <div class="team-content">
-            <h3 class="team-name">Pirate Ogif Cowboy</h3>
-            <p class="team-role">Community stoner</p>
-            <p>Providing the 420's to the community.</p>
-            <div class="team-social">
-              <a href="https://x.com/pirateogcowboy"><i class="fab fa-x-twitter"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="team-card" data-aos="fade-up" data-aos-delay="100">
-          <div class="team-img">
-            <img src="images/post-11.jpg" alt="Team Member">
-          </div>
-          <div class="team-content">
-            <h3 class="team-name">ŤΞ_𝓠Ħῗ𝕃Ɐ | Gamblor.io</h3>
-            <p class="team-role">Community stoner</p>
-            <p>Providing the 420's to the community.</p>
-            <div class="team-social">
-              <a href="https://x.com/Tequilafunds"><i class="fab fa-x-twitter"></i></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- Partners Section -->
-  <section id="partners" class="team">
-    <div class="container">
-      <div class="section-title" data-aos="fade-up">
-        <h2>Our Partners</h2>
-      </div>
-      <div class="team-grid">
-        <div class="team-card" data-aos="fade-up" data-aos-delay="100">
-          <div class="team-img">
-            <img src="images/gamblor.jpg" alt="Gamblor Crypto Casino">
-          </div>
-          <div class="team-content">
-            <h3 class="team-name">Gamblor.io</h3>
-            <p class="team-role">Online casino</p>
-            <p>Discover Gamblor.io, the leading crypto casino platform featuring provably fair games and instant payouts. Exciting news for NFT enthusiasts: the upcoming launch of the Stoned Rabbits NFT Themed Slot on Gamblor.io! This innovative collaboration brings the vibrant world of Stoned Rabbits</p>
-            <div class="team-social">
-              <a href="https://x.com/GamblorCasino"><i class="fab fa-x-twitter" target="_blank"></i></a>
-              <a href="https://gamblor.io" target="_blank"><i class="fa-solid fa-globe"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="team-card" data-aos="fade-up" data-aos-delay="100">
-          <div class="team-img">
-            <img src="images/imperious_logo.jpg" alt="Imperious Games">
-          </div>
-          <div class="team-content">
-            <h3 class="team-name">Imperious Games</h3>
-            <p class="team-role">Web3 & Web2 Gaming studio</p>
-            <p>Discover Imperious Games, the dynamic iGaming content provider and game publisher revolutionizing casino entertainment with cutting-edge slot mechanics, custom game development, and full-stack solutions for high-performing operators. Specializing in Web3-ready games that support all blockchains, crypto, and fiat, they deliver ultra-fast engines, premium visuals, and 100% provably fair gameplay built by gamblers for gamblers. In an exciting collaboration, Imperious Games has designed the upcoming Stoned Rabbits NFT Themed Slot on Gamblor.io</p>
-            <div class="team-social">
-              <a href="https://x.com/Imperious_Games"><i class="fab fa-x-twitter" target="_blank"></i></a>
-              <a href="https://www.imperious.games" target="_blank"><i class="fa-solid fa-globe"></i></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
   <!-- Footer -->
-  <footer class="footer">
+  <footer>
     <div class="container">
       <div class="footer-grid">
-        <div class="footer-col footer-about">
+        <div class="footer-col">
           <h3>Stoned Rabbits</h3>
           <p>A collection of 3,333 unique NFTs living on the Solana blockchain. Join our community today!</p>
-          <div class="footer-social">
-            <a href="https://x.com/StonedRabbitts"><i class="fab fa-x-twitter"></i></a>
-            <a href="https://t.me/+9PlKBM3aBeY0MTU0"><i class="fab fa-telegram"></i></a>
-            <a href="https://discord.gg/px9kyxbBhc"><i class="fab fa-discord"></i></a>
+          <div class="social-links">
+            <a href="https://x.com/StonedRabbitts" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://t.me/+9PlKBM3aBeY0MTU0" target="_blank"><i class="fab fa-telegram"></i></a>
+            <a href="https://discord.gg/px9kyxbBhc" target="_blank"><i class="fab fa-discord"></i></a>
           </div>
         </div>
         <div class="footer-col">
           <h3>Quick Links</h3>
           <ul class="footer-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#nft">NFT Collection</a></li>
-            <li><a href="#roadmap">Roadmap</a></li>
-            <li><a href="#team">Team</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="./pages/stoned-rabbits.html">Stoned Rabbits</a></li>
+            <li><a href="./pages/revenue-pass.html">Revenue Pass</a></li>
+            <li><a href="./pages/lottery.html">Lottery</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -555,40 +237,38 @@
             <li><a href="#">Documentation</a></li>
           </ul>
         </div>
-        <div class="footer-col">
-        </div>
       </div>
-      <div class="footer-bottom">
-        <p>&copy; 2025 Stoned Rabbits. All rights reserved.</p>
-      </div>
+      <p class="copyright">© 2025 Stoned Rabbits. All rights reserved.</p>
     </div>
   </footer>
-  <!-- AOS Animation Library -->
+
+  <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-  <!-- Solana Web3.js Library -->
-  <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
-<script>
-  console.log('Bonfida globals:', Object.keys(window).filter(k => k.includes('spl') || k.includes('bonfida') || k.includes('nameService')));
-</script>
-  <!-- Metaplex SDK for NFT operations -->
-  <script src="https://unpkg.com/@metaplex-foundation/js@0.19.4/dist/index.umd.js"></script>
-  <!-- QR code generation -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <!-- Custom JS -->
   <script src="js/main.js"></script>
-  <script src="js/download_nft.js"></script>
-  <script src="js/collection_stats.js"></script>
-  <script src="js/clean-nft-gallery.js?v=20250617"></script>
-  <!-- Grid Generator JS -->
-  <script src="js/grid-script.js" defer></script>
   <script>
-        // Add event listener for fetch-nfts-btn to avoid inline onclick
-        document.addEventListener('DOMContentLoaded', () => {
-            const fetchButton = document.getElementById('fetch-nfts-btn');
-            if (fetchButton) {
-                fetchButton.addEventListener('click', fetchNFTs);
-            }
-        });
-    </script>
+    // Initialize AOS
+    AOS.init({
+      duration: 800,
+      once: true
+    });
+
+    // Load collection stats
+    async function loadStats() {
+      try {
+        const url = 'https://api-mainnet.magiceden.dev/v2/collections/stonned_rabitts/stats';
+        const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(url)}`;
+        const response = await fetch(proxyUrl);
+        const data = await response.json();
+
+        document.getElementById('floor-price').textContent = (data.floorPrice / 1e9).toFixed(2);
+        document.getElementById('volume-traded').textContent = (data.volumeAll / 1e9).toFixed(0);
+        document.getElementById('listed-count').textContent = data.listedCount || 'N/A';
+      } catch (error) {
+        console.error('Error loading stats:', error);
+      }
+    }
+
+    loadStats();
+  </script>
 </body>
 </html>
