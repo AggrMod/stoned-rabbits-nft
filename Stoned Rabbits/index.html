@@ -18,6 +18,58 @@
   <link rel="stylesheet" href="css/style.css"/>
   <!-- Grid Generator CSS -->
   <link rel="stylesheet" href="css/grid-styles.css"/>
+
+  <style>
+    /* Passes-style card styling */
+    .stat-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 209, 102, 0.5);
+      box-shadow: 0 10px 30px rgba(255, 209, 102, 0.2);
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #ffd166;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 1rem;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .benefit-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .benefit-card:hover {
+      border-color: rgba(237, 104, 62, 0.5);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .benefit-icon {
+      font-size: 3rem;
+      color: #ffd166;
+      margin-bottom: 1rem;
+    }
+  </style>
 </head>
 <body>
   <!-- Crypto Price Ticker -->
@@ -71,23 +123,40 @@
           <h3>About us</h3>
           <p>Welcome to the Stoned Rabbits gang - a collection of <span id="total-supply">3.333</span> unique NFTs living on the Solana blockchain. Each Stoned Rabbit is entirely unique and algorithmically generated from over 200 possible traits.</p>
           <p>Our mission is to create an exclusive community of like-minded individuals who appreciate digital art and the possibilities of blockchain technology. By owning a Stoned Rabbit, you're not just collecting digital art - you're joining a movement.</p>
-          <div class="collection-stats">
-            <div class="stat-item">
-              <span class="stat-label">Floor Price:</span>
-              <span id="floor-price" class="stat-value">Loading...</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-label">Volume Traded:</span>
-              <span id="volume-traded" class="stat-value">Loading...</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-label">Listed:</span>
-              <span id="listed-count" class="stat-value">Loading...</span>
-            </div>
-          </div>
-          <br/>
           <p>Stoned Rabbits holders gain access to exclusive benefits, including future airdrops, community events, merchandise, and voting rights in our DAO.</p>
           <a href="https://magiceden.us/marketplace/stonned_rabitts" target="_blank" class="btn">View Collection</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Collection Stats -->
+  <section class="about">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Collection Stats</h2>
+        <p>Real-time data from the Solana blockchain</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+        <div class="stat-card" data-aos="fade-up">
+          <span class="stat-number" id="total-supply">3,333</span>
+          <span class="stat-label">Total Supply</span>
+        </div>
+
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+          <span class="stat-number" id="floor-price">Loading...</span>
+          <span class="stat-label">Floor Price (SOL)</span>
+        </div>
+
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+          <span class="stat-number" id="volume-traded">Loading...</span>
+          <span class="stat-label">Volume Traded (SOL)</span>
+        </div>
+
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+          <span class="stat-number" id="listed-count">Loading...</span>
+          <span class="stat-label">Listed</span>
         </div>
       </div>
     </div>
@@ -246,87 +315,84 @@
         </p>
       </div>
 
-      <div class="team-grid">
-        <div class="team-card" data-aos="fade-up">
-          <div class="team-img">
-            <img src="images/poker.jpg" alt="Poker">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+        <div class="benefit-card" data-aos="fade-up">
+          <div class="benefit-icon">
+            <i class="fas fa-heart"></i>
           </div>
-          <div class="team-content">
-            <h3 class="team-name">Monthly Poker Tournament</h3>
-            <p class="team-role">$100 prize pool</p>
-            <p>Everyone holding an NFT with the Poker Tophat (Headwear = Top Trickster) trait will get access to a specific channel in discord. In this channel we will hold a monthly $100 poker freeroll.</p>
-            <div class="team-social">
-              <a href="https://discord.gg/px9kyxbBhc" target="_blank"><i class="fab fa-discord"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="team-card" data-aos="fade-up">
-          <div class="team-img">
-            <img src="images/rafl.jpg" alt="Rafl">
-          </div>
-          <div class="team-content">
-            <h3 class="team-name">Monthly Lucky draw</h3>
-            <p class="team-role">$1-$100 prize pool</p>
-            <p>Everyone holding an NFT with the Lucky Leprechaun trait will get access to a specific channel in discord. In this channel we will draw a prize varying from $1 to $100 (decided by a duckrace) to one lucky winner.</p>
-            <div class="team-social">
-              <a href="https://discord.gg/px9kyxbBhc" target="_blank"><i class="fab fa-discord"></i></a>
-            </div>
+          <h3>Monthly Poker Tournament</h3>
+          <p class="team-role" style="color: #ffd166; font-weight: 600; margin: 0.5rem 0;">$100 prize pool</p>
+          <p>Everyone holding an NFT with the Poker Tophat (Headwear = Top Trickster) trait will get access to a specific channel in discord. In this channel we will hold a monthly $100 poker freeroll.</p>
+          <div style="margin-top: 1rem;">
+            <a href="https://discord.gg/px9kyxbBhc" target="_blank" class="btn btn-outline">
+              <i class="fab fa-discord"></i> Join Discord
+            </a>
           </div>
         </div>
-		<!-- Pirates -->
-		<div class="team-card" data-aos="fade-up">
-          <div class="team-img">
-            <img src="images/treasure.png" alt="Treasure">
+
+        <div class="benefit-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="benefit-icon">
+            <i class="fas fa-clover"></i>
           </div>
-          <div class="team-content">
-            <h3 class="team-name">Pirate's Treasure hunt</h3>
-            <p class="team-role">Mystery prize pool</p>
-            <p>Everyone holding a NFT with a pirate eye patch or pirate hat get's access to treasure hunts. </p>
-            <div class="team-social">
-              <a href="https://discord.gg/px9kyxbBhc" target="_blank"><i class="fab fa-discord"></i></a>
-            </div>
-          </div>
-        </div>
-		<!-- top 1% rank -->
-		<div class="team-card" data-aos="fade-up">
-          <div class="team-img">
-            <img src="images/royalty.png" alt="Royalties">
-          </div>
-          <div class="team-content">
-            <h3 class="team-name">Top ranks royalty share</h3>
-            <p class="team-role">2 SOL prize pool by every 100 SOL volume milestone on Magic Eden</p>
-            <p>Everyone with a top 1% rarity ranked Stoned Rabbit makes chance on an airdrop of 0.5 SOL!</p>
-            <div class="team-social">
-              <a href="https://discord.gg/px9kyxbBhc" target="_blank"><i class="fab fa-discord"></i></a>
-            </div>
+          <h3>Monthly Lucky Draw</h3>
+          <p class="team-role" style="color: #ffd166; font-weight: 600; margin: 0.5rem 0;">$1-$100 prize pool</p>
+          <p>Everyone holding an NFT with the Lucky Leprechaun trait will get access to a specific channel in discord. In this channel we will draw a prize varying from $1 to $100 (decided by a duckrace) to one lucky winner.</p>
+          <div style="margin-top: 1rem;">
+            <a href="https://discord.gg/px9kyxbBhc" target="_blank" class="btn btn-outline">
+              <i class="fab fa-discord"></i> Join Discord
+            </a>
           </div>
         </div>
-		<!-- Siberian hat -->
-		<div class="team-card" data-aos="fade-up">
-          <div class="team-img">
-            <img src="images/Shapka.png" alt="Shapka">
+
+        <div class="benefit-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="benefit-icon">
+            <i class="fas fa-treasure-chest"></i>
           </div>
-          <div class="team-content">
-            <h3 class="team-name">Siberian Flap Hat</h3>
-            <p class="team-role"></p>
-            <p>Everyone holding an NFT with the Siberian flap hat trait will get access to a specific channel in discord. In this channel we will draw multiple prizes a month varying from NFT's to whitelists to cold hard cash.</p>
-            <div class="team-social">
-              <a href="https://discord.gg/px9kyxbBhc" target="_blank"><i class="fab fa-discord"></i></a>
-            </div>
+          <h3>Pirate's Treasure Hunt</h3>
+          <p class="team-role" style="color: #ffd166; font-weight: 600; margin: 0.5rem 0;">Mystery prize pool</p>
+          <p>Everyone holding a NFT with a pirate eye patch or pirate hat get's access to treasure hunts.</p>
+          <div style="margin-top: 1rem;">
+            <a href="https://discord.gg/px9kyxbBhc" target="_blank" class="btn btn-outline">
+              <i class="fab fa-discord"></i> Join Discord
+            </a>
           </div>
-        </div>		
-        <div class="team-card" data-aos="fade-up">
-          <div class="team-img">
-            <img src="images/airdrop.png" alt="Rafl">
+        </div>
+
+        <div class="benefit-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="benefit-icon">
+            <i class="fas fa-crown"></i>
           </div>
-          <div class="team-content">
-            <h3 class="team-name">Monthly Airdrop</h3>
-            <p class="team-role">Monthly revenue share of the Stoned Rabbits slot</p>
-            <p>Hold 1 or more Stoned Rabbits NFTs in your wallet—without listing them for sale on any marketplace—and you'll automatically receive a monthly airdrop sharing in the revenue from our Stoned Rabbits slot machine. It's our way of rewarding loyal holders with passive perks!</p>
-            <div class="team-social">
-              <!--a href="https://discord.gg/px9kyxbBhc" target="_blank"><i class="fab fa-discord"></i></a-->
-            </div>
+          <h3>Top Ranks Royalty Share</h3>
+          <p class="team-role" style="color: #ffd166; font-weight: 600; margin: 0.5rem 0;">2 SOL prize pool every 100 SOL volume</p>
+          <p>Everyone with a top 1% rarity ranked Stoned Rabbit makes chance on an airdrop of 0.5 SOL!</p>
+          <div style="margin-top: 1rem;">
+            <a href="https://discord.gg/px9kyxbBhc" target="_blank" class="btn btn-outline">
+              <i class="fab fa-discord"></i> Join Discord
+            </a>
           </div>
+        </div>
+
+        <div class="benefit-card" data-aos="fade-up" data-aos-delay="400">
+          <div class="benefit-icon">
+            <i class="fas fa-hat-winter"></i>
+          </div>
+          <h3>Siberian Flap Hat</h3>
+          <p class="team-role" style="color: #ffd166; font-weight: 600; margin: 0.5rem 0;">Multiple prizes monthly</p>
+          <p>Everyone holding an NFT with the Siberian flap hat trait will get access to a specific channel in discord. In this channel we will draw multiple prizes a month varying from NFT's to whitelists to cold hard cash.</p>
+          <div style="margin-top: 1rem;">
+            <a href="https://discord.gg/px9kyxbBhc" target="_blank" class="btn btn-outline">
+              <i class="fab fa-discord"></i> Join Discord
+            </a>
+          </div>
+        </div>
+
+        <div class="benefit-card" data-aos="fade-up" data-aos-delay="500">
+          <div class="benefit-icon">
+            <i class="fas fa-coins"></i>
+          </div>
+          <h3>Monthly Airdrop</h3>
+          <p class="team-role" style="color: #ffd166; font-weight: 600; margin: 0.5rem 0;">Revenue share from slot machines</p>
+          <p>Hold 1 or more Stoned Rabbits NFTs in your wallet—without listing them for sale on any marketplace—and you'll automatically receive a monthly airdrop sharing in the revenue from our Stoned Rabbits slot machine. It's our way of rewarding loyal holders with passive perks!</p>
         </div>
       </div>
     </div>
