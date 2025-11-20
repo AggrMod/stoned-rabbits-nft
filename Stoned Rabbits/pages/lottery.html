@@ -17,7 +17,47 @@
   <link rel="stylesheet" href="../css/grid-styles.css">
 
   <style>
-    /* Lightweight modal styles using your site’s look */
+    /* Passes-style card styling */
+    .stat-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 209, 102, 0.5);
+      box-shadow: 0 10px 30px rgba(255, 209, 102, 0.2);
+    }
+
+    .benefit-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .benefit-card:hover {
+      border-color: rgba(237, 104, 62, 0.5);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .timeline-badge {
+      background: linear-gradient(135deg, #237253, #ed683e);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+
+    /* Lightweight modal styles using your site's look */
     .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:center;justify-content:center;z-index:9999}
     .modal{background:#0f0f12;border:1px solid rgba(255,255,255,.08);border-radius:16px;max-width:960px;width:96%;max-height:86vh;overflow:auto;box-shadow:0 10px 40px rgba(0,0,0,.6);padding:1rem 1rem 1.25rem}
     .modal header{display:flex;align-items:center;justify-content:space-between;gap:.5rem;position:sticky;top:0;background:inherit;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.06)}
@@ -77,7 +117,7 @@
 
       <div class="about-content" style="align-items:stretch;">
         <!-- Left: controls -->
-        <div class="contact-form" data-aos="fade-right">
+        <div class="benefit-card" data-aos="fade-right">
           <div class="form-group">
             <label for="mintAmount">Number of Tickets</label>
             <input id="mintAmount" class="form-control" type="number" min="1" value="1">
@@ -109,7 +149,7 @@
         </div>
 
         <!-- Right: wallet overview -->
-        <div class="contact-form" data-aos="fade-left">
+        <div class="benefit-card" data-aos="fade-left">
           <h3 style="margin-bottom:1rem;">Wallet Overview</h3>
           <div class="account-info">
             <p><strong>Network:</strong> <span id="networkLabel">mainnet-beta</span></p>
@@ -149,7 +189,7 @@
 
       <div class="about-content" style="align-items:stretch;">
         <!-- Left: inputs -->
-        <div class="contact-form" data-aos="fade-right">
+        <div class="benefit-card" data-aos="fade-right">
           <div class="form-group">
             <label for="burnWallet">Burn destination (read-only)</label>
             <input id="burnWallet" class="form-control" type="text" value="YOUR_BURN_WALLET_HERE" readonly>
@@ -180,7 +220,7 @@
         </div>
 
         <!-- Right: explainer -->
-        <div class="contact-form" data-aos="fade-left">
+        <div class="benefit-card" data-aos="fade-left">
           <h3 style="margin-bottom:1rem;">How tickets are calculated</h3>
           <p>Tickets per Rabbit = <code>floor</code> ÷ <code>RABBITS_PER_TICKET</code> (rounded down) <strong>+ BONUS_PER_RABBIT</strong>.</p>
           <div class="account-info">

@@ -30,10 +30,21 @@
       color: white;
       display: inline-block;
     }
-    .service-card:hover {
-      border-color: #ffd166 !important;
-      transform: translateY(-5px);
+
+    /* Unified card styling */
+    .glass {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .service-card {
       transition: all 0.3s ease;
+    }
+
+    .service-card:hover {
+      border-color: rgba(255, 209, 102, 0.5) !important;
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(255, 209, 102, 0.2);
     }
   </style>
 </head>
