@@ -58,8 +58,8 @@ class Player {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.width = 32;
-    this.height = 32;
+    this.width = 64;
+    this.height = 64;
     this.vx = 0;
     this.vy = 0;
     this.grounded = false;
@@ -269,8 +269,8 @@ class Enemy {
   constructor(x, y, type) {
     this.x = x;
     this.y = y;
-    this.width = 32;
-    this.height = 32;
+    this.width = 64;
+    this.height = 64;
     this.vx = -2;
     this.vy = 0;
     this.type = type; // 'goomba', 'koopa'
@@ -385,8 +385,8 @@ class Coin {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.width = 16;
-    this.height = 16;
+    this.width = 32;
+    this.height = 32;
     this.collected = false;
     this.animation = 0;
   }
