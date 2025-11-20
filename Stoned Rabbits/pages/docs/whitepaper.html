@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Whitepaper - Stoned Rabbits</title>
+  
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sen:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  
+  <!-- AOS Animation Library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../../css/style.css">
+  <style>
+    /* Additional styles for whitepaper page */
+    .page-header {
+      background-color: var(--darker-color);
+      padding: 6rem 0 3rem;
+      text-align: center;
+    }
+    
+    .page-header h1 {
+      margin-bottom: 1rem;
+    }
+    
+    .page-header p {
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+    
+    .whitepaper-container {
+      display: flex;
+      gap: 2rem;
+      padding: 4rem 0;
+    }
+    
+    .whitepaper-sidebar {
+      width: 300px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 100px;
+      align-self: flex-start;
+    }
+    
+    .whitepaper-menu {
+      background-color: var(--dark-color);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+    
+    .whitepaper-menu-header {
+      background-color: var(--secondary-color);
+      padding: 1.5rem;
+      text-align: center;
+    }
+    
+    .whitepaper-menu-header h3 {
+      margin: 0;
+      color: var(--light-color);
+    }
+    
+    .whitepaper-menu-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .whitepaper-menu-links li {
+      border-bottom: 1px solid #333;
+    }
+    
+    .whitepaper-menu-links li:last-child {
+      border-bottom: none;
+    }
+    
+    .whitepaper-menu-links a {
+      display: block;
+      padding: 1rem 1.5rem;
+      color: var(--light-color);
+      transition: var(--transition);
+    }
+    
+    .whitepaper-menu-links a:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+      padding-left: 1.75rem;
+    }
+    
+    .whitepaper-menu-links a.active {
+      background-color: var(--darker-color);
+      border-left: 3px solid var(--secondary-color);
+      font-weight: 600;
+    }
+    
+    .whitepaper-content {
+      flex: 1;
+    }
+    
+    .whitepaper-section {
+      background-color: var(--dark-color);
+      border-radius: 15px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+    
+    .whitepaper-section:last-child {
+      margin-bottom: 0;
+    }
+    
+    .whitepaper-section h2 {
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-bottom: 1rem;
+    }
+    
+    .whitepaper-section h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background-color: var(--secondary-color);
+    }
+    
+    .whitepaper-section h3 {
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .whitepaper-section p {
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+    }
+    
+    .whitepaper-section ul, 
+    .whitepaper-section ol {
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+    }
+    
+    .whitepaper-section li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .whitepaper-section img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 1.5rem 0;
+    }
+    
+    .whitepaper-section .btn {
+      margin-top: 1rem;
+    }
+    
+    .whitepaper-section table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+    
+    .whitepaper-section th, 
+    .whitepaper-section td {
+      padding: 0.75rem;
+      border: 1px solid #333;
+      text-align: left;
+    }
+    
+    .whitepaper-section th {
+      background-color: var(--darker-color);
+      font-weight: 600;
+    }
+    
+    .whitepaper-section tr:nth-child(even) {
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+    
+    .whitepaper-section code {
+      background-color: var(--darker-color);
+      padding: 0.2rem 0.5rem;
+      border-radius: 5px;
+      font-family: monospace;
+    }
+    
+    .whitepaper-section pre {
+      background-color: var(--darker-color);
+      padding: 1rem;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: monospace;
+      margin: 1.5rem 0;
+    }
+    
+    .tokenomics-chart {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    
+    .chart-container {
+      flex: 1;
+      min-width: 300px;
+      background-color: var(--darker-color);
+      padding: 1rem;
+      border-radius: 10px;
+      text-align: center;
+    }
+    
+    .chart-container h4 {
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+    }
+    
+    .whitepaper-download {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: var(--darker-color);
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin-top: 2rem;
+    }
+    
+    .download-text {
+      flex: 1;
+    }
+    
+    .download-text h4 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+    }
+    
+    .download-text p {
+      margin-bottom: 0;
+    }
+    
+    @media (max-width: 992px) {
+      .whitepaper-container {
+        flex-direction: column;
+      }
+      
+      .whitepaper-sidebar {
+        width: 100%;
+        position: static;
+        margin-bottom: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Crypto Price Ticker -->
+  <div class="crypto-ticker">
+    <div class="ticker-container">
+      <!-- JS will populate this -->
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="container header-container">
+      <a href="../../index.html" class="logo">Stoned<span>Rabbits</span></a>
+      
+      <div class="mobile-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+      
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="../../index.html" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="../../index.html#about" class="nav-link">About</a></li>
+        <li class="nav-item"><a href="../../marketplace.html" class="nav-link">Marketplace</a></li>
+        <li class="nav-item"><a href="../roadmap.html" class="nav-link">Roadmap</a></li>
+        <li class="nav-item"><a href="../team.html" class="nav-link">Team</a></li>
+        <li class="nav-item"><a href="../../index.html#contact" class="nav-link">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <h1 data-aos="fade-up">Whitepaper</h1>
+      <p data-aos="fade-up" data-aos-delay="100">The comprehensive guide to the Stoned Rabbits NFT ecosystem</p>
+      
+      <div data-aos="fade-up" data-aos-delay="200">
+        <a href="#" class="btn" download><i class="fas fa-download"></i> Download PDF</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Whitepaper Content -->
+  <section class="whitepaper-container">
+    <div class="container">
+      <div class="row">
+        <div class="whitepaper-sidebar" data-aos="fade-right">
+          <div class="whitepaper-menu">
+            <div class="whitepaper-menu-header">
+              <h3>Contents</h3>
+            </div>
+            <ul class="whitepaper-menu-links">
+              <li><a href="#introduction" class="active">Introduction</a></li>
+              <li><a href="#vision">Vision & Mission</a></li>
+              <li><a href="#nft-collection">NFT Collection</a></li>
+              <li><a href="#tokenomics">Tokenomics</a></li>
+              <li><a href="#utility">Utility & Benefits</a></li>
+              <li><a href="#roadmap">Roadmap</a></li>
+              <li><a href="#dao">DAO Governance</a></li>
+              <li><a href="#team">Team</a></li>
+              <li><a href="#security">Security</a></li>
+              <li><a href="#legal">Legal Considerations</a></li>
+              <li><a href="#conclusion">Conclusion</a></li>
+            </ul>
+          </div>
+          
+          <div class="whitepaper-download">
+            <div class="download-text">
+              <h4>Download Whitepaper</h4>
+              <p>Get the full whitepaper in PDF format</p>
+            </div>
+            <a href="#" class="btn btn-outline" download><i class="fas fa-download"></i></a>
+          </div>
+        </div>
+        
+        <div class="whitepaper-content">
+          <!-- Introduction Section -->
+          <div class="whitepaper-section" id="introduction" data-aos="fade-up">
+            <h2>Introduction</h2>
+            <p>Stoned Rabbits is a collection of 10,000 unique Non-Fungible Tokens (NFTs) living on the Solana blockchain. Each Stoned Rabbit is programmatically generated from over 200 possible traits, including background, fur, eyes, mouth, clothing, accessories, and more. The combination of these traits creates unique, one-of-a-kind digital collectibles with varying levels of rarity.</p>
+            
+            <p>This whitepaper outlines the vision, features, tokenomics, and roadmap for the Stoned Rabbits ecosystem. It serves as a comprehensive guide for community members, investors, and interested parties to understand the project's goals, mechanics, and future plans.</p>
+            
+            <p>Stoned Rabbits aims to bridge the gap between digital art, blockchain technology, and community building. Through innovative features, engaging experiences, and community-driven development, we're creating a project that provides long-term value to holders and contributes to the evolution of the NFT space.</p>
+            
+            <h3>Project Background</h3>
+            <p>The concept for Stoned Rabbits was born in early 2025, inspired by the vibrant culture of digital art and the possibilities offered by blockchain technology. Our team of artists, developers, and blockchain enthusiasts came together with a shared vision: to create not just another NFT collection, but a comprehensive ecosystem that provides genuine utility and value to its community.</p>
+            
+            <p>Drawing inspiration from both traditional art and digital culture, the Stoned Rabbits collection features unique characters with distinct personalities and traits. Each rabbit represents a member of a whimsical world where creativity, community, and innovation are paramount.</p>
+          </div>
+          
+          <!-- Vision & Mission Section -->
+          <div class="whitepaper-section" id="vision" data-aos="fade-up">
+            <h2>Vision & Mission</h2>
+            
+            <h3>Vision</h3>
+            <p>Our vision is to create a thriving ecosystem where NFTs serve as more than just digital collectibles – they are keys to a community-driven platform that evolves through the active participation of its members. We envision Stoned Rabbits as a pioneering force in the NFT space, pushing the boundaries of what's possible and setting new standards for utility, community engagement, and sustainable growth.</p>
+            
+            <h3>Mission</h3>
+            <p>The mission of Stoned Rabbits is to:</p>
+            <ul>
+              <li>Create a collection of high-quality, unique digital art pieces that serve as both collectibles and functional assets within our ecosystem.</li>
+              <li>Build a strong, engaged community of like-minded individuals who share our passion for NFTs, digital art, and blockchain technology.</li>
+              <li>Develop innovative utilities and features that provide genuine value to our holders, beyond simple speculation.</li>
+              <li>Establish a fair, transparent, and community-driven governance model that empowers our members to shape the future of the project.</li>
+              <li>Contribute positively to the broader NFT and blockchain space through collaboration, education, and innovative development.</li>
+            </ul>
+            
+            <h3>Core Values</h3>
+            <p>Our project is guided by the following core values:</p>
+            <ul>
+              <li><strong>Community First:</strong> Everything we do is for the benefit of our community. We listen, engage, and build based on community feedback and needs.</li>
+              <li><strong>Innovation:</strong> We constantly push the boundaries of what's possible in the NFT space, exploring new ideas and technologies.</li>
+              <li><strong>Transparency:</strong> We operate with complete transparency in all aspects of the project, from development to tokenomics.</li>
+              <li><strong>Quality:</strong> We never compromise on quality, whether in our artwork, smart contracts, or community engagement.</li>
+              <li><strong>Sustainability:</strong> We build for the long term, with sustainable economics and development practices.</li>
+            </ul>
+          </div>
+          
+          <!-- NFT Collection Section -->
+          <div class="whitepaper-section" id="nft-collection" data-aos="fade-up">
+            <h2>NFT Collection</h2>
+            
+            <h3>Collection Overview</h3>
+            <p>The Stoned Rabbits collection consists of 10,000 unique NFTs, each representing a distinct rabbit character with various traits and attributes. These NFTs are stored as SPL tokens on the Solana blockchain, ensuring ownership, transferability, and interoperability within the broader NFT ecosystem.</p>
+            
+            <p>Each Stoned Rabbit is programmatically generated from a combination of over 200 possible traits across multiple categories:</p>
+            <ul>
+              <li>Background (20 variations)</li>
+              <li>Fur Color & Type (25 variations)</li>
+              <li>Eyes (15 variations)</li>
+              <li>Mouth (15 variations)</li>
+              <li>Clothing (30 variations)</li>
+              <li>Headwear (25 variations)</li>
+              <li>Accessories (30 variations)</li>
+              <li>Special Features (40 variations)</li>
+            </ul>
+            
+            <p>The combination of these traits results in a wide variety of unique characters, each with its own appearance, style, and personality. Some traits are rarer than others, creating a natural rarity hierarchy within the collection.</p>
+            
+            <h3>Rarity System</h3>
+            <p>Stoned Rabbits features a tiered rarity system that determines the scarcity of each NFT based on its trait combination:</p>
+            <ul>
+              <li><strong>Common (50%):</strong> NFTs with standard trait combinations.</li>
+              <li><strong>Uncommon (30%):</strong> NFTs with at least one rare trait.</li>
+              <li><strong>Rare (15%):</strong> NFTs with multiple rare traits or at least one very rare trait.</li>
+              <li><strong>Epic (4%):</strong> NFTs with unique combinations of very rare traits.</li>
+              <li><strong>Legendary (1%):</strong> NFTs with the rarest trait combinations, often including exclusive traits not found in other categories.</li>
+            </ul>
+            
+            <p>Each NFT's rarity score is calculated based on the rarity of its individual traits, creating a transparent and fair system for determining value within the collection.</p>
+            
+            <h3>Metadata & Technical Specifications</h3>
+            <p>Each Stoned Rabbit NFT includes comprehensive metadata stored on IPFS (InterPlanetary File System), ensuring that the data remains accessible and immutable. The metadata includes:</p>
+            <ul>
+              <li>Unique ID</li>
+              <li>Name</li>
+              <li>Description</li>
+              <li>Image URL (stored on IPFS)</li>
+              <li>Detailed trait information</li>
+              <li>Rarity score and tier</li>
+              <li>Generation timestamp</li>
+            </ul>
+            
+            <p>The NFTs are minted using a secure, optimized Metaplex-compatible program on the Solana blockchain. The program includes the following features:</p>
+            <ul>
+              <li>Provenance hash to verify the randomness and fairness of the generation process</li>
+              <li>Royalty support for secondary sales</li>
+              <li>Secure minting mechanism with anti-bot protection</li>
+              <li>Metadata freezing after reveal to ensure immutability</li>
+              <li>Ownership verification for exclusive features and utilities</li>
+            </ul>
+          </div>
+          
+          <!-- Tokenomics Section -->
+          <div class="whitepaper-section" id="tokenomics" data-aos="fade-up">
+            <h2>Tokenomics</h2>
+            
+            <h3>$SRBBT Token</h3>
+            <p>The Stoned Rabbits ecosystem includes a utility token, $SRBBT, which serves as the primary currency within our platform. $SRBBT is an SPL token on the Solana blockchain with a fixed total supply of 100,000,000 tokens.</p>
+            
+            <h3>Token Distribution</h3>
+            <p>The $SRBBT token distribution is designed to ensure a fair and sustainable ecosystem:</p>
+            <div class="tokenomics-chart">
+              <div class="chart-container">
+                <h4>Token Allocation</h4>
+                <img src="../../images/token-allocation-placeholder.png" alt="Token Allocation Chart">
+              </div>
+              <div class="chart-container">
+                <h4>Vesting Schedule</h4>
+                <img src="../../images/vesting-schedule-placeholder.png" alt="Vesting Schedule Chart">
+              </div>
+            </div>
+            
+            <table>
+              <tr>
+                <th>Allocation</th>
+                <th>Percentage</th>
+                <th>Amount</th>
+                <th>Vesting</th>
+              </tr>
+              <tr>
+                <td>Community Rewards</td>
+                <td>40%</td>
+                <td>40,000,000</td>
+                <td>Released over 3 years through staking and gameplay rewards</td>
+              </tr>
+              <tr>
+                <td>NFT Holder Airdrop</td>
+                <td>15%</td>
+                <td>15,000,000</td>
+                <td>Immediate release to NFT holders</td>
+              </tr>
+              <tr>
+                <td>Ecosystem Development</td>
+                <td>20%</td>
+                <td>20,000,000</td>
+                <td>1-year cliff, then linear vesting over 2 years</td>
+              </tr>
+              <tr>
+                <td>Team & Advisors</td>
+                <td>15%</td>
+                <td>15,000,000</td>
+                <td>1-year cliff, then linear vesting over 2 years</td>
+              </tr>
+              <tr>
+                <td>Treasury</td>
+                <td>5%</td>
+                <td>5,000,000</td>
+                <td>Controlled by DAO governance</td>
+              </tr>
+              <tr>
+                <td>Initial Liquidity</td>
+                <td>5%</td>
+                <td>5,000,000</td>
+                <td>Locked for 2 years</td>
+              </tr>
+            </table>
+            
+            <h3>Token Utility</h3>
+            <p>The $SRBBT token serves multiple functions within the Stoned Rabbits ecosystem:</p>
+            <ul>
+              <li><strong>Governance:</strong> $SRBBT holders can vote on proposals and decisions that affect the project's development and direction.</li>
+              <li><strong>Staking:</strong> NFT holders can stake their Stoned Rabbits to earn $SRBBT rewards.</li>
+              <li><strong>Access:</strong> Exclusive features, events, and areas within the metaverse require $SRBBT to access.</li>
+              <li><strong>Marketplace:</strong> $SRBBT is used for transactions within the Stoned Rabbits marketplace, including purchasing NFTs, merchandise, and digital assets.</li>
+              <li><strong>Breeding:</strong> In future phases, $SRBBT will be used for breeding new Stoned Rabbits with unique traits.</li>
+              <li><strong>In-game Currency:</strong> $SRBBT will serve as the primary currency in Stoned Rabbits games and experiences.</li>
+            </ul>
+            
+            <h3>Tokenomics Sustainability</h3>
+            <p>To ensure the long-term sustainability of the $SRBBT token economy, we've implemented several mechanisms:</p>
+            <ul>
+              <li><strong>Deflationary Mechanisms:</strong> A portion of tokens used for transactions and breeding are burned, reducing the circulating supply over time.</li>
+              <li><strong>Staking Incentives:</strong> Long-term staking is rewarded with higher APY, encouraging holders to lock their tokens and reduce selling pressure.</li>
+              <li><strong>Utility Expansion:</strong> We continuously develop new utilities for $SRBBT to maintain and increase demand.</li>
+              <li><strong>Treasury Management:</strong> The project treasury actively manages token reserves to ensure price stability and sustainable growth.</li>
+            </ul>
+          </div>
+          
+          <!-- Utility & Benefits Section -->
+          <div class="whitepaper-section" id="utility" data-aos="fade-up">
+            <h2>Utility & Benefits</h2>
+            
+            <h3>NFT Holder Benefits</h3>
+            <p>Owning a Stoned Rabbits NFT provides a range of benefits beyond just collecting digital art:</p>
+            <ul>
+              <li><strong>$SRBBT Staking:</strong> Stake your NFT to earn daily $SRBBT tokens, with rarer NFTs earning higher rewards.</li>
+              <li><strong>DAO Membership:</strong> Participate in the Stoned Rabbits DAO, with voting power proportional to the number and rarity of your NFTs.</li>
+              <li><strong>Exclusive Access:</strong> Access members-only areas of the website, Discord channels, and metaverse spaces.</li>
+              <li><strong>Airdrops:</strong> Receive exclusive airdrops of future NFT collections, tokens, and digital assets.</li>
+              <li><strong>Merchandise Discounts:</strong> Get special discounts on physical merchandise from the Stoned Rabbits store.</li>
+              <li><strong>Event Access:</strong> Attend exclusive virtual and real-world events, including meetups, conferences, and parties.</li>
+              <li><strong>Breeding Rights:</strong> In future phases, breed your Stoned Rabbits to create new, unique NFTs with combined traits.</li>
+            </ul>
+            
+            <h3>Metaverse Integration</h3>
+            <p>Stoned Rabbits is being developed with deep metaverse integration, providing immersive experiences for NFT holders:</p>
+            <ul>
+              <li><strong>Virtual Gallery:</strong> Display your NFT collection in a customizable 3D gallery space.</li>
+              <li><strong>Stoned Rabbits HQ:</strong> Access the community headquarters in major metaverse platforms like Decentraland and The Sandbox.</li>
+              <li><strong>Avatars:</strong> Use your Stoned Rabbit as an avatar in compatible metaverse platforms.</li>
+              <li><strong>Interactive Experiences:</strong> Participate in games, challenges, and events in the metaverse with your Stoned Rabbit character.</li>
+              <li><strong>Virtual Land:</strong> Access to exclusive virtual land parcels for community members.</li>
+            </ul>
+            
+            <h3>Community Benefits</h3>
+            <p>The Stoned Rabbits community offers a range of benefits for members:</p>
+            <ul>
+              <li><strong>Networking:</strong> Connect with like-minded individuals, artists, developers, and blockchain enthusiasts.</li>
+              <li><strong>Education:</strong> Access exclusive educational content on NFTs, blockchain technology, digital art, and more.</li>
+              <li><strong>Collaboration:</strong> Participate in community-driven creative projects and initiatives.</li>
+              <li><strong>Support:</strong> Get help and guidance from experienced community members and the core team.</li>
+              <li><strong>Opportunities:</strong> Discover job opportunities, partnerships, and collaboration possibilities within the Web3 space.</li>
+            </ul>
+          </div>
+          
+          <!-- Roadmap Section -->
+          <div class="whitepaper-section" id="roadmap" data-aos="fade-up">
+            <h2>Roadmap</h2>
+            <p>The Stoned Rabbits roadmap outlines our vision for the project's development over time. While we have a clear plan, we remain flexible and responsive to community feedback and market conditions. The roadmap is divided into four major phases:</p>
+            
+            <h3>Phase 1: Genesis (Q2 2025)</h3>
+            <ul>
+              <li>Project inception and concept development</li>
+              <li>Core team formation</li>
+              <li>Community building and social media launch</li>
+              <li>Website development and deployment</li>
+              <li>Whitelist and community growth</li>
+              <li>Smart contract development and auditing</li>
+              <li>NFT art creation and metadata preparation</li>
+              <li>Public mint launch</li>
+            </ul>
+            
+            <h3>Phase 2: Expansion (Q3 2025)</h3>
+            <ul>
+              <li>Secondary marketplace integration and verification</li>
+              <li>DAO formation and governance implementation</li>
+              <li>$SRBBT token development and deployment</li>
+              <li>NFT staking mechanism launch</li>
+              <li>Exclusive merchandise store opening</li>
+              <li>Community treasury establishment</li>
+              <li>Initial partnerships and collaborations</li>
+              <li>Community events and competitions</li>
+            </ul>
+            
+            <h3>Phase 3: Utility (Q4 2025)</h3>
+            <ul>
+              <li>Enhanced staking rewards and mechanisms</li>
+              <li>NFT breeding functionality</li>
+              <li>Interactive mini-games and experiences</li>
+              <li>Mobile app development</li>
+              <li>Additional utility features for $SRBBT token</li>
+              <li>Strategic partnerships with other NFT projects and platforms</li>
+              <li>Cross-chain expansion and bridging</li>
+              <li>Real-world events and meetups</li>
+            </ul>
+            
+            <h3>Phase 4: Metaverse (Q1 2026)</h3>
+            <ul>
+              <li>Metaverse land acquisition in major platforms</li>
+              <li>Stoned Rabbits virtual headquarters development</li>
+              <li>3D avatar creation for metaverse integration</li>
+              <li>Interactive experiences and games in the metaverse</li>
+              <li>Virtual events and galleries</li>
+              <li>Metaverse partnerships and collaborations</li>
+              <li>Advanced gameplay with play-to-earn mechanics</li>
+              <li>Community-driven development and expansion</li>
+            </ul>
+            
+            <p>Beyond Phase 4, the project's direction will be increasingly determined by DAO governance, allowing the community to shape the future of Stoned Rabbits based on collective priorities and goals.</p>
+            
+            <p>For the most up-to-date information on our roadmap and progress, please visit our <a href="../roadmap.html">Roadmap page</a> or join our Discord community.</p>
+          </div>
+          
+          <!-- DAO Governance Section -->
+          <div class="whitepaper-section" id="dao" data-aos="fade-up">
+            <h2>DAO Governance</h2>
+            
+            <h3>Governance Structure</h3>
+            <p>The Stoned Rabbits DAO (Decentralized Autonomous Organization) gives the community direct input into the project's development and future. The governance structure is designed to be fair, transparent, and efficient, balancing the need for community input with the ability to make timely decisions.</p>
+            
+            <p>The DAO governance structure includes:</p>
+            <ul>
+              <li><strong>Proposal System:</strong> Any DAO member can submit proposals for consideration by the community.</li>
+              <li><strong>Voting Mechanism:</strong> Proposals are voted on by token holders, with voting power determined by both NFT ownership and $SRBBT token holdings.</li>
+              <li><strong>Execution Framework:</strong> Approved proposals are implemented by the core team or designated community members.</li>
+              <li><strong>Treasury Management:</strong> The community treasury is managed through DAO governance, with transparency and accountability.</li>
+            </ul>
+            
+            <h3>Voting Power</h3>
+            <p>Voting power in the DAO is determined by a combination of factors:</p>
+            <ul>
+              <li><strong>NFT Ownership:</strong> Each Stoned Rabbit NFT provides base voting power, with rarer NFTs granting more voting power.</li>
+              <li><strong>$SRBBT Holdings:</strong> Holding and staking $SRBBT tokens provides additional voting power.</li>
+              <li><strong>Participation Bonuses:</strong> Active community members can earn participation bonuses that increase their voting power.</li>
+            </ul>
+            
+            <p>This hybrid model ensures that both early supporters (NFT holders) and active participants (token holders and community contributors) have a meaningful say in governance decisions.</p>
+            
+            <h3>Proposal Process</h3>
+            <p>The proposal process follows these steps:</p>
+            <ol>
+              <li><strong>Ideation:</strong> Community members discuss potential proposals in designated forums and channels.</li>
+              <li><strong>Drafting:</strong> A formal proposal is drafted, including detailed information on the proposed changes, implementation plan, budget requirements, and expected outcomes.</li>
+              <li><strong>Submission:</strong> The proposal is submitted to the DAO platform for consideration.</li>
+              <li><strong>Discussion Period:</strong> A mandatory discussion period allows community members to ask questions, suggest improvements, and debate the proposal.</li>
+              <li><strong>Voting Period:</strong> After the discussion period, the proposal enters a voting period where eligible members can cast their votes.</li>
+              <li><strong>Execution:</strong> If approved, the proposal is implemented according to the specified timeline and plan.</li>
+              <li><strong>Monitoring:</strong> The implementation is monitored, and results are reported back to the community.</li>
+            </ol>
+            
+            <h3>Treasury Management</h3>
+            <p>The DAO treasury serves as the financial backbone of the project, funded through:</p>
+            <ul>
+              <li>Initial allocation of $SRBBT tokens</li>
+              <li>Secondary sales royalties from NFTs</li>
+              <li>Revenue from ecosystem activities</li>
+              <li>Partnerships and collaborations</li>
+            </ul>
+            
+            <p>Treasury funds are used for:</p>
+            <ul>
+              <li>Project development and maintenance</li>
+              <li>Marketing and community growth</li>
+              <li>Partnerships and collaborations</li>
+              <li>Community rewards and incentives</li>
+              <li>Special projects and initiatives</li>
+            </ul>
+            
+            <p>All treasury activities are transparent and subject to DAO governance, with regular financial reports provided to the community.</p>
+          </div>
+          
+          <!-- Footer buttons -->
+          <div class="whitepaper-section" data-aos="fade-up">
+            <p>This whitepaper provides an overview of the Stoned Rabbits project as of June 2025. For the most up-to-date information, please visit our website, join our Discord community, or follow us on social media.</p>
+            
+            <p>The Stoned Rabbits team is committed to building a sustainable, valuable, and engaging ecosystem for our community. We believe that through collective effort, innovation, and dedication, we can create something truly special in the NFT space.</p>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+              <a href="../roadmap.html" class="btn">View Roadmap</a>
+              <a href="../team.html" class="btn btn-outline">Meet the Team</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-about">
+          <h3>Stoned Rabbits</h3>
+          <p>A collection of 10,000 unique NFTs living on the Ethereum blockchain. Join our community today!</p>
+          
+          <div class="footer-social">
+            <a href="https://x.com/StonedRabbitts"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-discord"></i></a>
+            <a href="#"><i class="fab fa-telegram"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="../../index.html">Home</a></li>
+            <li><a href="../../index.html#about">About</a></li>
+            <li><a href="../../marketplace.html">Marketplace</a></li>
+            <li><a href="../roadmap.html">Roadmap</a></li>
+            <li><a href="../team.html">Team</a></li>
+            <li><a href="../../index.html#contact">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h3>Resources</h3>
+          <ul class="footer-links">
+            <li><a href="whitepaper.html">Whitepaper</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Documentation</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h3>Subscribe</h3>
+          <p>Subscribe to our newsletter to get the latest updates</p>
+          
+          <form class="footer-subscribe">
+            <input type="email" placeholder="Your Email" required>
+            <button type="submit" class="btn">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 Stoned Rabbits. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Wallet Connect Button -->
+  <div class="wallet-connect">
+    <a href="#" class="wallet-btn">
+      <i class="fas fa-wallet"></i>
+      <span>Connect Wallet</span>
+    </a>
+  </div>
+
+  <!-- AOS Animation Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  
+  <!-- Solana Web3.js Library -->
+  <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+  
+  <!-- Metaplex SDK for NFT operations -->
+  <script src="https://unpkg.com/@metaplex-foundation/js@0.19.4/dist/index.umd.js"></script>
+  
+  <!-- Custom JS -->
+  <script src="../../js/main.js"></script>
+  <script src="../../js/wallet.js"></script>
+  
+  <script>
+    // Smooth scrolling for anchor links with offset for fixed header
+    document.addEventListener('DOMContentLoaded', function() {
+      const whitepapeLinks = document.querySelectorAll('.whitepaper-menu-links a');
+      
+      whitepapeLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          // Remove active class from all links
+          whitepapeLinks.forEach(l => l.classList.remove('active'));
+          
+          // Add active class to clicked link
+          this.classList.add('active');
+          
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+          
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 100,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+      
+      // Highlight active section on scroll
+      window.addEventListener('scroll', function() {
+        const sections = document.querySelectorAll('.whitepaper-section');
+        const scrollPosition = window.scrollY + 150;
+        
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.offsetHeight;
+          const sectionId = section.getAttribute('id');
+          
+          if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+            whitepapeLinks.forEach(link => {
+              link.classList.remove('active');
+              if (link.getAttribute('href') === '#' + sectionId) {
+                link.classList.add('active');
+              }
+            });
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
