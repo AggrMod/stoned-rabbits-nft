@@ -18,6 +18,8 @@
   <link rel="stylesheet" href="css/style.css"/>
   <!-- Grid Generator CSS -->
   <link rel="stylesheet" href="css/grid-styles.css"/>
+  <!-- Responsive CSS -->
+  <link rel="stylesheet" href="css/responsive.css"/>
 </head>
 <body>
   <!-- Crypto Price Ticker -->
@@ -501,28 +503,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <!-- Solana Web3.js Library -->
   <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
-<script>
-  console.log('Bonfida globals:', Object.keys(window).filter(k => k.includes('spl') || k.includes('bonfida') || k.includes('nameService')));
-</script>
   <!-- Metaplex SDK for NFT operations -->
   <script src="https://unpkg.com/@metaplex-foundation/js@0.19.4/dist/index.umd.js"></script>
-  <!-- QR code generation -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <!-- Custom JS -->
-  <script src="js/main.js"></script>
-  <script src="js/download_nft.js"></script>
-  <script src="js/collection_stats.js"></script>
-  <script src="js/clean-nft-gallery.js?v=20250617"></script>
-  <!-- Grid Generator JS -->
-  <script src="js/grid-script.js" defer></script>
-  <script>
-        // Add event listener for fetch-nfts-btn to avoid inline onclick
-        document.addEventListener('DOMContentLoaded', () => {
-            const fetchButton = document.getElementById('fetch-nfts-btn');
-            if (fetchButton) {
-                fetchButton.addEventListener('click', fetchNFTs);
-            }
-        });
-    </script>
+
+  <!-- Consolidated Custom JS (New Architecture) -->
+  <script src="js/app.js"></script>
+  <script src="js/wallet.js"></script>
+  <script src="js/nft.js"></script>
 </body>
 </html>
