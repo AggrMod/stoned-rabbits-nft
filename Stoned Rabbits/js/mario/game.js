@@ -53,13 +53,16 @@ loadImage('ground', basePath + 'ground.png');
 loadImage('chest', basePath + 'chest.png');
 loadImage('bg', basePath + 'bg.png');
 
+// Expose images globally for debugging
+window.gameImages = images;
+
 // ==================== PLAYER CLASS ====================
 class Player {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.width = 64;
-    this.height = 64;
+    this.width = 48;
+    this.height = 48;
     this.vx = 0;
     this.vy = 0;
     this.grounded = false;
@@ -220,8 +223,8 @@ class Player {
       const drawX = this.x - camera.x;
       const drawY = this.y - camera.y;
 
-      // Flip horizontally if facing left
-      if (this.facing === 'left') {
+      // Flip horizontally if facing right (sprite faces left by default)
+      if (this.facing === 'right') {
         ctx.save();
         ctx.translate(drawX + this.width / 2, drawY + this.height / 2);
         ctx.scale(-1, 1);
@@ -269,8 +272,8 @@ class Enemy {
   constructor(x, y, type) {
     this.x = x;
     this.y = y;
-    this.width = 64;
-    this.height = 64;
+    this.width = 48;
+    this.height = 48;
     this.vx = -2;
     this.vy = 0;
     this.type = type; // 'goomba', 'koopa'
