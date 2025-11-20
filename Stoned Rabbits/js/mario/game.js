@@ -12,6 +12,47 @@ const TILE_SIZE = 32;
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 480;
 
+// ==================== IMAGE LOADER ====================
+const images = {
+  rabbit: null,
+  crab: null,
+  coin: null,
+  crate: null,
+  ground: null,
+  chest: null,
+  bg: null
+};
+
+let imagesLoaded = 0;
+const totalImages = 7;
+
+function loadImage(name, src) {
+  const img = new Image();
+  img.onload = () => {
+    images[name] = img;
+    imagesLoaded++;
+    console.log(`✓ Loaded ${name}.png (${imagesLoaded}/${totalImages})`);
+
+    if (imagesLoaded === totalImages) {
+      console.log('✓ All images loaded! Game ready to start!');
+    }
+  };
+  img.onerror = () => {
+    console.error(`✗ Failed to load ${name}.png`);
+  };
+  img.src = src;
+}
+
+// Load all game images
+const basePath = '../images/game/';
+loadImage('rabbit', basePath + 'rabbit.png');
+loadImage('crab', basePath + 'crab.png');
+loadImage('coin', basePath + 'coin.png');
+loadImage('crate', basePath + 'crate.png');
+loadImage('ground', basePath + 'ground.png');
+loadImage('chest', basePath + 'chest.png');
+loadImage('bg', basePath + 'bg.png');
+
 // ==================== PLAYER CLASS ====================
 class Player {
   constructor(x, y) {
@@ -142,12 +183,12 @@ class Player {
               this.y = tileY + TILE_SIZE;
               this.vy = 0;
 
-              // Break brick if big and tile is breakable
-              if (tile === 2 && this.state !== 'small') {
+              // Break brick when hit from below
+              if (tile === 2) {
                 level.breakTile(x, y);
                 game.addScore(50);
               }
-              // Hit question block
+              // Hit question block (treasure chest)
               else if (tile === 3) {
                 level.hitQuestionBlock(x, y);
               }
@@ -167,7 +208,6 @@ class Player {
   }
 
   draw(ctx, camera) {
-    // Draw player as colored rectangle (will be replaced with sprites later)
     ctx.save();
 
     // Invincibility flashing
@@ -175,30 +215,25 @@ class Player {
       ctx.globalAlpha = 0.5;
     }
 
-    // Draw player
-    if (this.state === 'small') {
+    // Draw rabbit sprite
+    if (images.rabbit) {
+      const drawX = this.x - camera.x;
+      const drawY = this.y - camera.y;
+
+      // Flip horizontally if facing left
+      if (this.facing === 'left') {
+        ctx.save();
+        ctx.translate(drawX + this.width / 2, drawY + this.height / 2);
+        ctx.scale(-1, 1);
+        ctx.drawImage(images.rabbit, -this.width / 2, -this.height / 2, this.width, this.height);
+        ctx.restore();
+      } else {
+        ctx.drawImage(images.rabbit, drawX, drawY, this.width, this.height);
+      }
+    } else {
+      // Fallback to colored rectangle if image not loaded
       ctx.fillStyle = '#FF0000';
-    } else if (this.state === 'big') {
-      ctx.fillStyle = '#FF6666';
-    } else {
-      ctx.fillStyle = '#FFAA00';
-    }
-
-    ctx.fillRect(
-      this.x - camera.x,
-      this.y - camera.y,
-      this.width,
-      this.height
-    );
-
-    // Draw eyes for direction
-    ctx.fillStyle = '#000';
-    const eyeSize = 4;
-    const eyeY = this.y - camera.y + 10;
-    if (this.facing === 'right') {
-      ctx.fillRect(this.x - camera.x + 20, eyeY, eyeSize, eyeSize);
-    } else {
-      ctx.fillRect(this.x - camera.x + 8, eyeY, eyeSize, eyeSize);
+      ctx.fillRect(this.x - camera.x, this.y - camera.y, this.width, this.height);
     }
 
     ctx.restore();
@@ -318,31 +353,29 @@ class Enemy {
   draw(ctx, camera) {
     if (!this.alive && !this.defeated) return;
 
-    ctx.fillStyle = this.type === 'goomba' ? '#8B4513' : '#00AA00';
+    const drawX = this.x - camera.x;
+    const drawY = this.y - camera.y;
 
     if (this.defeated) {
       // Draw squished enemy
-      ctx.fillRect(
-        this.x - camera.x,
-        this.y - camera.y + this.height - 10,
-        this.width,
-        10
-      );
+      if (images.crab) {
+        ctx.save();
+        ctx.globalAlpha = 0.5;
+        ctx.drawImage(images.crab, drawX, drawY + this.height - 10, this.width, 10);
+        ctx.restore();
+      } else {
+        ctx.fillStyle = '#8B4513';
+        ctx.fillRect(drawX, drawY + this.height - 10, this.width, 10);
+      }
     } else {
-      ctx.fillRect(
-        this.x - camera.x,
-        this.y - camera.y,
-        this.width,
-        this.height
-      );
-
-      // Draw eyes
-      ctx.fillStyle = '#FFF';
-      ctx.fillRect(this.x - camera.x + 8, this.y - camera.y + 8, 8, 8);
-      ctx.fillRect(this.x - camera.x + 18, this.y - camera.y + 8, 8, 8);
-      ctx.fillStyle = '#000';
-      ctx.fillRect(this.x - camera.x + 10, this.y - camera.y + 10, 4, 4);
-      ctx.fillRect(this.x - camera.x + 20, this.y - camera.y + 10, 4, 4);
+      // Draw crab sprite
+      if (images.crab) {
+        ctx.drawImage(images.crab, drawX, drawY, this.width, this.height);
+      } else {
+        // Fallback to colored rectangle
+        ctx.fillStyle = this.type === 'goomba' ? '#8B4513' : '#00AA00';
+        ctx.fillRect(drawX, drawY, this.width, this.height);
+      }
     }
   }
 }
@@ -375,11 +408,18 @@ class Coin {
 
     this.animation += 0.1;
 
-    ctx.fillStyle = '#FFD700';
     ctx.save();
     ctx.translate(this.x - camera.x + this.width / 2, this.y - camera.y + this.height / 2);
     ctx.rotate(this.animation);
-    ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
+
+    if (images.coin) {
+      ctx.drawImage(images.coin, -this.width / 2, -this.height / 2, this.width, this.height);
+    } else {
+      // Fallback to colored square
+      ctx.fillStyle = '#FFD700';
+      ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
+    }
+
     ctx.restore();
   }
 }
@@ -497,22 +537,35 @@ class Level {
           const drawX = x * TILE_SIZE - camera.x;
           const drawY = y * TILE_SIZE - camera.y;
 
-          // Different colors for different tile types
+          // Draw tiles with images
           if (tile === 1) {
-            ctx.fillStyle = '#8B4513'; // Brown for ground
+            // Ground tile
+            if (images.ground) {
+              ctx.drawImage(images.ground, drawX, drawY, TILE_SIZE, TILE_SIZE);
+            } else {
+              ctx.fillStyle = '#8B4513';
+              ctx.fillRect(drawX, drawY, TILE_SIZE, TILE_SIZE);
+            }
           } else if (tile === 2) {
-            ctx.fillStyle = '#CD853F'; // Tan for bricks
+            // Brick/Crate tile
+            if (images.crate) {
+              ctx.drawImage(images.crate, drawX, drawY, TILE_SIZE, TILE_SIZE);
+            } else {
+              ctx.fillStyle = '#CD853F';
+              ctx.fillRect(drawX, drawY, TILE_SIZE, TILE_SIZE);
+            }
           } else if (tile === 3) {
-            ctx.fillStyle = '#FFD700'; // Gold for question blocks
-            ctx.fillText('?', drawX + 10, drawY + 22);
+            // Question block (use chest as special item block)
+            if (images.chest) {
+              ctx.drawImage(images.chest, drawX, drawY, TILE_SIZE, TILE_SIZE);
+            } else {
+              ctx.fillStyle = '#FFD700';
+              ctx.fillRect(drawX, drawY, TILE_SIZE, TILE_SIZE);
+              ctx.fillStyle = '#000';
+              ctx.font = '20px Arial';
+              ctx.fillText('?', drawX + 10, drawY + 22);
+            }
           }
-
-          ctx.fillRect(drawX, drawY, TILE_SIZE, TILE_SIZE);
-
-          // Draw tile border
-          ctx.strokeStyle = '#000';
-          ctx.lineWidth = 2;
-          ctx.strokeRect(drawX, drawY, TILE_SIZE, TILE_SIZE);
         }
       }
     }
@@ -681,9 +734,20 @@ class Game {
   }
 
   draw() {
-    // Clear canvas
-    this.ctx.fillStyle = '#5C94FC';
-    this.ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    // Draw background
+    if (images.bg) {
+      // Draw background with parallax effect
+      const bgX = -(this.camera.x * 0.3) % CANVAS_WIDTH;
+      this.ctx.drawImage(images.bg, bgX, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+      // Draw second copy for seamless scrolling
+      if (bgX < 0) {
+        this.ctx.drawImage(images.bg, bgX + CANVAS_WIDTH, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+      }
+    } else {
+      // Fallback to solid color
+      this.ctx.fillStyle = '#5C94FC';
+      this.ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    }
 
     // Draw level
     this.level.draw(this.ctx, this.camera);
