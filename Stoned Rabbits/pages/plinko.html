@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stoned Rabbits Plinko - Play Now!</title>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sen:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    .plinko-page {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+      padding-top: 80px;
+    }
+
+    .game-intro {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .game-intro h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #ffd166, #ff6b35);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .game-intro p {
+      font-size: 1.2rem;
+      color: #aaa;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .wallet-section {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 2rem;
+      margin: 2rem auto;
+      max-width: 500px;
+      border: 2px solid rgba(255, 209, 102, 0.3);
+    }
+
+    .wallet-status {
+      font-size: 1.1rem;
+      color: #4ecdc4;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+
+    .wallet-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .game-btn {
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+    }
+
+    .game-btn.primary {
+      background: linear-gradient(135deg, #4ecdc4, #44a08d);
+      color: white;
+    }
+
+    .game-btn.primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(78, 205, 196, 0.4);
+    }
+
+    .game-btn.secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 2px solid #4ecdc4;
+    }
+
+    .game-btn.secondary:hover {
+      background: rgba(78, 205, 196, 0.2);
+    }
+
+    .game-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .game-btn.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: #4ecdc4;
+    }
+
+    .feature-card i {
+      font-size: 2.5rem;
+      color: #ffd166;
+      margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: #ffffff;
+    }
+
+    .feature-card p {
+      color: #aaa;
+      font-size: 0.95rem;
+    }
+
+    #game-container {
+      display: none;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    #plinko-game-container {
+      margin: 0 auto;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      border: 3px solid rgba(78, 205, 196, 0.3);
+    }
+
+    .game-controls {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .back-button {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 2px solid #ff6b35;
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+    }
+
+    .back-button:hover {
+      background: rgba(255, 107, 53, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .game-info {
+      background: rgba(78, 205, 196, 0.1);
+      border-left: 4px solid #4ecdc4;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      border-radius: 10px;
+    }
+
+    .game-info h3 {
+      color: #ffd166;
+      margin-bottom: 0.5rem;
+    }
+
+    .game-info ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .game-info li {
+      color: #ddd;
+      margin: 0.5rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .game-info li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #4ecdc4;
+      font-weight: bold;
+    }
+
+    .partner-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 209, 102, 0.1);
+      border: 2px solid #ffd166;
+      border-radius: 50px;
+      padding: 0.5rem 1.5rem;
+      margin: 1rem 0;
+      font-weight: 600;
+      color: #ffd166;
+    }
+
+    .partner-badge img {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+    }
+
+    @media (max-width: 768px) {
+      .game-intro h1 {
+        font-size: 2rem;
+      }
+
+      .wallet-section {
+        padding: 1.5rem;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      #plinko-game-container {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-container">
+      <a href="../index.html" class="logo">Stoned<span>Rabbits</span></a>
+
+      <div class="mobile-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="../index.html#home" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="../index.html#about" class="nav-link">About</a></li>
+        <li class="nav-item"><a href="./revenue-pass.html" class="nav-link">Revenue Pass</a></li>
+        <li class="nav-item"><a href="./lottery.html" class="nav-link">Lottery</a></li>
+        <li class="nav-item"><a href="plinko.html" class="nav-link active">Plinko</a></li>
+        <li class="nav-item"><a href="../index.html#utilities" class="nav-link">Utilities</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="plinko-page">
+    <!-- Game Introduction -->
+    <div id="game-intro" class="game-intro">
+      <h1><i class="fas fa-gamepad"></i> Stoned Rabbits Plinko</h1>
+      <p>Drop your Stoned Rabbit down the Plinko board and watch it bounce through the pegs to win big multipliers!</p>
+
+      <div class="partner-badge">
+        <i class="fas fa-handshake"></i>
+        <span>Powered by Gamblor.io</span>
+      </div>
+
+      <!-- Wallet Connection Section -->
+      <div class="wallet-section">
+        <h2 style="color: #ffd166; margin-bottom: 1rem;">Connect Your Wallet</h2>
+        <div id="wallet-status" class="wallet-status">Not connected</div>
+
+        <div class="wallet-buttons">
+          <button id="connect-wallet-btn" class="game-btn primary" onclick="connectWallet()">
+            <i class="fas fa-wallet"></i> Connect Phantom
+          </button>
+          <button id="disconnect-wallet-btn" class="game-btn secondary" onclick="disconnectWallet()" style="display: none;">
+            <i class="fas fa-sign-out-alt"></i> Disconnect
+          </button>
+        </div>
+
+        <button id="play-plinko-btn" class="game-btn primary disabled" onclick="startPlaying()" disabled style="margin-top: 1rem; width: 100%;">
+          CONNECT WALLET TO PLAY
+        </button>
+      </div>
+
+      <!-- Game Features -->
+      <div class="features-grid">
+        <div class="feature-card">
+          <i class="fas fa-dice"></i>
+          <h3>Provably Fair</h3>
+          <p>All drops use Solana's on-chain randomness for guaranteed fairness</p>
+        </div>
+
+        <div class="feature-card">
+          <i class="fas fa-image"></i>
+          <h3>NFT Integration</h3>
+          <p>Use your Stoned Rabbits NFTs as custom balls with special bonuses</p>
+        </div>
+
+        <div class="feature-card">
+          <i class="fas fa-coins"></i>
+          <h3>High Multipliers</h3>
+          <p>Win up to 10x your bet with lucky drops in the center zones</p>
+        </div>
+
+        <div class="feature-card">
+          <i class="fas fa-bolt"></i>
+          <h3>Instant Payouts</h3>
+          <p>Winnings are instantly added to your balance - no waiting</p>
+        </div>
+      </div>
+
+      <!-- Game Info -->
+      <div class="game-info">
+        <h3>How to Play</h3>
+        <ul>
+          <li>Connect your Solana wallet (Phantom recommended)</li>
+          <li>Set your bet amount (0.05 - 10 SOL)</li>
+          <li>Click at the top of the board to drop your ball</li>
+          <li>Watch it bounce through the pegs</li>
+          <li>Win based on which multiplier zone it lands in!</li>
+        </ul>
+      </div>
+
+      <p style="color: #888; font-size: 0.9rem; margin-top: 2rem;">
+        <i class="fas fa-info-circle"></i> This is a demo version with simulated balance. Full version coming soon on Gamblor.io!
+      </p>
+    </div>
+
+    <!-- Game Container (Hidden Initially) -->
+    <div id="game-container">
+      <div id="plinko-game-container"></div>
+
+      <div class="game-controls">
+        <button class="back-button" onclick="backToIntro()">
+          <i class="fas fa-arrow-left"></i> Back to Menu
+        </button>
+      </div>
+
+      <div class="game-info" style="margin-top: 2rem;">
+        <h3><i class="fas fa-lightbulb"></i> Pro Tips</h3>
+        <ul>
+          <li>Start with small bets to learn the game mechanics</li>
+          <li>The center zones have the highest multipliers (up to 10x!)</li>
+          <li>Edge zones are safer but offer lower returns</li>
+          <li>Each drop is completely random - past results don't affect future drops</li>
+          <li>Set a budget and stick to it for responsible gaming</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" style="margin-top: 3rem;">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-about">
+          <h3>Stoned Rabbits</h3>
+          <p>A collection of 3,333 unique NFTs living on the Solana blockchain. Join our community today!</p>
+
+          <div class="footer-social">
+            <a href="https://x.com/StonedRabbitts"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://t.me/+9PlKBM3aBeY0MTU0"><i class="fab fa-telegram"></i></a>
+            <a href="https://discord.gg/px9kyxbBhc"><i class="fab fa-discord"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="../index.html#home">Home</a></li>
+            <li><a href="../index.html#about">About</a></li>
+            <li><a href="../index.html#roadmap">Roadmap</a></li>
+            <li><a href="../index.html#team">Team</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Games</h3>
+          <ul class="footer-links">
+            <li><a href="plinko.html">Plinko</a></li>
+            <li><a href="lottery.html">Lottery</a></li>
+            <li><a href="revenue-pass.html">Revenue Pass</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Partners</h3>
+          <ul class="footer-links">
+            <li><a href="https://gamblor.io" target="_blank">Gamblor.io Casino</a></li>
+            <li><a href="https://www.imperious.games" target="_blank">Imperious Games</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 Stoned Rabbits. All rights reserved. | Play responsibly.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Phaser.js Framework -->
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
+
+  <!-- Solana Web3.js Library -->
+  <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+
+  <!-- Game Files -->
+  <script src="../games/plinko/PlinkoScene.js"></script>
+  <script src="../games/plinko/main.js"></script>
+
+  <!-- Main site JS -->
+  <script src="../js/main.js"></script>
+</body>
+</html>
