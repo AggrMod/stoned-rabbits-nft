@@ -15,6 +15,9 @@ const CANVAS_HEIGHT = 480;
 // ==================== IMAGE LOADER ====================
 const images = {
   rabbit: null,
+  rabbitIdle1: null,
+  rabbitIdle2: null,
+  rabbitIdle3: null,
   crab: null,
   coin: null,
   crate: null,
@@ -24,7 +27,7 @@ const images = {
 };
 
 let imagesLoaded = 0;
-const totalImages = 7;
+const totalImages = 10;
 
 function loadImage(name, src) {
   const img = new Image();
@@ -46,6 +49,9 @@ function loadImage(name, src) {
 // Load all game images
 const basePath = '../images/game/';
 loadImage('rabbit', basePath + 'rabbit.png');
+loadImage('rabbitIdle1', basePath + 'rabbit idle 1.png');
+loadImage('rabbitIdle2', basePath + 'rabbit idle 2.png');
+loadImage('rabbitIdle3', basePath + 'rabbit idle 3.png');
 loadImage('crab', basePath + 'crab.png');
 loadImage('coin', basePath + 'coin.png');
 loadImage('crate', basePath + 'crate.png');
@@ -71,6 +77,8 @@ class Player {
     this.state = 'small'; // small, big, fire
     this.invincible = false;
     this.invincibleTimer = 0;
+    this.idleFrame = 0;
+    this.idleAnimationCounter = 0;
   }
 
   update(input, level) {
@@ -135,6 +143,18 @@ class Player {
     if (this.x < 0) this.x = 0;
     if (this.x + this.width > level.width * TILE_SIZE) {
       this.x = level.width * TILE_SIZE - this.width;
+    }
+
+    // Idle animation
+    if (Math.abs(this.vx) < 0.1 && this.grounded) {
+      this.idleAnimationCounter++;
+      if (this.idleAnimationCounter >= 15) { // Change frame every 15 ticks (~0.25 seconds)
+        this.idleAnimationCounter = 0;
+        this.idleFrame = (this.idleFrame + 1) % 3; // Cycle through 3 frames
+      }
+    } else {
+      this.idleAnimationCounter = 0;
+      this.idleFrame = 0;
     }
 
     // Death condition - fall off screen
@@ -225,15 +245,25 @@ class Player {
       const drawX = this.x - camera.x;
       const drawY = this.y - camera.y;
 
+      // Select appropriate sprite based on idle animation
+      let spriteImage = images.rabbit;
+      if (Math.abs(this.vx) < 0.1 && this.grounded) {
+        // Player is idle - use idle animation frames
+        const idleImages = [images.rabbitIdle1, images.rabbitIdle2, images.rabbitIdle3];
+        if (idleImages[this.idleFrame]) {
+          spriteImage = idleImages[this.idleFrame];
+        }
+      }
+
       // Flip horizontally if facing right (sprite faces left by default)
       if (this.facing === 'right') {
         ctx.save();
         ctx.translate(drawX + this.width / 2, drawY + this.height / 2);
         ctx.scale(-1, 1);
-        ctx.drawImage(images.rabbit, -this.width / 2, -this.height / 2, this.width, this.height);
+        ctx.drawImage(spriteImage, -this.width / 2, -this.height / 2, this.width, this.height);
         ctx.restore();
       } else {
-        ctx.drawImage(images.rabbit, drawX, drawY, this.width, this.height);
+        ctx.drawImage(spriteImage, drawX, drawY, this.width, this.height);
       }
     } else {
       // Fallback to colored rectangle if image not loaded
