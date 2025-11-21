@@ -5,8 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>NFT Utility Factory — Solana Utilities</title>
   <meta name="description" content="Utilities for Solana NFT projects: staking, pawn shop, lottery, airdrops, bots. Multi‑wallet connect." />
-  <link rel="stylesheet" href="/css/styles.css" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sen:wght@400;700&display=swap" rel="stylesheet"/>
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../css/style.css"/>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -38,24 +44,24 @@
   </style>
 </head>
 <body class="min-h-screen bg-zinc-950 text-white">
-  <header class="navbar glass">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
-    <a href="/" class="flex items-center gap-3">
-      <img src="/images/Logo.jpg" alt="NFT Utility Factory" class="w-10 h-10 rounded-full"/>
-      <span class="font-semibold tracking-wide">NFT Utility Factory</span>
-    </a>
-    <nav class="hidden md:flex items-center gap-6 text-sm text-zinc-300">
-      <a href="#utilities" class="hover:text-white">Services</a>
-      <a href="#pricing" class="hover:text-white">Pricing</a>
-      <a href="#roadmap" class="hover:text-white">Roadmap</a>
-      <a href="#contact" class="hover:text-white">Get Started</a>
-      <a href="../Stoned Rabbits/index.html" class="hover:text-white" style="color: #ffd166;">← Stoned Rabbits</a>
-    </nav>
-    <div class="flex items-center gap-2">
-      <select id="walletSelect" class="hidden md:block px-3 py-2 rounded-xl glass text-sm"></select>
-      <button id="connectBtn" class="btn btn-muted">Connect Wallet</button>
-      <button id="disconnectBtn" class="btn btn-muted hidden">Disconnect</button>
+  <header>
+  <div class="container header-container">
+    <a href="/" class="logo">NFT Utility <span>Factory</span></a>
+    <div class="mobile-toggle">
+      <i class="fas fa-bars"></i>
     </div>
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="#utilities" class="nav-link">Services</a></li>
+      <li class="nav-item"><a href="#pricing" class="nav-link">Pricing</a></li>
+      <li class="nav-item"><a href="#roadmap" class="nav-link">Roadmap</a></li>
+      <li class="nav-item"><a href="#contact" class="nav-link">Get Started</a></li>
+      <li class="nav-item"><a href="../index.html" class="nav-link" style="color: #ffd166;">← Stoned Rabbits</a></li>
+      <li class="nav-item" style="display: flex; align-items: center; gap: 0.5rem;">
+        <select id="walletSelect" class="px-3 py-2 rounded-xl glass text-sm" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);"></select>
+        <button id="connectBtn" class="btn btn-primary">Connect</button>
+        <button id="disconnectBtn" class="btn btn-primary hidden">Disconnect</button>
+      </li>
+    </ul>
   </div>
 </header>
 
@@ -593,6 +599,7 @@
     document.getElementById('year').textContent=new Date().getFullYear();renderStakingPreview();
   </script>
 
+  <script src="../js/main.js"></script>
   <script src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.js"></script>
   <script>
     const CLUSTER='mainnet-beta';
