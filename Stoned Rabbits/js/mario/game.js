@@ -453,15 +453,15 @@ class Level {
       this.tiles[14][x] = 1;
     }
 
-    // Add some platforms
+    // Add some platforms (breakable bricks)
     for (let x = 20; x < 25; x++) {
-      this.tiles[10][x] = 1;
+      this.tiles[10][x] = 2;
     }
     for (let x = 30; x < 35; x++) {
-      this.tiles[8][x] = 1;
+      this.tiles[8][x] = 2;
     }
     for (let x = 40; x < 50; x++) {
-      this.tiles[10][x] = 1;
+      this.tiles[10][x] = 2;
     }
 
     // Add question blocks
