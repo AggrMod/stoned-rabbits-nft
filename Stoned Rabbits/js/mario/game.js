@@ -188,11 +188,13 @@ class Player {
 
               // Break brick when hit from below
               if (tile === 2) {
+                console.log('Breaking brick at', x, y);
                 level.breakTile(x, y);
                 game.addScore(50);
               }
               // Hit question block (treasure chest)
               else if (tile === 3) {
+                console.log('Hitting question block at', x, y);
                 level.hitQuestionBlock(x, y);
               }
             } else if (minOverlap === overlapLeft) {
@@ -467,7 +469,11 @@ class Level {
     this.tiles[9][27] = 3;
     this.tiles[9][32] = 3;
 
-    // Add bricks
+    // Add bricks (closer to start for testing)
+    for (let x = 10; x < 15; x++) {
+      this.tiles[9][x] = 2;
+    }
+    // More bricks later in level
     for (let x = 70; x < 76; x++) {
       this.tiles[9][x] = 2;
     }
