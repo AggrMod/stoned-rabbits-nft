@@ -326,3 +326,51 @@
 .utility-card {
   height: 100%;
 }
+
+/* ============================================
+   GLOBAL MOBILE OVERFLOW FIX
+   Prevents horizontal scrolling on all pages
+   ============================================ */
+html,
+body {
+  overflow-x: hidden;
+  position: relative;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+
+  /* Enforce no horizontal overflow on mobile */
+  html,
+  body {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  /* Ensure containers don't exceed viewport */
+  .container,
+  .hero,
+  .about,
+  .nft-showcase,
+  .roadmap,
+  .team,
+  .contact,
+  footer {
+    max-width: 100vw;
+    overflow-x: hidden;
+    box-sizing: border-box;
+  }
+
+  /* Fix for grid layouts that might be too wide */
+  .about-content,
+  .nft-grid,
+  .team-grid,
+  .contact-grid,
+  .summary-grid,
+  .utility-grid,
+  .partners-grid {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
