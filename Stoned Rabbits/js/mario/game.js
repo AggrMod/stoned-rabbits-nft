@@ -62,23 +62,145 @@ loadImage('bg', basePath + 'bg.png');
 // Expose images globally for debugging
 window.gameImages = images;
 
+// ==================== DEBUG CLI ====================
+const DEBUG = {
+  enabled: true,
+  log: function(msg) { if (this.enabled) console.log('[DEBUG]', msg); },
+  showHitboxes: false,
+  godMode: false,
+  showStats: true
+};
+
+// CLI Commands - accessible from browser console
+window.cli = {
+  help: () => {
+    console.log(`
+=== MARIO CLONE DEBUG CLI ===
+cli.god()        - Toggle god mode (invincible)
+cli.small()      - Set player to small form
+cli.super()      - Set player to super form
+cli.fire()       - Set player to fire form
+cli.star()       - Give starman (10s invincibility)
+cli.coins(n)     - Add n coins
+cli.lives(n)     - Set lives to n
+cli.score(n)     - Add n to score
+cli.tp(x,y)      - Teleport to tile position
+cli.spawn(type)  - Spawn enemy (goomba/koopa)
+cli.hitbox()     - Toggle hitbox display
+cli.stats()      - Show player stats
+cli.reset()      - Reset level
+    `);
+  },
+  god: () => { DEBUG.godMode = !DEBUG.godMode; console.log('God mode:', DEBUG.godMode); },
+  small: () => { if (game.player) { game.player.setState('small'); console.log('Set to small'); }},
+  super: () => { if (game.player) { game.player.setState('super'); console.log('Set to super'); }},
+  fire: () => { if (game.player) { game.player.setState('fire'); console.log('Set to fire'); }},
+  star: () => { if (game.player) { game.player.activateStar(); console.log('Starman activated!'); }},
+  coins: (n) => { if (game) { game.coins_count += n; console.log('Coins:', game.coins_count); }},
+  lives: (n) => { if (game) { game.lives = n; console.log('Lives:', game.lives); }},
+  score: (n) => { if (game) { game.score += n; console.log('Score:', game.score); }},
+  tp: (x, y) => { if (game.player) { game.player.x = x * 32; game.player.y = y * 32; console.log('Teleported to', x, y); }},
+  spawn: (type) => { if (game) { game.enemies.push(new Enemy(game.player.x + 100, game.player.y, type || 'goomba')); console.log('Spawned', type); }},
+  hitbox: () => { DEBUG.showHitboxes = !DEBUG.showHitboxes; console.log('Hitboxes:', DEBUG.showHitboxes); },
+  stats: () => { if (game.player) { console.log('Player:', game.player); }},
+  reset: () => { if (game) { game.restart(); console.log('Level reset'); }}
+};
+console.log('🎮 Debug CLI ready! Type cli.help() for commands');
+
 // ==================== PLAYER CLASS ====================
 class Player {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.width = 48;
-    this.height = 48;
+    this.baseWidth = 32;
+    this.baseHeight = 32;
+    this.width = 32;   // Small = 32, Super/Fire = 32 wide
+    this.height = 32;  // Small = 32, Super/Fire = 64 tall
     this.vx = 0;
     this.vy = 0;
     this.grounded = false;
     this.jumping = false;
+    this.jumpHeld = false;
     this.facing = 'right';
-    this.state = 'small'; // small, big, fire
+    this.state = 'small'; // small, super, fire
     this.invincible = false;
     this.invincibleTimer = 0;
+    this.starPower = false;
+    this.starTimer = 0;
     this.idleFrame = 0;
     this.idleAnimationCounter = 0;
+    this.transforming = false;
+    this.transformTimer = 0;
+    DEBUG.log('Player created at ' + x + ',' + y);
+  }
+
+  // Set player state (small, super, fire)
+  setState(newState) {
+    const oldState = this.state;
+    this.state = newState;
+
+    if (newState === 'small') {
+      this.height = 32;
+      // Adjust Y position when shrinking
+      if (oldState !== 'small') {
+        this.y += 32;
+      }
+    } else {
+      this.height = 64;
+      // Adjust Y position when growing
+      if (oldState === 'small') {
+        this.y -= 32;
+      }
+    }
+    DEBUG.log('State changed: ' + oldState + ' -> ' + newState);
+  }
+
+  // Power up (mushroom or fire flower)
+  powerUp(type) {
+    if (type === 'mushroom') {
+      if (this.state === 'small') {
+        this.setState('super');
+        game.addScore(1000);
+        DEBUG.log('Powered up to Super!');
+      }
+    } else if (type === 'fireflower') {
+      if (this.state === 'small') {
+        this.setState('super');
+      }
+      this.setState('fire');
+      game.addScore(1000);
+      DEBUG.log('Powered up to Fire!');
+    }
+  }
+
+  // Activate starman
+  activateStar() {
+    this.starPower = true;
+    this.starTimer = 600; // 10 seconds at 60fps
+    this.invincible = true;
+    DEBUG.log('Star power activated!');
+  }
+
+  // Take damage
+  takeDamage() {
+    if (DEBUG.godMode || this.invincible) return;
+
+    if (this.state === 'fire' || this.state === 'super') {
+      // Shrink instead of dying
+      this.setState('small');
+      this.invincible = true;
+      this.invincibleTimer = 120; // 2 seconds invincibility
+      DEBUG.log('Hit! Shrunk to small');
+    } else {
+      // Small = death
+      game.loseLife();
+      DEBUG.log('Hit! Lost life');
+    }
+  }
+
+  // Check if can break bricks
+  canBreakBricks() {
+    return this.state === 'super' || this.state === 'fire';
   }
 
   update(input, level) {
@@ -136,6 +258,16 @@ class Player {
       this.invincibleTimer--;
       if (this.invincibleTimer <= 0) {
         this.invincible = false;
+      }
+    }
+
+    // Star power timer
+    if (this.starPower) {
+      this.starTimer--;
+      if (this.starTimer <= 0) {
+        this.starPower = false;
+        this.invincible = false;
+        DEBUG.log('Star power ended');
       }
     }
 
@@ -206,16 +338,22 @@ class Player {
               this.y = tileY + TILE_SIZE;
               this.vy = 0;
 
-              // Break brick when hit from below
+              // Break brick when hit from below (ONLY if Super or Fire!)
               if (tile === 2) {
-                console.log('Breaking brick at', x, y);
-                level.breakTile(x, y);
-                game.addScore(50);
+                if (this.canBreakBricks()) {
+                  DEBUG.log('Breaking brick at ' + x + ',' + y);
+                  level.breakTile(x, y);
+                  game.addScore(50);
+                } else {
+                  // Small Mario bumps the brick but doesn't break it
+                  DEBUG.log('Bumped brick (too small to break)');
+                  // Could add bump animation here
+                }
               }
-              // Hit question block (treasure chest)
+              // Hit question block (treasure chest) - spawns power-up
               else if (tile === 3) {
-                console.log('Hitting question block at', x, y);
-                level.hitQuestionBlock(x, y);
+                DEBUG.log('Hit question block at ' + x + ',' + y);
+                level.hitQuestionBlock(x, y, this.state);
               }
             } else if (minOverlap === overlapLeft) {
               // Hit from left
@@ -358,7 +496,7 @@ class Enemy {
   }
 
   checkPlayerCollision(player) {
-    if (!this.alive || player.invincible) return;
+    if (!this.alive) return;
 
     // AABB collision
     if (player.x < this.x + this.width &&
@@ -366,14 +504,23 @@ class Enemy {
         player.y < this.y + this.height &&
         player.y + player.height > this.y) {
 
+      // Star power = instant kill enemies on contact!
+      if (player.starPower) {
+        this.defeat();
+        game.addScore(200);
+        DEBUG.log('Star power killed enemy!');
+        return;
+      }
+
       // Check if player jumped on enemy
       if (player.vy > 0 && player.y + player.height - 10 < this.y + this.height / 2) {
         // Player stomped enemy
         this.defeat();
         player.vy = JUMP_FORCE / 2; // Bounce
         game.addScore(200);
-      } else {
-        // Enemy hit player
+        DEBUG.log('Stomped enemy!');
+      } else if (!player.invincible) {
+        // Enemy hit player (only if not invincible)
         player.takeDamage();
       }
     }
@@ -459,6 +606,132 @@ class Coin {
   }
 }
 
+// ==================== POWERUP CLASS ====================
+class PowerUp {
+  constructor(x, y, type) {
+    this.x = x;
+    this.y = y;
+    this.width = 32;
+    this.height = 32;
+    this.type = type; // 'mushroom', 'fireflower', 'star'
+    this.vx = 2; // Moves to the right like real Mario
+    this.vy = 0;
+    this.collected = false;
+    this.grounded = false;
+    DEBUG.log('PowerUp spawned: ' + type);
+  }
+
+  update(level) {
+    if (this.collected) return;
+
+    // Apply gravity
+    if (!this.grounded) {
+      this.vy += GRAVITY * 0.5;
+      if (this.vy > 8) this.vy = 8;
+    }
+
+    // Move horizontally (mushrooms move!)
+    if (this.type === 'mushroom' || this.type === 'star') {
+      this.x += this.vx;
+    }
+
+    this.y += this.vy;
+
+    // Simple ground collision
+    this.grounded = false;
+    const tileX = Math.floor((this.x + this.width / 2) / TILE_SIZE);
+    const tileY = Math.floor((this.y + this.height) / TILE_SIZE);
+    const tile = level.getTile(tileX, tileY);
+
+    if (tile > 0) {
+      this.grounded = true;
+      this.y = tileY * TILE_SIZE - this.height;
+      this.vy = 0;
+    }
+
+    // Reverse direction if hitting wall
+    const wallTileX = Math.floor((this.x + (this.vx > 0 ? this.width : 0)) / TILE_SIZE);
+    const wallTileY = Math.floor((this.y + this.height / 2) / TILE_SIZE);
+    if (level.getTile(wallTileX, wallTileY) > 0) {
+      this.vx *= -1;
+    }
+  }
+
+  checkCollision(player) {
+    if (this.collected) return;
+
+    if (player.x < this.x + this.width &&
+        player.x + player.width > this.x &&
+        player.y < this.y + this.height &&
+        player.y + player.height > this.y) {
+      this.collected = true;
+
+      if (this.type === 'mushroom') {
+        player.powerUp('mushroom');
+        DEBUG.log('Collected mushroom!');
+      } else if (this.type === 'fireflower') {
+        player.powerUp('fireflower');
+        DEBUG.log('Collected fire flower!');
+      } else if (this.type === 'star') {
+        player.activateStar();
+        DEBUG.log('Collected star!');
+      }
+    }
+  }
+
+  draw(ctx, camera) {
+    if (this.collected) return;
+
+    const drawX = this.x - camera.x;
+    const drawY = this.y - camera.y;
+
+    // Draw based on type
+    if (this.type === 'mushroom') {
+      ctx.fillStyle = '#FF0000';
+      ctx.fillRect(drawX, drawY, this.width, this.height);
+      // White spots
+      ctx.fillStyle = '#FFFFFF';
+      ctx.beginPath();
+      ctx.arc(drawX + 8, drawY + 8, 4, 0, Math.PI * 2);
+      ctx.arc(drawX + 24, drawY + 8, 4, 0, Math.PI * 2);
+      ctx.arc(drawX + 16, drawY + 16, 4, 0, Math.PI * 2);
+      ctx.fill();
+      // Stem
+      ctx.fillStyle = '#F5DEB3';
+      ctx.fillRect(drawX + 8, drawY + 20, 16, 12);
+    } else if (this.type === 'fireflower') {
+      ctx.fillStyle = '#FF6600';
+      ctx.fillRect(drawX + 8, drawY + 16, 16, 16);
+      // Petals
+      ctx.fillStyle = '#FF0000';
+      ctx.beginPath();
+      ctx.arc(drawX + 16, drawY + 8, 8, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#FFFF00';
+      ctx.beginPath();
+      ctx.arc(drawX + 16, drawY + 8, 4, 0, Math.PI * 2);
+      ctx.fill();
+    } else if (this.type === 'star') {
+      ctx.fillStyle = '#FFD700';
+      ctx.beginPath();
+      const cx = drawX + 16, cy = drawY + 16;
+      for (let i = 0; i < 5; i++) {
+        const angle = (i * 72 - 90) * Math.PI / 180;
+        const x = cx + Math.cos(angle) * 14;
+        const y = cy + Math.sin(angle) * 14;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+        const innerAngle = ((i * 72) + 36 - 90) * Math.PI / 180;
+        const ix = cx + Math.cos(innerAngle) * 6;
+        const iy = cy + Math.sin(innerAngle) * 6;
+        ctx.lineTo(ix, iy);
+      }
+      ctx.closePath();
+      ctx.fill();
+    }
+  }
+}
+
 // ==================== LEVEL CLASS ====================
 class Level {
   constructor() {
@@ -477,66 +750,137 @@ class Level {
       }
     }
 
-    // Create ground
+    // Create ground - World 1-1 style
     for (let x = 0; x < this.width; x++) {
       this.tiles[13][x] = 1; // Ground tile
       this.tiles[14][x] = 1;
     }
 
-    // Add some platforms (breakable bricks)
-    for (let x = 20; x < 25; x++) {
-      this.tiles[10][x] = 2;
+    // === WORLD 1-1 AUTHENTIC LAYOUT ===
+
+    // Opening area - Question block stairs (like the iconic opening)
+    this.tiles[9][16] = 3;  // Question block
+    this.tiles[9][20] = 2;  // Brick
+    this.tiles[9][21] = 3;  // Question block (has power-up)
+    this.tiles[9][22] = 2;  // Brick
+    this.tiles[9][23] = 3;  // Question block
+    this.tiles[5][23] = 3;  // Question block above
+
+    // More bricks and question blocks
+    this.tiles[9][77] = 2;
+    this.tiles[9][78] = 3;
+    this.tiles[9][79] = 2;
+
+    this.tiles[9][80] = 3;
+    this.tiles[9][81] = 2;
+    this.tiles[9][82] = 2;
+    this.tiles[5][80] = 2;
+    this.tiles[5][81] = 3;
+    this.tiles[5][82] = 2;
+
+    // Brick blocks in rows
+    for (let x = 91; x < 94; x++) {
+      this.tiles[9][x] = 2;
     }
-    for (let x = 30; x < 35; x++) {
+
+    // Three pipes (World 1-1 iconic pipes)
+    // First pipe (2 blocks tall)
+    for (let y = 11; y < 13; y++) {
+      this.tiles[y][28] = 1;
+      this.tiles[y][29] = 1;
+    }
+
+    // Second pipe (3 blocks tall)
+    for (let y = 10; y < 13; y++) {
+      this.tiles[y][38] = 1;
+      this.tiles[y][39] = 1;
+    }
+
+    // Third pipe (4 blocks tall) - The famous secret pipe!
+    for (let y = 9; y < 13; y++) {
+      this.tiles[y][46] = 1;
+      this.tiles[y][47] = 1;
+    }
+
+    // Fourth pipe (4 blocks tall)
+    for (let y = 9; y < 13; y++) {
+      this.tiles[y][57] = 1;
+      this.tiles[y][58] = 1;
+    }
+
+    // First pit (World 1-1 gap)
+    for (let x = 63; x < 69; x++) {
+      this.tiles[13][x] = 0;
+      this.tiles[14][x] = 0;
+    }
+
+    // Brick pyramid after first pit
+    // Bottom row
+    for (let x = 71; x < 79; x++) {
+      this.tiles[9][x] = 2;
+    }
+    // Middle row
+    for (let x = 72; x < 78; x++) {
       this.tiles[8][x] = 2;
     }
-    for (let x = 40; x < 50; x++) {
-      this.tiles[10][x] = 2;
+    // Top row
+    for (let x = 73; x < 77; x++) {
+      this.tiles[7][x] = 2;
     }
-
-    // Add question blocks
-    this.tiles[9][23] = 3;
-    this.tiles[9][27] = 3;
-    this.tiles[9][32] = 3;
-
-    // Add bricks (closer to start for testing)
-    for (let x = 10; x < 15; x++) {
-      this.tiles[9][x] = 2;
+    // Peak
+    for (let x = 74; x < 76; x++) {
+      this.tiles[6][x] = 2;
     }
-    // More bricks later in level
-    for (let x = 70; x < 76; x++) {
-      this.tiles[9][x] = 2;
-    }
+    this.tiles[5][75] = 3; // Question block at peak
 
-    // Add pipe
-    this.tiles[11][80] = 1;
-    this.tiles[12][80] = 1;
-    this.tiles[10][80] = 1;
-    this.tiles[11][81] = 1;
-    this.tiles[12][81] = 1;
-    this.tiles[10][81] = 1;
-
-    // Add some gaps
-    for (let x = 60; x < 64; x++) {
-      this.tiles[13][x] = 0;
-      this.tiles[14][x] = 0;
-    }
-    for (let x = 90; x < 94; x++) {
+    // Second pit (bigger gap)
+    for (let x = 106; x < 113; x++) {
       this.tiles[13][x] = 0;
       this.tiles[14][x] = 0;
     }
 
-    // Stairs at the end
-    for (let i = 0; i < 5; i++) {
+    // Blocks after second pit
+    for (let x = 118; x < 122; x++) {
+      this.tiles[9][x] = 2;
+    }
+    this.tiles[9][128] = 3;
+
+    // Final area - blocks before stairs
+    for (let x = 134; x < 138; x++) {
+      this.tiles[9][x] = 2;
+    }
+    this.tiles[9][136] = 3; // Question block
+
+    // More scattered blocks
+    for (let x = 155; x < 158; x++) {
+      this.tiles[9][x] = 2;
+    }
+
+    // Underground pipe (before stairs)
+    for (let y = 9; y < 13; y++) {
+      this.tiles[y][163] = 1;
+      this.tiles[y][164] = 1;
+    }
+
+    // Ending stairs (9 steps ascending - World 1-1 iconic ending)
+    for (let i = 0; i < 9; i++) {
       for (let j = 0; j <= i; j++) {
+        this.tiles[13 - j][179 + i] = 1; // Solid stairs
+      }
+    }
+
+    // Descending stairs after flag
+    for (let i = 0; i < 9; i++) {
+      for (let j = 0; j < 9 - i; j++) {
         this.tiles[13 - j][190 + i] = 1;
       }
     }
 
-    // Flag pole
+    // Flag pole (World 1-1 ending!)
     for (let y = 3; y < 13; y++) {
-      this.tiles[y][195] = 1;
+      this.tiles[y][189] = 1;
     }
+    this.tiles[2][189] = 3; // Flag at top
   }
 
   getTile(x, y) {
@@ -553,12 +897,21 @@ class Level {
     }
   }
 
-  hitQuestionBlock(x, y) {
+  hitQuestionBlock(x, y, playerState) {
     if (this.tiles[y][x] === 3) {
-      this.tiles[y][x] = 1; // Turn into regular block
-      // Spawn coin above block
-      game.coins.push(new Coin(x * TILE_SIZE + 8, y * TILE_SIZE - 20));
-      game.collectCoin();
+      this.tiles[y][x] = 1; // Turn into regular solid block
+
+      // Spawn power-up based on player state
+      if (playerState === 'small') {
+        // Spawn mushroom to make player Super
+        game.powerUps.push(new PowerUp(x * TILE_SIZE, y * TILE_SIZE - TILE_SIZE, 'mushroom'));
+        DEBUG.log('Spawned mushroom!');
+      } else {
+        // Already Super or Fire - spawn coin instead
+        game.coins.push(new Coin(x * TILE_SIZE + 8, y * TILE_SIZE - 20));
+        game.collectCoin();
+        DEBUG.log('Spawned coin (player already powered up)');
+      }
     }
   }
 
@@ -647,6 +1000,7 @@ class Game {
     this.camera = null;
     this.enemies = [];
     this.coins = [];
+    this.powerUps = []; // Mushrooms, fire flowers, stars
 
     // Game stats
     this.score = 0;
@@ -692,29 +1046,61 @@ class Game {
     document.getElementById('startScreen').classList.add('hidden');
     this.gameState = 'playing';
 
+    // Reset arrays
+    this.coins = [];
+    this.enemies = [];
+    this.powerUps = [];
+
     // Initialize game
     this.level = new Level();
     this.player = new Player(100, 300);
     this.camera = new Camera();
+    DEBUG.log('Game started! Player state: ' + this.player.state);
 
-    // Spawn enemies
+    // Spawn enemies - World 1-1 style (16 Goombas + 1 Koopa)
     this.enemies = [
-      new Enemy(400, 200, 'goomba'),
-      new Enemy(600, 200, 'goomba'),
-      new Enemy(800, 200, 'koopa'),
-      new Enemy(1200, 200, 'goomba'),
-      new Enemy(1500, 200, 'koopa'),
-      new Enemy(2000, 200, 'goomba'),
-      new Enemy(2500, 200, 'goomba')
+      // Opening goombas
+      new Enemy(22 * 32, 12 * 32, 'goomba'),  // First enemy player meets
+      new Enemy(40 * 32, 12 * 32, 'goomba'),
+      new Enemy(51 * 32, 12 * 32, 'goomba'),
+      new Enemy(53 * 32, 12 * 32, 'goomba'),  // Double goomba
+      new Enemy(97 * 32, 12 * 32, 'goomba'),
+      new Enemy(99 * 32, 12 * 32, 'goomba'),  // Double goomba
+      // Goombas after first pit
+      new Enemy(115 * 32, 12 * 32, 'goomba'),
+      new Enemy(117 * 32, 12 * 32, 'goomba'), // Double goomba
+      new Enemy(123 * 32, 12 * 32, 'goomba'),
+      new Enemy(125 * 32, 12 * 32, 'goomba'), // Double goomba
+      // More goombas
+      new Enemy(128 * 32, 12 * 32, 'goomba'),
+      new Enemy(130 * 32, 12 * 32, 'goomba'), // Double goomba
+      new Enemy(170 * 32, 12 * 32, 'goomba'),
+      new Enemy(171 * 32, 12 * 32, 'goomba'), // Double goomba
+      new Enemy(174 * 32, 12 * 32, 'goomba'),
+      new Enemy(176 * 32, 12 * 32, 'goomba'),
+      // The one Koopa Troopa
+      new Enemy(109 * 32, 12 * 32, 'koopa')
     ];
 
-    // Spawn some coins
-    for (let i = 0; i < 20; i++) {
-      this.coins.push(new Coin(
-        300 + i * 150 + Math.random() * 50,
-        200 + Math.random() * 100
-      ));
+    // Spawn coins - World 1-1 style placement
+    // Coins above opening blocks
+    for (let i = 0; i < 3; i++) {
+      this.coins.push(new Coin(20 * 32 + i * 32, 8 * 32));
     }
+    // Coins near pyramid
+    for (let i = 0; i < 5; i++) {
+      this.coins.push(new Coin(73 * 32 + i * 32, 4 * 32));
+    }
+    // Coins after second pit
+    for (let i = 0; i < 4; i++) {
+      this.coins.push(new Coin(118 * 32 + i * 32, 8 * 32));
+    }
+    // Scattered coins throughout level
+    this.coins.push(new Coin(50 * 32, 9 * 32));
+    this.coins.push(new Coin(85 * 32, 8 * 32));
+    this.coins.push(new Coin(100 * 32, 9 * 32));
+    this.coins.push(new Coin(140 * 32, 8 * 32));
+    this.coins.push(new Coin(160 * 32, 9 * 32));
 
     this.running = true;
     this.gameLoop();
@@ -763,6 +1149,14 @@ class Game {
       coin.checkCollision(this.player);
     });
 
+    // Update power-ups
+    this.powerUps = this.powerUps.filter(powerUp => {
+      if (powerUp.collected) return false;
+      powerUp.update(this.level);
+      powerUp.checkCollision(this.player);
+      return true;
+    });
+
     // Check win condition - reached flag
     if (this.player.x > 195 * TILE_SIZE) {
       this.levelComplete();
@@ -793,6 +1187,9 @@ class Game {
 
     // Draw coins
     this.coins.forEach(coin => coin.draw(this.ctx, this.camera));
+
+    // Draw power-ups
+    this.powerUps.forEach(powerUp => powerUp.draw(this.ctx, this.camera));
 
     // Draw enemies
     this.enemies.forEach(enemy => enemy.draw(this.ctx, this.camera));
@@ -868,5 +1265,5 @@ class Game {
 }
 
 // Initialize game when page loads
-const game = new Game();
+window.game = new Game();
 console.log('🍄 Super Mario Bros Clone loaded! Press START GAME to play! 🍄');
