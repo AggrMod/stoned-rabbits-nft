@@ -16,41 +16,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"/>
   <!-- Custom CSS -->
   <link rel="stylesheet" href="../css/style.css"/>
-  <!-- Mobile Menu Fix -->
+  <link rel="stylesheet" href="../css/common.css"/>
+  <!-- Page-specific styles -->
   <style>
-    @media (max-width: 768px) {
-      .nav-menu {
-        background-color: #000000 !important;
-      }
-      .nav-menu .nav-item,
-      .nav-menu li {
-        background-color: #000000 !important;
-      }
-      .nav-link {
-        background-color: #000000 !important;
-        color: #ffffff !important;
-      }
-    }
-
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 1.5rem;
       margin-top: 3rem;
-    }
-
-    .nft-sample {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      overflow: hidden;
-      transition: all 0.3s ease;
-    }
-
-    .nft-sample:hover {
-      transform: translateY(-5px);
-      border-color: rgba(255, 209, 102, 0.5);
-      box-shadow: 0 10px 30px rgba(255, 209, 102, 0.2);
     }
 
     .nft-sample img {
@@ -68,6 +41,31 @@
       margin: 0.5rem 0.5rem 0 0;
       font-size: 0.875rem;
       border: 1px solid rgba(255, 209, 102, 0.3);
+    }
+
+    .benefits-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .benefits-list li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .benefits-list li:last-child {
+      border-bottom: none;
+    }
+
+    .benefits-list i {
+      color: #ffd166;
+      margin-right: 0.5rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
     }
   </style>
 </head>
@@ -94,9 +92,9 @@
   <!-- Hero Section -->
   <section class="hero" style="min-height: 60vh;">
     <div class="hero-content">
-      <h1 class="hero-title" data-aos="fade-up">Stoned Rabbits NFT Collection</h1>
-      <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="100">3,333 unique rabbits on the Solana blockchain</p>
-      <div class="hero-btns" data-aos="fade-up" data-aos-delay="200">
+      <h1 class="hero-title" data-aos="fade">Stoned Rabbits NFT Collection</h1>
+      <p class="hero-subtitle" data-aos="fade" data-aos-delay="100">3,333 unique rabbits on the Solana blockchain</p>
+      <div class="hero-btns" data-aos="fade" data-aos-delay="200">
         <a href="https://magiceden.us/marketplace/stonned_rabitts" target="_blank" class="btn btn-primary">
           <i class="fas fa-store"></i> View on Magic Eden
         </a>
@@ -123,22 +121,12 @@
           <p>Our mission is to create an exclusive community of like-minded individuals who appreciate digital art and the possibilities of blockchain technology. By owning a Stoned Rabbit, you're not just collecting digital art - you're joining a movement.</p>
 
           <h4 style="color: #ffd166; margin-top: 2rem; margin-bottom: 1rem;">Holder Benefits</h4>
-          <ul style="list-style: none; padding: 0;">
-            <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
-              <i class="fas fa-check" style="color: #ffd166; margin-right: 0.5rem;"></i> Monthly revenue sharing from themed slot
-            </li>
-            <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
-              <i class="fas fa-check" style="color: #ffd166; margin-right: 0.5rem;"></i> Access to exclusive poker tournaments
-            </li>
-            <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
-              <i class="fas fa-check" style="color: #ffd166; margin-right: 0.5rem;"></i> Treasure hunts and prize raffles
-            </li>
-            <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
-              <i class="fas fa-check" style="color: #ffd166; margin-right: 0.5rem;"></i> Future airdrops and rewards
-            </li>
-            <li style="padding: 0.5rem 0;">
-              <i class="fas fa-check" style="color: #ffd166; margin-right: 0.5rem;"></i> Voting rights in community decisions
-            </li>
+          <ul class="benefits-list">
+            <li><i class="fas fa-check"></i> Monthly revenue sharing from themed slot</li>
+            <li><i class="fas fa-check"></i> Access to exclusive poker tournaments</li>
+            <li><i class="fas fa-check"></i> Treasure hunts and prize raffles</li>
+            <li><i class="fas fa-check"></i> Future airdrops and rewards</li>
+            <li><i class="fas fa-check"></i> Voting rights in community decisions</li>
           </ul>
 
           <div style="margin-top: 2rem;">
@@ -159,25 +147,25 @@
         <p>Real-time data from Magic Eden</p>
       </div>
 
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
-        <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 2rem; text-align: center;" data-aos="fade-up">
-          <div style="font-size: 3rem; font-weight: 700; color: #ffd166; margin-bottom: 0.5rem;">3,333</div>
-          <div style="color: #999; text-transform: uppercase; font-size: 0.875rem;">Total Supply</div>
+      <div class="stats-grid">
+        <div class="stat-card" data-aos="fade-up">
+          <div class="stat-number">3,333</div>
+          <div class="stat-label">Total Supply</div>
         </div>
 
-        <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 2rem; text-align: center;" data-aos="fade-up" data-aos-delay="100">
-          <div style="font-size: 3rem; font-weight: 700; color: #ffd166; margin-bottom: 0.5rem;" id="floor-price">...</div>
-          <div style="color: #999; text-transform: uppercase; font-size: 0.875rem;">Floor Price (SOL)</div>
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="stat-number" id="floor-price">...</div>
+          <div class="stat-label">Floor Price (SOL)</div>
         </div>
 
-        <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 2rem; text-align: center;" data-aos="fade-up" data-aos-delay="200">
-          <div style="font-size: 3rem; font-weight: 700; color: #ffd166; margin-bottom: 0.5rem;" id="volume-traded">...</div>
-          <div style="color: #999; text-transform: uppercase; font-size: 0.875rem;">Volume Traded (SOL)</div>
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="stat-number" id="volume-traded">...</div>
+          <div class="stat-label">Volume Traded (SOL)</div>
         </div>
 
-        <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 2rem; text-align: center;" data-aos="fade-up" data-aos-delay="300">
-          <div style="font-size: 3rem; font-weight: 700; color: #ffd166; margin-bottom: 0.5rem;" id="listed-count">...</div>
-          <div style="color: #999; text-transform: uppercase; font-size: 0.875rem;">Currently Listed</div>
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="stat-number" id="listed-count">...</div>
+          <div class="stat-label">Currently Listed</div>
         </div>
       </div>
     </div>
@@ -192,22 +180,19 @@
       </div>
 
       <div style="text-align: center; margin-top: 2rem;" data-aos="fade-up">
-        <span class="trait-badge">🎩 Headwear</span>
-        <span class="trait-badge">👕 Clothing</span>
-        <span class="trait-badge">👁️ Eyes</span>
-        <span class="trait-badge">🎨 Background</span>
-        <span class="trait-badge">✨ Special Effects</span>
-        <span class="trait-badge">🎭 Accessories</span>
-        <span class="trait-badge">😎 Expression</span>
-        <span class="trait-badge">🌈 Fur Color</span>
+        <span class="trait-badge">Headwear</span>
+        <span class="trait-badge">Clothing</span>
+        <span class="trait-badge">Eyes</span>
+        <span class="trait-badge">Background</span>
+        <span class="trait-badge">Special Effects</span>
+        <span class="trait-badge">Accessories</span>
+        <span class="trait-badge">Expression</span>
+        <span class="trait-badge">Fur Color</span>
       </div>
 
-      <div style="text-align: center; margin-top: 3rem;" data-aos="fade-up" data-aos-delay="200">
-        <h3 style="color: #ffd166; margin-bottom: 1rem;">Rare Traits Unlock Special Benefits</h3>
-        <p style="max-width: 600px; margin: 0 auto; color: #ccc; line-height: 1.6;">
-          Some rare traits grant access to exclusive utilities like poker tournaments (Top Trickster hat),
-          treasure hunts (Pirate traits), and special prize drawings (Lucky Leprechaun, Siberian Flap Hat).
-        </p>
+      <div class="promo-section" style="margin-top: 3rem;" data-aos="fade-up" data-aos-delay="200">
+        <h2>Rare Traits Unlock Special Benefits</h2>
+        <p>Some rare traits grant access to exclusive utilities like poker tournaments (Top Trickster hat), treasure hunts (Pirate traits), and special prize drawings (Lucky Leprechaun, Siberian Flap Hat).</p>
       </div>
     </div>
   </section>
@@ -239,11 +224,11 @@
           <ul class="footer-links">
             <li><a href="#">Terms of Service</a></li>
             <li><a href="#">Privacy Policy</a></li>
-            <li><a href="https://magiceden.us/marketplace/stonned_rabitts" target="_blank">Magic Eden</a></li>
+            <a href="https://magiceden.us/marketplace/stonned_rabitts" target="_blank">Magic Eden</a></li>
           </ul>
         </div>
       </div>
-      <p class="copyright">© 2025 Stoned Rabbits. All rights reserved.</p>
+      <p class="copyright">&copy; 2025 Stoned Rabbits. All rights reserved.</p>
     </div>
   </footer>
 

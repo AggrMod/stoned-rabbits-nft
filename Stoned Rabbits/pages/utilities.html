@@ -1,102 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Holder Utilities - Stoned Rabbits</title>
   <!-- Favicon -->
-  <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon"/>
+  <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
   <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sen:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sen:wght@400;700&display=swap"
+    rel="stylesheet" />
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
   <!-- AOS Animation Library -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="../css/style.css"/>
-  <!-- Mobile Menu Fix -->
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/common.css" />
+  <!-- Page-specific styles -->
   <style>
-    @media (max-width: 768px) {
-      .nav-menu {
-        background-color: #000000 !important;
-      }
-      .nav-menu .nav-item,
-      .nav-menu li {
-        background-color: #000000 !important;
-      }
-      .nav-link {
-        background-color: #000000 !important;
-        color: #ffffff !important;
-      }
-    }
-
-    .utility-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      padding: 2.5rem;
-      transition: all 0.3s ease;
-      height: 100%;
-    }
-
-    .utility-card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(255, 209, 102, 0.5);
-      box-shadow: 0 10px 30px rgba(255, 209, 102, 0.2);
-    }
-
-    .utility-icon {
-      font-size: 3.5rem;
-      color: #ffd166;
-      margin-bottom: 1.5rem;
-    }
-
-    .utility-card h3 {
-      color: #ffd166;
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .utility-card p {
-      color: #ccc;
-      margin-bottom: 1rem;
-      line-height: 1.6;
-    }
-
-    .utility-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-
-    .promo-section {
-      background: linear-gradient(135deg, rgba(255, 209, 102, 0.1) 0%, rgba(255, 209, 102, 0.05) 100%);
-      border: 2px solid rgba(255, 209, 102, 0.3);
-      border-radius: 20px;
-      padding: 3rem;
-      margin-top: 4rem;
-      text-align: center;
-    }
-
-    .promo-section h2 {
-      color: #ffd166;
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .promo-section p {
-      color: #ccc;
-      font-size: 1.1rem;
-      margin-bottom: 2rem;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-    }
+    /* Page-specific styles go here */
   </style>
 </head>
+
 <body>
   <!-- Header -->
   <header>
@@ -118,10 +47,11 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="hero" style="min-height: 60vh;">
+  <section class="hero" style="min-height: 60vh; padding-top: 100px;">
     <div class="hero-content">
-      <h1 class="hero-title" data-aos="fade-up">Holder Utilities</h1>
-      <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="100">Exclusive benefits for Stoned Rabbits NFT holders</p>
+      <h1 class="hero-title" data-aos="fade">Holder Utilities</h1>
+      <p class="hero-subtitle" data-aos="fade" data-aos-delay="100">Exclusive benefits for Stoned Rabbits NFT holders
+      </p>
     </div>
   </section>
 
@@ -136,7 +66,8 @@
       <div class="utility-grid">
         <!-- Monthly Poker Tournament -->
         <div class="utility-card" data-aos="fade-up">
-          <div class="utility-icon"><img src="../images/poker.jpg" alt="Poker Tournament" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;"></div>
+          <div class="utility-icon"><img src="../images/poker.jpg" alt="Poker Tournament"
+              style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;"></div>
           <h3>Monthly Poker Tournament</h3>
           <p>Exclusive poker tournaments for holders of rabbits with the <strong>Top Trickster</strong> hat trait.</p>
           <p><strong>Prize Pool:</strong> SOL and special NFT rewards</p>
@@ -154,7 +85,8 @@
 
         <!-- Pirate's Treasure Hunt -->
         <div class="utility-card" data-aos="fade-up" data-aos-delay="200">
-          <div class="utility-icon"><img src="../images/treasure.png" alt="Treasure Hunt" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;"></div>
+          <div class="utility-icon"><img src="../images/treasure.png" alt="Treasure Hunt"
+              style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;"></div>
           <h3>Pirate's Treasure Hunt</h3>
           <p>Special treasure hunt events for holders of rabbits with <strong>Pirate</strong> themed traits.</p>
           <p><strong>Rewards:</strong> Hidden SOL treasures and rare NFTs</p>
@@ -163,7 +95,8 @@
 
         <!-- Top Ranks Royalty Share -->
         <div class="utility-card" data-aos="fade-up">
-          <div class="utility-icon"><img src="../images/royalty.png" alt="Royalty Share" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;"></div>
+          <div class="utility-icon"><img src="../images/royalty.png" alt="Royalty Share"
+              style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;"></div>
           <h3>Top Ranks Royalty Share</h3>
           <p>Monthly revenue sharing from our themed slot machine on Gamblor.io for top-ranked trait holders.</p>
           <p><strong>Distribution:</strong> Monthly in SOL</p>
@@ -181,7 +114,8 @@
 
         <!-- Monthly Revenue Airdrop -->
         <div class="utility-card" data-aos="fade-up" data-aos-delay="200">
-          <div class="utility-icon"><img src="../images/airdrop.png" alt="Revenue Airdrop" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;"></div>
+          <div class="utility-icon"><img src="../images/airdrop.png" alt="Revenue Airdrop"
+              style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;"></div>
           <h3>Monthly Revenue Airdrop</h3>
           <p>All Stoned Rabbits holders receive monthly airdrops from project revenue and partnerships.</p>
           <p><strong>Distribution:</strong> Automatic monthly drops</p>
@@ -192,7 +126,8 @@
       <!-- NFT Utility Factory Promo -->
       <div class="promo-section" data-aos="fade-up">
         <h2>🛠️ More Utilities Coming Soon!</h2>
-        <p>We're constantly building new utilities and experiences for our holders. Check out our NFT Utility Factory for games, tools, and exclusive holder features.</p>
+        <p>We're constantly building new utilities and experiences for our holders. Check out our NFT Utility Factory
+          for games, tools, and exclusive holder features.</p>
         <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
           <a href="./nft-utility-factory.html" class="btn btn-primary">
             <i class="fas fa-gamepad"></i> Visit Utility Factory
@@ -207,7 +142,8 @@
       <div style="margin-top: 4rem; text-align: center;" data-aos="fade-up">
         <h3 style="color: #ffd166; font-size: 2rem; margin-bottom: 1rem;">How to Access These Utilities</h3>
         <p style="color: #ccc; font-size: 1.1rem; max-width: 700px; margin: 0 auto 2rem auto; line-height: 1.6;">
-          Simply hold a Stoned Rabbit NFT in your wallet. Specific utilities require specific traits - check your rabbit's traits on Magic Eden to see which utilities you qualify for!
+          Simply hold a Stoned Rabbit NFT in your wallet. Specific utilities require specific traits - check your
+          rabbit's traits on Magic Eden to see which utilities you qualify for!
         </p>
         <a href="https://magiceden.us/marketplace/stonned_rabitts" target="_blank" class="btn btn-primary">
           <i class="fas fa-store"></i> Browse Collection on Magic Eden
@@ -262,4 +198,5 @@
     });
   </script>
 </body>
+
 </html>

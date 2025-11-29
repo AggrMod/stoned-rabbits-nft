@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PAGE_TITLE - Stoned Rabbits</title>
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon"/>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sen:wght@400;700&display=swap" rel="stylesheet"/>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <!-- AOS Animation Library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"/>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="stylesheet" href="../css/common.css"/>
+  <!-- Page-specific styles (add only what's unique to this page) -->
+  <style>
+    /* Page-specific styles go here */
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-container">
+      <a href="../index.html" class="logo">Stoned<span>Rabbits</span></a>
+      <div class="mobile-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="../index.html" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="./stoned-rabbits.html" class="nav-link">Stoned Rabbits</a></li>
+        <li class="nav-item"><a href="./revenue-pass.html" class="nav-link">Revenue Pass</a></li>
+        <li class="nav-item"><a href="./lottery.html" class="nav-link">Lottery</a></li>
+        <li class="nav-item"><a href="./utilities.html" class="nav-link">Utilities</a></li>
+        <li class="nav-item"><a href="./team.html" class="nav-link">Team</a></li>
+        <li class="nav-item"><a href="./partners.html" class="nav-link">Partners</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" style="min-height: 60vh;">
+    <div class="hero-content">
+      <h1 class="hero-title" data-aos="fade">PAGE_TITLE</h1>
+      <p class="hero-subtitle" data-aos="fade" data-aos-delay="100">PAGE_SUBTITLE</p>
+      <div class="hero-btns" data-aos="fade" data-aos-delay="200">
+        <a href="#" class="btn btn-primary">Primary Action</a>
+        <a href="#" class="btn btn-outline">Secondary Action</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Section -->
+  <section class="about">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Section Title</h2>
+        <p>Section description goes here</p>
+      </div>
+
+      <!-- CARD GRID EXAMPLE (use summary-grid, utility-grid, team-grid, or partners-grid) -->
+      <div class="summary-grid">
+        <!-- Card Example -->
+        <div class="summary-card" data-aos="fade-up">
+          <div class="summary-icon"><i class="fas fa-star"></i></div>
+          <h3>Card Title</h3>
+          <p>Card description text goes here.</p>
+          <a href="#" class="btn btn-outline">Learn More</a>
+        </div>
+      </div>
+
+      <!-- PROMO SECTION EXAMPLE -->
+      <div class="promo-section" data-aos="fade-up">
+        <h2>Promo Title</h2>
+        <p>Promotional text content goes here with call to action.</p>
+        <a href="#" class="btn btn-primary">Call to Action</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>Stoned Rabbits</h3>
+          <p>A collection of 3,333 unique NFTs living on the Solana blockchain.</p>
+          <div class="social-links">
+            <a href="https://x.com/StonedRabbitts" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://t.me/+9PlKBM3aBeY0MTU0" target="_blank"><i class="fab fa-telegram"></i></a>
+            <a href="https://discord.gg/px9kyxbBhc" target="_blank"><i class="fab fa-discord"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="./stoned-rabbits.html">Stoned Rabbits</a></li>
+            <li><a href="./revenue-pass.html">Revenue Pass</a></li>
+            <li><a href="./lottery.html">Lottery</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Resources</h3>
+          <ul class="footer-links">
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="https://magiceden.us/marketplace/stonned_rabitts" target="_blank">Magic Eden</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="copyright">&copy; 2025 Stoned Rabbits. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    // Initialize AOS
+    AOS.init({
+      duration: 800,
+      once: true
+    });
+  </script>
+</body>
+</html>
+
+<!--
+===========================================
+STONED RABBITS PAGE TEMPLATE - QUICK GUIDE
+===========================================
+
+CSS FILES:
+- style.css      = Base styles (typography, colors, buttons)
+- common.css     = Shared components (cards, grids, mobile menu)
+- Page <style>   = Only page-unique styles
+
+AVAILABLE CARD CLASSES (from common.css):
+- summary-card   = General purpose cards
+- utility-card   = Utility feature cards
+- team-card      = Team member cards
+- partner-card   = Partner showcase cards
+- stat-card      = Statistics display
+- benefit-card   = Benefit/feature cards
+
+GRID LAYOUTS (from common.css):
+- summary-grid   = 300px min columns
+- utility-grid   = 300px min columns
+- team-grid      = 300px min columns
+- partners-grid  = 300px min columns
+
+SPECIAL SECTIONS (from common.css):
+- promo-section  = Gold gradient highlight box
+- pass-hero      = Same as promo-section
+
+BADGES (from common.css):
+- timeline-badge    = Green/orange gradient badge
+- magic-eden-badge  = Purple/pink Magic Eden button
+
+ICONS (from common.css):
+- summary-icon   = Large gold icon container
+- utility-icon   = Large gold icon container
+- benefit-icon   = Large gold icon container
+
+PRICE/STAT DISPLAYS (from common.css):
+- price-display  = Large gold numbers
+- stat-number    = Large gold numbers
+- stat-label     = Gray uppercase label
+
+ANIMATIONS:
+- Use data-aos="fade" for hero titles (NOT fade-up)
+- Use data-aos="fade-up" for content sections
+- Add data-aos-delay="100", "200" etc for staggered effect
+
+HERO SECTION:
+- Always include style="min-height: 60vh;"
+- Hero padding handled by common.css
+- Use "fade" animation to prevent scroll-out bug
+
+MOBILE MENU:
+- Handled entirely by common.css
+- Just include the mobile-toggle div and main.js
+
+===========================================
+-->

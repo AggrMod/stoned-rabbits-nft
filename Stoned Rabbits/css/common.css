@@ -1,0 +1,328 @@
+/*
+ * Stoned Rabbits - Common Styles
+ * Shared CSS used across all pages
+ * Created: 2025-11-29
+ */
+
+/* ============================================
+   MOBILE MENU FIX
+   Ensures hamburger menu works on all pages
+   ============================================ */
+@media (max-width: 768px) {
+  .mobile-toggle {
+    display: block !important;
+    position: relative !important;
+    z-index: 1002 !important;
+    margin-left: auto !important;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #ffffff;
+    padding: 0.5rem;
+  }
+
+  .nav-menu {
+    display: flex !important;
+    position: fixed !important;
+    top: 0 !important;
+    right: -100% !important;
+    width: 80% !important;
+    max-width: 300px !important;
+    height: 100vh !important;
+    background-color: #000000 !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    z-index: 1001 !important;
+    transition: right 0.3s ease !important;
+  }
+
+  .nav-menu.active {
+    right: 0 !important;
+  }
+
+  .nav-menu .nav-item,
+  .nav-menu li {
+    background-color: #000000 !important;
+    margin: 1rem 0 !important;
+  }
+
+  .nav-link {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    font-size: 1.1rem;
+  }
+}
+
+/* ============================================
+   HERO SECTION FIX
+   Ensures hero content visible below fixed header
+   ============================================ */
+.hero {
+  padding-top: 100px !important;
+  min-height: 250px;
+}
+
+/* ============================================
+   COMMON CARD BASE
+   Shared by: stat-card, benefit-card, summary-card,
+   utility-card, team-card, partner-card, nft-sample
+   ============================================ */
+.card-base,
+.stat-card,
+.benefit-card,
+.summary-card,
+.utility-card,
+.team-card,
+.partner-card,
+.nft-sample {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.card-base:hover,
+.stat-card:hover,
+.benefit-card:hover,
+.summary-card:hover,
+.utility-card:hover,
+.team-card:hover,
+.partner-card:hover,
+.nft-sample:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 209, 102, 0.5);
+  box-shadow: 0 10px 30px rgba(255, 209, 102, 0.2);
+}
+
+/* ============================================
+   COMMON HEADING COLORS
+   Gold accent for card headings
+   ============================================ */
+.stat-card h3,
+.benefit-card h3,
+.summary-card h3,
+.utility-card h3,
+.team-card h3,
+.partner-card h3 {
+  color: #ffd166;
+}
+
+/* ============================================
+   COMMON ICON STYLING
+   Large gold icons for card headers
+   ============================================ */
+.summary-icon,
+.utility-icon,
+.benefit-icon {
+  font-size: 3.5rem;
+  color: #ffd166;
+  margin-bottom: 1.5rem;
+}
+
+/* ============================================
+   COMMON GRID LAYOUTS
+   Responsive grids for card sections
+   ============================================ */
+.summary-grid,
+.utility-grid,
+.partners-grid,
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+/* ============================================
+   TIMELINE / STATUS BADGES
+   Used on lottery and revenue-pass pages
+   ============================================ */
+.timeline-badge {
+  background: linear-gradient(135deg, #237253, #ed683e);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+/* ============================================
+   MAGIC EDEN INTEGRATION
+   Button styling for ME links
+   ============================================ */
+.magic-eden-badge {
+  background: linear-gradient(135deg, #e42575, #8a42f5);
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  color: #ffffff;
+}
+
+.magic-eden-badge:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(228, 37, 117, 0.4);
+  color: #ffffff;
+}
+
+/* ============================================
+   PRICE DISPLAYS
+   Large gold numbers for prices/stats
+   ============================================ */
+.price-display,
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffd166;
+  text-shadow: 0 0 20px rgba(255, 209, 102, 0.5);
+}
+
+.stat-label {
+  font-size: 1rem;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ============================================
+   PROMO SECTIONS
+   Highlighted call-to-action boxes
+   ============================================ */
+.promo-section,
+.pass-hero {
+  background: linear-gradient(135deg, rgba(255, 209, 102, 0.1) 0%, rgba(255, 209, 102, 0.05) 100%);
+  border: 2px solid rgba(255, 209, 102, 0.3);
+  border-radius: 20px;
+  padding: 3rem;
+  text-align: center;
+}
+
+.promo-section h2 {
+  color: #ffd166;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.promo-section p {
+  color: #ccc;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ============================================
+   TEAM PAGE COMPONENTS
+   ============================================ */
+.team-card {
+  text-align: center;
+}
+
+.team-avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin: 0 auto 1.5rem;
+  border: 3px solid #ffd166;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(255, 209, 102, 0.2), rgba(255, 209, 102, 0.05));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+}
+
+.team-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.team-role {
+  color: #999;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.team-social {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.team-social a {
+  color: #ffd166;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.team-social a:hover {
+  color: #fff;
+  transform: scale(1.2);
+}
+
+/* ============================================
+   PARTNERS PAGE COMPONENTS
+   ============================================ */
+.partner-card {
+  text-align: center;
+}
+
+.partner-logo {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 1.5rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 209, 102, 0.2), rgba(255, 209, 102, 0.05));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  border: 2px solid rgba(255, 209, 102, 0.3);
+}
+
+.partner-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.partner-type {
+  color: #999;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.partner-link {
+  display: inline-block;
+  color: #ffd166;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.partner-link:hover {
+  color: #fff;
+}
+
+.partner-link i {
+  margin-left: 0.5rem;
+}
+
+/* ============================================
+   UTILITIES PAGE COMPONENTS
+   ============================================ */
+.utility-card {
+  height: 100%;
+}

@@ -16,71 +16,22 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"/>
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css"/>
-  <!-- Responsive CSS -->
-  <link rel="stylesheet" href="css/responsive.css"/>
-  <!-- Mobile Menu Fix - Inline styles to override caching -->
+  <link rel="stylesheet" href="css/common.css"/>
+  <!-- Page-specific styles -->
   <style>
-    /* Hero height override to bypass CSS caching */
-    .hero {
-      height: 18vh !important;
-      min-height: 175px !important;
-      padding-top: 2rem !important;
-      padding-bottom: 1rem !important;
-    }
-
-    @media (max-width: 768px) {
-      .nav-menu {
-        background-color: #000000 !important;
-      }
-      .nav-menu .nav-item,
-      .nav-menu li {
-        background-color: #000000 !important;
-      }
-      .nav-link {
-        background-color: #000000 !important;
-        color: #ffffff !important;
-      }
-    }
-
-    /* Summary cards styling */
+    /* Index page overrides */
     .summary-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
       padding: 2.5rem;
-      transition: all 0.3s ease;
       height: 100%;
     }
-
-    .summary-card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(255, 209, 102, 0.5);
-      box-shadow: 0 10px 30px rgba(255, 209, 102, 0.2);
-    }
-
-    .summary-icon {
-      font-size: 3.5rem;
-      color: #ffd166;
-      margin-bottom: 1.5rem;
-    }
-
     .summary-card h3 {
-      color: #ffd166;
       font-size: 1.5rem;
       margin-bottom: 1rem;
     }
-
     .summary-card p {
       color: #ccc;
       margin-bottom: 1.5rem;
       line-height: 1.6;
-    }
-
-    .summary-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
     }
   </style>
 </head>
@@ -107,9 +58,9 @@
   <!-- Hero Section -->
   <section id="home" class="hero">
     <div class="hero-content">
-      <h1 class="hero-title" data-aos="fade-up">Stoned Rabbits</h1>
-      <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="100">No two trips are the same</p>
-      <div class="hero-btns" data-aos="fade-up" data-aos-delay="200">
+      <h1 class="hero-title" data-aos="fade">Stoned Rabbits</h1>
+      <p class="hero-subtitle" data-aos="fade" data-aos-delay="100">No two trips are the same</p>
+      <div class="hero-btns" data-aos="fade" data-aos-delay="200">
         <a href="./pages/stoned-rabbits.html" class="btn btn-primary">Explore Collection</a>
         <a href="./pages/revenue-pass.html" class="btn btn-outline">Revenue Pass</a>
       </div>

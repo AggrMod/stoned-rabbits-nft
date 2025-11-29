@@ -12,26 +12,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 
-  <!-- Site CSS (paths relative to /pages/mint.html) -->
+  <!-- Site CSS -->
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/common.css">
   <link rel="stylesheet" href="../css/grid-styles.css">
-
-  <style>
-    /* Mobile Menu Fix */
-    @media (max-width: 768px) {
-      .nav-menu {
-        background-color: #000000 !important;
-      }
-      .nav-menu .nav-item,
-      .nav-menu li {
-        background-color: #000000 !important;
-      }
-      .nav-link {
-        background-color: #000000 !important;
-        color: #ffffff !important;
-      }
-    }
-  </style>
 
   <style>
     /* Passes-style card styling */
@@ -110,12 +94,12 @@
 
   <!-- Hero -->
   <section class="hero" style="min-height: 70vh;">
-    <div class="hero-content" data-aos="fade-up">
+    <div class="hero-content" data-aos="fade">
       <h1 class="hero-title">Stoned Rabbits Lottery</h1>
       <p class="hero-subtitle" style="font-size: 1.5rem; margin: 2rem 0;">
         Enter to win exclusive prizes! Get tickets with SOL/USDC or burn Stoned Rabbits NFTs for bonus entries.
       </p>
-      <div class="hero-btns" data-aos="fade-up" data-aos-delay="100">
+      <div class="hero-btns" data-aos="fade" data-aos-delay="100">
         <a href="#mint" class="btn">
           <i class="fas fa-ticket"></i> Buy Tickets
         </a>
@@ -289,6 +273,8 @@
   <!-- AOS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script>document.addEventListener('DOMContentLoaded', () => AOS.init());</script>
+  <!-- Mobile Menu -->
+  <script src="../js/main.js"></script>
 
   <!-- Web3 / SPL (Metaplex is lazy-loaded when minting) -->
   <script src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>

@@ -178,15 +178,15 @@ header.scrolled {
 
 /* Hero Section - Updated 2025 */
 .hero {
-  height: 18vh;
-  min-height: 175px;
+  height: auto;
+  min-height: 250px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding-top: 2rem;
-  padding-bottom: 1rem;
+  padding-top: 100px;
+  padding-bottom: 2rem;
 }
 
 .hero::before {
