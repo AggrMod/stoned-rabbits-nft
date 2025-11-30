@@ -68,3 +68,6 @@ pnpm-lock.yaml
 # Security scan results
 .snyk
 snyk-report.json
+
+# Local browser recordings (large, untracked)
+.gemini/antigravity/browser_recordings/

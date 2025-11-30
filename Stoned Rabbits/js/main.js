@@ -3,16 +3,16 @@
 // DOM Elements
 const header = document.querySelector('header');
 const mobileToggle = document.querySelector('.mobile-toggle');
-const navMenu = document.querySelector('.nav-menu');
+let navMenu = document.querySelector('.nav-menu');
 const navLinks = document.querySelectorAll('.nav-link');
 const cryptoTicker = document.querySelector('.ticker-container');
 const countdownElement = document.getElementById('countdown');
 const walletConnectBtn = document.querySelector('.wallet-btn');
 
-// Force-close any stale nav state on page load
-document.body.classList.remove('nav-open');
-navMenu?.classList.remove('active');
-mobileToggle?.classList.remove('active');
+// MOBILE FIX: Move nav-menu to body root to break stacking context
+if (window.innerWidth <= 768 && navMenu) {
+  document.body.appendChild(navMenu);
+}
 
 // Scroll Event for Header
 window.addEventListener('scroll', () => {
@@ -23,12 +23,11 @@ window.addEventListener('scroll', () => {
   }
 });
 
-// Mobile Menu Toggle with body scroll lock
+// Mobile Menu Toggle
 if (mobileToggle) {
   mobileToggle.addEventListener('click', () => {
-    const isOpen = navMenu.classList.toggle('active');
-    mobileToggle.classList.toggle('active', isOpen);
-    document.body.classList.toggle('nav-open', isOpen);
+    navMenu.classList.toggle('active');
+    mobileToggle.classList.toggle('active');
   });
 }
 
@@ -37,20 +36,8 @@ navLinks.forEach(link => {
   link.addEventListener('click', () => {
     navMenu.classList.remove('active');
     mobileToggle.classList.remove('active');
-    document.body.classList.remove('nav-open');
   });
 });
-
-// Close mobile menu when clicking outside (on backdrop)
-document.addEventListener('click', (e) => {
-  if (navMenu && navMenu.classList.contains('active')) {
-    if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
-      navMenu.classList.remove('active');
-      mobileToggle.classList.remove('active');
-      document.body.classList.remove('nav-open');
-    }
-  }
-}, { passive: true });
 
 // Smooth scrolling for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
