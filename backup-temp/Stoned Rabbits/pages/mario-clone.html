@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Super Mario Bros Clone - Stoned Rabbits</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(180deg, #0a1929 0%, #1a2f42 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: 'Press Start 2P', monospace, sans-serif;
+      color: #ffffff;
+    }
+
+    .game-container {
+      text-align: center;
+      max-width: 1000px;
+      margin: 20px;
+    }
+
+    h1 {
+      color: #FFD700;
+      text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
+      margin-bottom: 20px;
+      font-size: 2rem;
+    }
+
+    #gameCanvas {
+      display: block;
+      margin: 20px auto;
+      background: #5C94FC;
+      border: 4px solid #000;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+    }
+
+    .controls {
+      background: rgba(0, 0, 0, 0.7);
+      border: 3px solid #FFD700;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 600px;
+      color: #FFD700;
+    }
+
+    .controls h3 {
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+
+    .control-row {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .control-item {
+      background: rgba(255, 215, 0, 0.1);
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+    }
+
+    .control-item strong {
+      color: #FFF;
+    }
+
+    #gameUI {
+      display: flex;
+      justify-content: space-around;
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.8);
+      border: 2px solid #FFD700;
+      border-radius: 8px;
+    }
+
+    .ui-item {
+      text-align: center;
+    }
+
+    .ui-label {
+      color: #FFD700;
+      font-size: 0.8rem;
+      margin-bottom: 5px;
+    }
+
+    .ui-value {
+      color: #FFF;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .start-screen, .game-over-screen {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.95);
+      border: 4px solid #FFD700;
+      border-radius: 16px;
+      padding: 40px;
+      text-align: center;
+      z-index: 100;
+    }
+
+    .start-screen h2, .game-over-screen h2 {
+      color: #FFD700;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .start-screen p, .game-over-screen p {
+      color: #FFF;
+      margin: 15px 0;
+      font-size: 0.9rem;
+    }
+
+    button {
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      border: none;
+      color: #000;
+      padding: 15px 30px;
+      font-size: 1rem;
+      font-family: inherit;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      transition: transform 0.1s, box-shadow 0.1s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="game-container">
+    <h1>🍄 Super Mario Bros Clone 🍄</h1>
+
+    <!-- Game UI -->
+    <div id="gameUI">
+      <div class="ui-item">
+        <div class="ui-label">SCORE</div>
+        <div class="ui-value" id="score">000000</div>
+      </div>
+      <div class="ui-item">
+        <div class="ui-label">COINS</div>
+        <div class="ui-value" id="coins">×00</div>
+      </div>
+      <div class="ui-item">
+        <div class="ui-label">WORLD</div>
+        <div class="ui-value" id="world">1-1</div>
+      </div>
+      <div class="ui-item">
+        <div class="ui-label">TIME</div>
+        <div class="ui-value" id="time">300</div>
+      </div>
+      <div class="ui-item">
+        <div class="ui-label">LIVES</div>
+        <div class="ui-value" id="lives">×3</div>
+      </div>
+    </div>
+
+    <!-- Canvas -->
+    <canvas id="gameCanvas" width="800" height="480"></canvas>
+
+    <!-- Controls Info -->
+    <div class="controls">
+      <h3>🎮 Controls</h3>
+      <div class="control-row">
+        <div class="control-item">
+          <strong>← →</strong> or <strong>A D</strong> - Move
+        </div>
+        <div class="control-item">
+          <strong>SPACE</strong> or <strong>W</strong> - Jump
+        </div>
+        <div class="control-item">
+          <strong>SHIFT</strong> - Run
+        </div>
+        <div class="control-item">
+          <strong>R</strong> - Restart
+        </div>
+      </div>
+    </div>
+
+    <!-- Start Screen -->
+    <div id="startScreen" class="start-screen">
+      <h2>🍄 SUPER MARIO BROS 🍄</h2>
+      <p>Jump on enemies to defeat them!</p>
+      <p>Collect coins and power-ups!</p>
+      <p>Reach the flag at the end!</p>
+      <button onclick="game.startGame()">START GAME</button>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="gameOverScreen" class="game-over-screen hidden">
+      <h2>GAME OVER</h2>
+      <p>Final Score: <span id="finalScore">0</span></p>
+      <button onclick="game.restart()">TRY AGAIN</button>
+      <button onclick="location.href='../index.html'" style="background: linear-gradient(135deg, #888, #555); margin-left: 10px;">MAIN MENU</button>
+    </div>
+  </div>
+
+  <!-- Game Scripts -->
+  <script src="../js/mario/game.js"></script>
+</body>
+</html>

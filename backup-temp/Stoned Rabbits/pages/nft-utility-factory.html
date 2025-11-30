@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NFT Utility Factory — Solana Utilities</title>
+  <meta name="description" content="Utilities for Solana NFT projects: staking, pawn shop, lottery, airdrops, bots. Multi‑wallet connect." />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sen:wght@400;700&display=swap" rel="stylesheet"/>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../css/style.css"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#237253',
+            secondary: '#ed683e',
+            accent: '#ffd166',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .price-badge {
+      background: linear-gradient(135deg, #237253, #ed683e);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: 700;
+      color: white;
+      display: inline-block;
+    }
+    .service-card:hover {
+      border-color: #ffd166 !important;
+      transform: translateY(-5px);
+      transition: all 0.3s ease;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-zinc-950 text-white">
+  <header>
+  <div class="container header-container">
+    <a href="/" class="logo">NFT Utility <span>Factory</span></a>
+    <div class="mobile-toggle">
+      <i class="fas fa-bars"></i>
+    </div>
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="#utilities" class="nav-link">Services</a></li>
+      <li class="nav-item"><a href="#pricing" class="nav-link">Pricing</a></li>
+      <li class="nav-item"><a href="#roadmap" class="nav-link">Roadmap</a></li>
+      <li class="nav-item"><a href="#contact" class="nav-link">Get Started</a></li>
+      <li class="nav-item"><a href="../index.html" class="nav-link" style="color: #ffd166;">← Stoned Rabbits</a></li>
+      <li class="nav-item" style="display: flex; align-items: center; gap: 0.5rem;">
+        <select id="walletSelect" class="px-3 py-2 rounded-xl glass text-sm" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);"></select>
+        <button id="connectBtn" class="btn btn-primary">Connect</button>
+        <button id="disconnectBtn" class="btn btn-primary hidden">Disconnect</button>
+      </li>
+    </ul>
+  </div>
+</header>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
+    <div class="grid lg:grid-cols-2 gap-10 items-center">
+      <div>
+        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">Utilities for <span class="text-yellow-400">Solana</span> projects</h1>
+        <p class="mt-4 text-zinc-300 text-lg">Connect your wallet, activate powerful tools, and sell utilities to other NFT communities.<br/>“Life is a gamble, but the community always wins.”</p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="#utilities" class="btn btn-primary">Explore Utilities</a>
+          <a href="#contact" class="btn btn-muted">Collaborate</a>
+        </div>
+        <p class="mt-3 text-xs small">Testing on devnet? Set CLUSTER to 'devnet' in the script.</p>
+      </div>
+      <div class="glass rounded-2xl overflow-hidden">
+        <img src="/images/Logo.jpg" alt="Logo" class="w-full h-64 object-cover"/>
+        <div class="p-6">
+          <h3 class="text-xl font-semibold">Scalable, modular stack</h3>
+          <p class="text-zinc-300 mt-2">Staking, pawn shop, lottery, airdrops and bots as separate modules. Build and pay only for what you need.</p>
+          <div class="mt-4 flex gap-3 text-sm text-zinc-300"><span class="px-2 py-1 rounded-full glass">Auditable</span><span class="px-2 py-1 rounded-full glass">Open API</span><span class="px-2 py-1 rounded-full glass">Royalties-ready</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Game Banner -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="glass rounded-2xl p-6 border-3" style="border: 3px solid #FFD700; background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(237, 104, 62, 0.1) 100%);">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex-1">
+          <div class="text-sm font-bold text-yellow-400 mb-2">🎮 NEW LIVE DEMO!</div>
+          <h2 class="text-3xl font-bold mb-2">🏴‍☠️ Stoned Rabbits: Pirate Adventure</h2>
+          <p class="text-zinc-300 mb-4">Play our Mario Bros style platformer! Complete with enemies, collectibles, and a competitive leaderboard. This showcases what we can build for your NFT project.</p>
+          <div class="flex flex-wrap gap-3">
+            <a href="/pages/stoned-rabbits-adventure.html" class="btn btn-primary" style="font-size: 1.1rem; padding: 12px 28px;">🎮 Play Now!</a>
+            <a href="/pages/browser-game.html" class="btn btn-muted">Learn More</a>
+          </div>
+        </div>
+        <div class="glass rounded-xl p-4 text-center">
+          <div class="text-4xl mb-2">🏴‍☠️</div>
+          <div class="text-sm text-zinc-300">Full Game Engine</div>
+          <div class="text-xs text-zinc-400 mt-1">Physics • AI • Leaderboards</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="utilities" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <h2 class="text-3xl font-bold mb-6">Our Services</h2>
+    <p class="text-zinc-300 mb-8">Professional utility solutions for Solana NFT projects. Built by the Stoned Rabbits team.</p>
+    <div class="card-grid">
+      <div class="glass rounded-2xl p-6 flex flex-col service-card">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="text-lg font-semibold">Staking Platform</h3>
+          <span class="price-badge">From $500</span>
+        </div>
+        <p class="text-zinc-300 mt-2">Complete staking infrastructure for your NFT project. Custom pools, rewards tracking, and analytics dashboard.</p>
+        <ul class="mt-3 small list-disc pl-5 text-zinc-400">
+          <li>Custom staking pools with flexible lock periods</li>
+          <li>Automated reward distribution (SOL/SPL tokens)</li>
+          <li>Real-time analytics & holder dashboard</li>
+          <li>Multi-collection support</li>
+        </ul>
+        <div class="mt-auto pt-4 flex gap-2"><a class="btn btn-primary" href="#contact">Get Quote</a><a class="btn btn-muted" href="/pages/staking.html">Preview</a></div>
+      </div>
+
+      <div class="glass rounded-2xl p-6 flex flex-col service-card">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="text-lg font-semibold">Airdrop Tool</h3>
+          <span class="price-badge">From $200</span>
+        </div>
+        <p class="text-zinc-300 mt-2">Professional airdrop system with snapshot capability. Distribute tokens/SOL to holders, stakers, or custom allowlists.</p>
+        <ul class="mt-3 small list-disc pl-5 text-zinc-400">
+          <li>Snapshot by holders/stakers/CSV</li>
+          <li>Distribute SOL, USDC, or custom SPL tokens</li>
+          <li>Batch processing for gas optimization</li>
+          <li>Transaction tracking & reporting</li>
+        </ul>
+        <div class="mt-auto pt-4 flex gap-2"><a class="btn btn-primary" href="#contact">Get Quote</a><a class="btn btn-muted" href="/pages/airdrop.html">Preview</a></div>
+      </div>
+
+      <div class="glass rounded-2xl p-6 flex flex-col service-card">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="text-lg font-semibold">Discord Bot</h3>
+          <span class="price-badge">From $300</span>
+        </div>
+        <p class="text-zinc-300 mt-2">Custom Discord bot for your community. Verification, raffles, alerts, role-gating, and payment processing.</p>
+        <ul class="mt-3 small list-disc pl-5 text-zinc-400">
+          <li>NFT holder verification & role assignment</li>
+          <li>Raffle system with on-chain validation</li>
+          <li>Price alerts & marketplace notifications</li>
+          <li>Payment commands for community treasury</li>
+        </ul>
+        <div class="mt-auto pt-4 flex gap-2"><a class="btn btn-primary" href="#contact">Get Quote</a><a class="btn btn-muted" href="/pages/discord-bot.html">Preview</a></div>
+      </div>
+
+      <div class="glass rounded-2xl p-6 flex flex-col service-card">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="text-lg font-semibold">Lottery System</h3>
+          <span class="price-badge">From $400</span>
+        </div>
+        <p class="text-zinc-300 mt-2">On-chain lottery platform with smart contract integration. NFT or token prizes with customizable distributions.</p>
+        <ul class="mt-3 small list-disc pl-5 text-zinc-400">
+          <li>Smart contract prize escrow</li>
+          <li>NFT or SOL/token prizes</li>
+          <li>Custom distribution (1st: 50%, 2nd: 30%, etc.)</li>
+          <li>Provably fair random selection</li>
+        </ul>
+        <div class="mt-auto pt-4 flex gap-2"><a class="btn btn-primary" href="#contact">Get Quote</a><a class="btn btn-muted" href="/pages/lottery.html">Preview</a></div>
+      </div>
+
+      <div class="glass rounded-2xl p-6 flex flex-col service-card">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="text-lg font-semibold">NFT Pawn Shop</h3>
+          <span class="price-badge">From $800</span>
+        </div>
+        <p class="text-zinc-300 mt-2">Lending platform for NFT-backed loans. Automated valuation based on floor price and historical data.</p>
+        <ul class="mt-3 small list-disc pl-5 text-zinc-400">
+          <li>Automated NFT valuation system</li>
+          <li>Smart contract loan escrow</li>
+          <li>Magic Eden / Tensor integration</li>
+          <li>Liquidation protection mechanisms</li>
+        </ul>
+        <div class="mt-auto pt-4 flex gap-2"><a class="btn btn-primary" href="#contact">Get Quote</a><a class="btn btn-muted" href="/pages/pawnshop.html">Preview</a></div>
+      </div>
+	
+	<!-- Casino Game Design -->
+	<div class="glass rounded-2xl p-6 flex flex-col service-card">
+	  <div class="flex items-center justify-between mb-2">
+		<h3 class="text-lg font-semibold">Casino Game Design</h3>
+		<span class="price-badge">From $2,000</span>
+	  </div>
+	  <p class="text-zinc-300 mt-2">
+		Full casino game design and development. UI/UX, art, math model, and integration specs for your partner platform.
+	  </p>
+	  <ul class="mt-3 small list-disc pl-5 text-zinc-400">
+		<li>Custom RTP/volatility configuration</li>
+		<li>NFT-gated rooms & exclusive features</li>
+		<li>Themed skins & jackpot systems</li>
+		<li>Complete integration documentation</li>
+	  </ul>
+	  <div class="mt-auto pt-4 flex gap-2"><a class="btn btn-primary" href="#contact">Get Quote</a><a class="btn btn-muted" href="/pages/partner-casino.html">Preview</a></div>
+	</div>
+
+	<!-- Browser Game Development - FEATURED WITH LIVE DEMO -->
+	<div class="glass rounded-2xl p-6 flex flex-col service-card" style="border: 3px solid #FFD700; box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);">
+	  <div class="flex items-center justify-between mb-2">
+		<h3 class="text-lg font-semibold">🏴‍☠️ Browser Game <span class="text-yellow-400">(LIVE DEMO!)</span></h3>
+		<span class="price-badge">From $3,000</span>
+	  </div>
+	  <p class="text-zinc-300 mt-2">
+		Custom browser-based game development. From hyper-casual to complex roguelites with NFT integration.
+	  </p>
+	  <ul class="mt-3 small list-disc pl-5 text-zinc-400">
+		<li>Phaser/Pixi/Three.js/Unity WebGL</li>
+		<li>Leaderboards & achievement systems</li>
+		<li>NFT cosmetics & holder-only content</li>
+		<li>Token rewards & monetization design</li>
+	  </ul>
+	  <div class="mt-4 p-3 rounded-xl" style="background: rgba(255, 215, 0, 0.1); border: 2px solid #FFD700;">
+		<div class="text-sm font-semibold mb-2 text-yellow-400">✨ NEW: Stoned Rabbits Pirate Adventure ✨</div>
+		<div class="text-xs text-zinc-300 mb-2">Mario Bros style platformer - live and playable now!</div>
+		<a href="/pages/stoned-rabbits-adventure.html" class="btn btn-primary" style="width: 100%; font-size: 0.95rem; padding: 10px;">🎮 Play Demo Game Now!</a>
+	  </div>
+	  <div class="mt-auto pt-4 flex gap-2"><a class="btn btn-primary" href="#contact">Get Quote</a><a class="btn btn-muted" href="/pages/browser-game.html">See More</a></div>
+	</div>	
+	</div>
+</section>
+
+  <!-- Pricing Section -->
+  <section id="pricing" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <h2 class="text-3xl font-bold mb-6 text-center">Pricing Packages</h2>
+    <p class="text-zinc-300 mb-12 text-center max-w-3xl mx-auto">Choose the package that fits your project's needs. All packages include setup, testing, and 30 days of support.</p>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <!-- Starter Package -->
+      <div class="glass rounded-2xl p-8 border-2 border-transparent hover:border-accent transition-all">
+        <div class="text-center">
+          <h3 class="text-2xl font-bold mb-2">Starter</h3>
+          <div class="text-5xl font-bold text-accent my-6">$500</div>
+          <p class="text-zinc-300 mb-6">Perfect for new projects</p>
+        </div>
+        <ul class="space-y-3 text-sm">
+          <li class="flex items-start gap-2">
+            <span class="text-primary text-xl">✓</span>
+            <span>1 Basic Utility (Staking or Airdrop)</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-primary text-xl">✓</span>
+            <span>Standard UI with your branding</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-primary text-xl">✓</span>
+            <span>Basic analytics dashboard</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-primary text-xl">✓</span>
+            <span>30 days support</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-primary text-xl">✓</span>
+            <span>Setup & deployment</span>
+          </li>
+        </ul>
+        <a href="#contact" class="btn btn-muted w-full mt-8 block text-center">Get Started</a>
+      </div>
+
+      <!-- Professional Package -->
+      <div class="glass rounded-2xl p-8 border-2 border-accent relative">
+        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-accent text-black px-4 py-1 rounded-full text-sm font-bold">
+          POPULAR
+        </div>
+        <div class="text-center">
+          <h3 class="text-2xl font-bold mb-2">Professional</h3>
+          <div class="text-5xl font-bold text-accent my-6">$2,000</div>
+          <p class="text-zinc-300 mb-6">For established projects</p>
+        </div>
+        <ul class="space-y-3 text-sm">
+          <li class="flex items-start gap-2">
+            <span class="text-primary text-xl">✓</span>
+            <span>Up to 3 Utilities of your choice</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-primary text-xl">✓</span>
+            <span>Custom UI design & branding</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-primary text-xl">✓</span>
+            <span>Advanced analytics & reporting</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-primary text-xl">✓</span>
+            <span>Discord bot integration</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-primary text-xl">✓</span>
+            <span>90 days support + updates</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-primary text-xl">✓</span>
+            <span>Priority deployment</span>
+          </li>
+        </ul>
+        <a href="#contact" class="btn btn-primary w-full mt-8 block text-center">Get Started</a>
+      </div>
+
+      <!-- Enterprise Package -->
+      <div class="glass rounded-2xl p-8 border-2 border-transparent hover:border-accent transition-all">
+        <div class="text-center">
+          <h3 class="text-2xl font-bold mb-2">Enterprise</h3>
+          <div class="text-5xl font-bold text-accent my-6">Custom</div>
+          <p class="text-zinc-300 mb-6">Tailored solutions</p>
+        </div>
+        <ul class="space-y-3 text-sm">
+          <li class="flex items-start gap-2">
+            <span class="text-primary text-xl">✓</span>
+            <span>Unlimited utilities & features</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-primary text-xl">✓</span>
+            <span>Fully custom development</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-primary text-xl">✓</span>
+            <span>White-label solutions</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-primary text-xl">✓</span>
+            <span>Casino/Game development</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-primary text-xl">✓</span>
+            <span>Dedicated developer support</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-primary text-xl">✓</span>
+            <span>Lifetime updates & maintenance</span>
+          </li>
+        </ul>
+        <a href="#contact" class="btn btn-muted w-full mt-8 block text-center">Contact Us</a>
+      </div>
+    </div>
+
+    <!-- Payment Methods -->
+    <div class="mt-12 text-center">
+      <h3 class="text-xl font-semibold mb-4">Flexible Payment Options</h3>
+      <div class="flex justify-center gap-6 flex-wrap text-zinc-300">
+        <div class="flex items-center gap-2">
+          <i class="fas fa-wallet text-accent text-2xl"></i>
+          <span>SOL Payment</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <i class="fas fa-coins text-accent text-2xl"></i>
+          <span>USDC Stable</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <i class="fas fa-handshake text-accent text-2xl"></i>
+          <span>Revenue Share</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <i class="fas fa-calendar-alt text-accent text-2xl"></i>
+          <span>Monthly Plans</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="roadmap" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <h2 class="text-3xl font-bold mb-6">Roadmap</h2>
+    <div class="grid md:grid-cols-2 gap-4">
+      <div class="glass rounded-2xl p-6"><div class="text-sm text-yellow-400 font-semibold">Q4 2025</div><div class="text-xl font-semibold">MVP launch</div><div class="text-zinc-300 mt-1">Wallet connect, staking v1 UI, pawn & lottery demo, first bot release</div></div>
+      <div class="glass rounded-2xl p-6"><div class="text-sm text-yellow-400 font-semibold">Q1 2026</div><div class="text-xl font-semibold">Mainnet programs</div><div class="text-zinc-300 mt-1">Audit track, staking & pawnshop live</div></div>
+    </div>
+  </section>
+
+  <!-- Get Started / Contact Form -->
+  <section id="contact" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+    <div class="max-w-4xl mx-auto">
+      <div class="glass rounded-2xl p-8 border-2 border-accent">
+        <div class="text-center mb-8">
+          <h2 class="text-3xl font-bold mb-4">Ready to Build?</h2>
+          <p class="text-zinc-300">Fill out the form below and we'll get back to you within 24 hours with a custom quote.</p>
+        </div>
+
+        <form class="space-y-6" id="projectForm">
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-semibold mb-2">Project Name *</label>
+              <input
+                type="text"
+                name="projectName"
+                placeholder="Stoned Koalas NFT"
+                class="w-full rounded-xl glass px-4 py-3"
+                required
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-semibold mb-2">Contact Person *</label>
+              <input
+                type="text"
+                name="contactPerson"
+                placeholder="Your Name"
+                class="w-full rounded-xl glass px-4 py-3"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-semibold mb-2">Email *</label>
+              <input
+                type="email"
+                name="email"
+                placeholder="your@email.com"
+                class="w-full rounded-xl glass px-4 py-3"
+                required
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-semibold mb-2">Discord / Twitter</label>
+              <input
+                type="text"
+                name="social"
+                placeholder="@yourhandle"
+                class="w-full rounded-xl glass px-4 py-3"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold mb-2">Collection Address (if applicable)</label>
+            <input
+              type="text"
+              name="collection"
+              placeholder="Your Solana collection address"
+              class="w-full rounded-xl glass px-4 py-3"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold mb-2">Package Selection *</label>
+            <select name="package" class="w-full rounded-xl glass px-4 py-3" required>
+              <option value="">Select a package...</option>
+              <option value="starter">Starter - $500</option>
+              <option value="professional">Professional - $2,000</option>
+              <option value="enterprise">Enterprise - Custom</option>
+              <option value="custom">Custom Quote</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold mb-2">Services Needed *</label>
+            <div class="grid md:grid-cols-2 gap-3">
+              <label class="flex items-center gap-2 glass rounded-xl px-4 py-3 cursor-pointer hover:border-accent border-2 border-transparent transition-all">
+                <input type="checkbox" name="services" value="staking" class="w-5 h-5" style="accent-color: #ffd166;"/>
+                <span>Staking Platform</span>
+              </label>
+              <label class="flex items-center gap-2 glass rounded-xl px-4 py-3 cursor-pointer hover:border-accent border-2 border-transparent transition-all">
+                <input type="checkbox" name="services" value="airdrop" class="w-5 h-5" style="accent-color: #ffd166;"/>
+                <span>Airdrop Tool</span>
+              </label>
+              <label class="flex items-center gap-2 glass rounded-xl px-4 py-3 cursor-pointer hover:border-accent border-2 border-transparent transition-all">
+                <input type="checkbox" name="services" value="discord" class="w-5 h-5" style="accent-color: #ffd166;"/>
+                <span>Discord Bot</span>
+              </label>
+              <label class="flex items-center gap-2 glass rounded-xl px-4 py-3 cursor-pointer hover:border-accent border-2 border-transparent transition-all">
+                <input type="checkbox" name="services" value="lottery" class="w-5 h-5" style="accent-color: #ffd166;"/>
+                <span>Lottery System</span>
+              </label>
+              <label class="flex items-center gap-2 glass rounded-xl px-4 py-3 cursor-pointer hover:border-accent border-2 border-transparent transition-all">
+                <input type="checkbox" name="services" value="pawnshop" class="w-5 h-5" style="accent-color: #ffd166;"/>
+                <span>NFT Pawn Shop</span>
+              </label>
+              <label class="flex items-center gap-2 glass rounded-xl px-4 py-3 cursor-pointer hover:border-accent border-2 border-transparent transition-all">
+                <input type="checkbox" name="services" value="casino" class="w-5 h-5" style="accent-color: #ffd166;"/>
+                <span>Casino Game</span>
+              </label>
+              <label class="flex items-center gap-2 glass rounded-xl px-4 py-3 cursor-pointer hover:border-accent border-2 border-transparent transition-all">
+                <input type="checkbox" name="services" value="game" class="w-5 h-5" style="accent-color: #ffd166;"/>
+                <span>Browser Game</span>
+              </label>
+              <label class="flex items-center gap-2 glass rounded-xl px-4 py-3 cursor-pointer hover:border-accent border-2 border-transparent transition-all">
+                <input type="checkbox" name="services" value="other" class="w-5 h-5" style="accent-color: #ffd166;"/>
+                <span>Other / Custom</span>
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold mb-2">Project Details *</label>
+            <textarea
+              name="details"
+              placeholder="Tell us about your project, timeline, specific requirements, and any questions you have..."
+              class="w-full rounded-xl glass px-4 py-3 min-h-[150px]"
+              required
+            ></textarea>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold mb-2">Preferred Payment Method</label>
+            <select name="payment" class="w-full rounded-xl glass px-4 py-3">
+              <option value="">Select payment method...</option>
+              <option value="sol">SOL</option>
+              <option value="usdc">USDC</option>
+              <option value="revenue">Revenue Share</option>
+              <option value="monthly">Monthly Installments</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold mb-2">Timeline</label>
+            <select name="timeline" class="w-full rounded-xl glass px-4 py-3">
+              <option value="">When do you need this ready?</option>
+              <option value="urgent">ASAP (1-2 weeks)</option>
+              <option value="fast">Fast (2-4 weeks)</option>
+              <option value="normal">Normal (1-2 months)</option>
+              <option value="flexible">Flexible (2+ months)</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-full text-lg py-4">
+            Submit Project Request
+          </button>
+
+          <p class="text-sm text-zinc-400 text-center">
+            By submitting this form, you agree to be contacted by our team. We typically respond within 24 hours.
+          </p>
+        </form>
+      </div>
+
+      <!-- FAQ Below Contact Form -->
+      <div class="grid md:grid-cols-2 gap-4 mt-12">
+        <div class="glass rounded-2xl p-6">
+          <div class="font-semibold mb-2">Which wallets do you support?</div>
+          <div class="text-zinc-300 text-sm">All major Solana wallets including Phantom, Solflare, and Backpack. Auto-detection via browser extensions.</div>
+        </div>
+        <div class="glass rounded-2xl p-6">
+          <div class="font-semibold mb-2">Do you offer ongoing support?</div>
+          <div class="text-zinc-300 text-sm">Yes! All packages include initial support. We also offer monthly maintenance plans starting at $200/month.</div>
+        </div>
+        <div class="glass rounded-2xl p-6">
+          <div class="font-semibold mb-2">Can I customize the utilities?</div>
+          <div class="text-zinc-300 text-sm">Absolutely! Professional and Enterprise packages include full customization of UI, features, and integrations.</div>
+        </div>
+        <div class="glass rounded-2xl p-6">
+          <div class="font-semibold mb-2">What about smart contract audits?</div>
+          <div class="text-zinc-300 text-sm">We work with trusted audit partners. Audit costs are separate but we handle the entire process for you.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-12 mt-12 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-3 gap-8 mb-8">
+        <div>
+          <h3 class="font-semibold text-lg mb-4">NFT Utility Factory</h3>
+          <p class="text-sm text-zinc-400">Professional utility solutions for Solana NFT projects. Built by the Stoned Rabbits team.</p>
+        </div>
+        <div>
+          <h3 class="font-semibold text-lg mb-4">Quick Links</h3>
+          <ul class="space-y-2 text-sm text-zinc-400">
+            <li><a href="#utilities" class="hover:text-white">Services</a></li>
+            <li><a href="#pricing" class="hover:text-white">Pricing</a></li>
+            <li><a href="#roadmap" class="hover:text-white">Roadmap</a></li>
+            <li><a href="#contact" class="hover:text-white">Get Started</a></li>
+            <li><a href="../Stoned Rabbits/index.html" class="hover:text-accent">← Back to Stoned Rabbits</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-semibold text-lg mb-4">Connect</h3>
+          <div class="flex gap-4 mb-4">
+            <a href="https://x.com/StonedRabbitts" class="text-2xl hover:text-accent transition-colors"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://t.me/+9PlKBM3aBeY0MTU0" class="text-2xl hover:text-accent transition-colors"><i class="fab fa-telegram"></i></a>
+            <a href="https://discord.gg/px9kyxbBhc" class="text-2xl hover:text-accent transition-colors"><i class="fab fa-discord"></i></a>
+          </div>
+          <p class="text-sm text-zinc-400">Join our community for updates and support.</p>
+        </div>
+      </div>
+      <div class="border-t border-white/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-zinc-400">
+        <div>© <span id="year"></span> NFT Utility Factory by Stoned Rabbits. All rights reserved.</div>
+        <div class="flex items-center gap-4">
+          <a href="#" class="hover:text-white">Terms</a>
+          <a href="#" class="hover:text-white">Privacy</a>
+          <a href="#" class="hover:text-white">Docs</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const PREVIEW_PROJECTS=[{name:'JellyJaguars',apr:12,tvl:1800},{name:'Rogue Koalas',apr:15,tvl:2300},{name:'MetaNautz',apr:9,tvl:950}];
+    function renderStakingPreview(){const box=document.getElementById('stakingPreview');box.innerHTML=PREVIEW_PROJECTS.slice(0,3).map(p=>`<div class='flex items-center justify-between glass rounded-xl p-2'><div class='truncate'>${p.name}</div><div class='text-xs text-zinc-400'>APR <b>${p.apr}%</b> · TVL <b>${p.tvl} SOL</b></div></div>`).join('');}
+    document.getElementById('year').textContent=new Date().getFullYear();renderStakingPreview();
+  </script>
+
+  <script src="../js/main.js"></script>
+  <script src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.js"></script>
+  <script>
+    const CLUSTER='mainnet-beta';
+    const ENDPOINT=(CLUSTER==='devnet')?'https://api.devnet.solana.com':'https://api.mainnet-beta.solana.com';
+    let connection=null,activeProvider=null;const connectBtn=document.getElementById('connectBtn');const disconnectBtn=document.getElementById('disconnectBtn');const walletSelect=document.getElementById('walletSelect');
+    function asArray(x){return Array.isArray(x)?x:(x?[x]:[]);}function labelForProvider(p){if(p?.isPhantom)return'Phantom';if(p?.isSolflare)return'Solflare';if(p?.isBackpack||p?.name==='Backpack')return'Backpack';if(p?.wallet?.name)return p.wallet.name;return'Wallet'}
+    function getAllProviders(){const w=window;const s=new Set();asArray(w?.solana?.providers).forEach(p=>p&&s.add(p));if(w?.solana&&!asArray(w.solana.providers).length)s.add(w.solana);if(w?.backpack?.solana)s.add(w.backpack.solana);if(w?.phantom?.solana)s.add(w.phantom.solana);if(w?.solflare)s.add(w.solflare);return Array.from(s)}
+    function populateWalletSelect(){const ps=getAllProviders();walletSelect.innerHTML='';ps.forEach((p,i)=>{const o=document.createElement('option');o.value=i;o.textContent=labelForProvider(p);walletSelect.appendChild(o)});walletSelect.classList.toggle('hidden',ps.length<=1);return ps}
+    async function connectSelected(){const ps=populateWalletSelect();if(ps.length===0){window.open('https://phantom.app/','_blank');return}const idx=parseInt(walletSelect.value||'0',10)||0;const provider=ps[idx];try{const res=await provider.connect();const pk=res?.publicKey?.toString?.()||provider.publicKey?.toString?.();activeProvider=provider;connection=new solanaWeb3.Connection(ENDPOINT,'confirmed');connectBtn.classList.add('hidden');disconnectBtn.classList.remove('hidden');console.log(`[${labelForProvider(provider)}] Connected:`,pk)}catch(e){alert('Failed to connect wallet.')}}
+    async function disconnectSelected(){try{await activeProvider?.disconnect?.()}catch(e){}activeProvider=null;connectBtn.classList.remove('hidden');disconnectBtn.classList.add('hidden')}
+    connectBtn.addEventListener('click',connectSelected);disconnectBtn.addEventListener('click',disconnectSelected);
+    for(const p of ps){try{const res=await p.connect({onlyIfTrusted:true});if(res?.publicKey||p.publicKey){activeProvider=p;connection=new solanaWeb3.Connection(ENDPOINT,'confirmed');connectBtn.classList.add('hidden');disconnectBtn.classList.remove('hidden');break}}catch(_){} }})
+  </script>
+
+  <script>
+    // Project Form Submission Handler
+    document.getElementById('projectForm')?.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Collect form data
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData.entries());
+
+      // Collect selected services
+      const services = Array.from(document.querySelectorAll('input[name="services"]:checked'))
+        .map(cb => cb.value);
+      data.services = services;
+
+      // Log the data (in production, send to your backend/CRM)
+      console.log('Project Request:', data);
+
+      // Show success message
+      alert('Thank you for your interest! We\'ll get back to you within 24 hours.\n\nProject: ' + data.projectName + '\nPackage: ' + data.package);
+
+      // Optionally reset form
+      e.target.reset();
+
+      // TODO: Send to backend API or email service
+      // Example:
+      // fetch('/api/submit-project', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(data)
+      // });
+    });
+  </script>
+</body>
+</html>

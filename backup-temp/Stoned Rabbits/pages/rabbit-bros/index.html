@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Rabbit Bros. (Stoned Pirate Edition)</title>
+    <style>
+        body {
+            background-color: #1a0b2e;
+            /* Dark purple background */
+            color: #00ff9d;
+            /* Neon green text */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+            overflow: hidden;
+        }
+
+        #game-container {
+            position: relative;
+            box-shadow: 0 0 20px #ff00ff;
+            /* Neon pink glow */
+            border: 4px solid #00ff9d;
+        }
+
+        canvas {
+            display: block;
+            image-rendering: pixelated;
+            /* Critical for NES look */
+            width: 768px;
+            /* 3x scale of 256px */
+            height: 720px;
+            /* 3x scale of 240px */
+            background-color: #000;
+        }
+
+        .scanlines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom,
+                    rgba(255, 255, 255, 0),
+                    rgba(255, 255, 255, 0) 50%,
+                    rgba(0, 0, 0, 0.2) 50%,
+                    rgba(0, 0, 0, 0.2));
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 10;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="game-container">
+        <canvas id="nes-screen" width="256" height="240"></canvas>
+        <div class="scanlines"></div>
+        <button id="btn-mute"
+            style="position: absolute; top: 10px; right: 10px; z-index: 100; background: rgba(0,0,0,0.5); color: white; border: 1px solid white; padding: 5px 10px; cursor: pointer; font-family: monospace;">UNMUTE</button>
+
+        <!-- Touch Controls -->
+        <div id="touch-controls"
+            style="position: absolute; bottom: 20px; width: 100%; height: 120px; pointer-events: none; display: flex; justify-content: space-between; padding: 0 20px; box-sizing: border-box;">
+            <div style="pointer-events: auto; display: flex; gap: 10px;">
+                <button id="btn-left"
+                    style="width: 80px; height: 80px; background: rgba(255,255,255,0.2); border: 2px solid white; border-radius: 50%; color: white; font-size: 24px;">&larr;</button>
+                <button id="btn-right"
+                    style="width: 80px; height: 80px; background: rgba(255,255,255,0.2); border: 2px solid white; border-radius: 50%; color: white; font-size: 24px;">&rarr;</button>
+            </div>
+            <div style="pointer-events: auto; display: flex; gap: 10px;">
+                <button id="btn-b"
+                    style="width: 80px; height: 80px; background: rgba(255,200,0,0.4); border: 2px solid white; border-radius: 50%; color: white; font-size: 24px; font-weight: bold;">B</button>
+                <button id="btn-a"
+                    style="width: 80px; height: 80px; background: rgba(255,0,0,0.4); border: 2px solid white; border-radius: 50%; color: white; font-size: 24px; font-weight: bold;">A</button>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="src/main.js?v=8"></script>
+</body>
+
+</html>

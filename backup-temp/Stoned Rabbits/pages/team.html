@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Team - Stoned Rabbits</title>
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon"/>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sen:wght@400;700&display=swap" rel="stylesheet"/>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <!-- AOS Animation Library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"/>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../css/style.css"/>
+  <!-- Mobile Menu Fix -->
+  <style>
+    @media (max-width: 768px) {
+      .nav-menu {
+        background-color: #000000 !important;
+      }
+      .nav-menu .nav-item,
+      .nav-menu li {
+        background-color: #000000 !important;
+      }
+      .nav-link {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+      }
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .team-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .team-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 209, 102, 0.5);
+      box-shadow: 0 10px 30px rgba(255, 209, 102, 0.2);
+    }
+
+    .team-avatar {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin: 0 auto 1.5rem;
+      border: 3px solid #ffd166;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(255, 209, 102, 0.2), rgba(255, 209, 102, 0.05));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+    }
+
+    .team-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .team-card h3 {
+      color: #ffd166;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .team-role {
+      color: #999;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .team-card p {
+      color: #ccc;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .team-social {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .team-social a {
+      color: #ffd166;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    .team-social a:hover {
+      color: #fff;
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-container">
+      <a href="../index.html" class="logo">Stoned<span>Rabbits</span></a>
+      <div class="mobile-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="../index.html" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="./stoned-rabbits.html" class="nav-link">Stoned Rabbits</a></li>
+        <li class="nav-item"><a href="./revenue-pass.html" class="nav-link">Revenue Pass</a></li>
+        <li class="nav-item"><a href="./lottery.html" class="nav-link">Lottery</a></li>
+        <li class="nav-item"><a href="./utilities.html" class="nav-link">Utilities</a></li>
+        <li class="nav-item"><a href="./team.html" class="nav-link">Team</a></li>
+        <li class="nav-item"><a href="./partners.html" class="nav-link">Partners</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" style="min-height: 60vh; padding-top: 100px;">
+    <div class="hero-content">
+      <h1 class="hero-title" data-aos="fade">Meet Our Team</h1>
+      <p class="hero-subtitle" data-aos="fade" data-aos-delay="100">The stoned minds behind Stoned Rabbits</p>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="about">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Core Team</h2>
+        <p>Passionate creators building the future of NFTs on Solana</p>
+      </div>
+
+      <div class="team-grid">
+        <!-- Founder / Project Lead -->
+        <div class="team-card" data-aos="fade-up">
+          <div class="team-avatar">
+            <img src="../images/rabbits_1.jpg" alt="Chief Rabbit">
+          </div>
+          <h3>Chief Rabbit</h3>
+          <div class="team-role">Founder & Project Lead</div>
+          <p>Visionary behind Stoned Rabbits. Leading the project strategy and community growth initiatives.</p>
+          <div class="team-social">
+            <a href="https://x.com/StonedRabbitts" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://discord.gg/px9kyxbBhc" target="_blank"><i class="fab fa-discord"></i></a>
+          </div>
+        </div>
+
+        <!-- Artist -->
+        <div class="team-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="team-avatar">
+            <img src="../images/rabbits_2.jpg" alt="Art Rabbit">
+          </div>
+          <h3>Art Rabbit</h3>
+          <div class="team-role">Lead Artist</div>
+          <p>Creator of the unique Stoned Rabbits artwork and trait designs. Bringing the vision to life pixel by pixel.</p>
+          <div class="team-social">
+            <a href="https://x.com/StonedRabbitts" target="_blank"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+
+        <!-- Developer -->
+        <div class="team-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="team-avatar">
+            <img src="../images/rabbits_3.jpg" alt="Code Rabbit">
+          </div>
+          <h3>Code Rabbit</h3>
+          <div class="team-role">Lead Developer</div>
+          <p>Building the technical infrastructure, utilities, and smart contracts that power the Stoned Rabbits ecosystem.</p>
+          <div class="team-social">
+            <a href="https://discord.gg/px9kyxbBhc" target="_blank"><i class="fab fa-discord"></i></a>
+          </div>
+        </div>
+
+        <!-- Community Manager -->
+        <div class="team-card" data-aos="fade-up">
+          <div class="team-avatar">
+            <img src="../images/rabbits_4.jpg" alt="Community Rabbit">
+          </div>
+          <h3>Community Rabbit</h3>
+          <div class="team-role">Community Manager</div>
+          <p>Managing our vibrant community across Discord, Twitter, and Telegram. Always here to help!</p>
+          <div class="team-social">
+            <a href="https://t.me/+9PlKBM3aBeY0MTU0" target="_blank"><i class="fab fa-telegram"></i></a>
+            <a href="https://discord.gg/px9kyxbBhc" target="_blank"><i class="fab fa-discord"></i></a>
+          </div>
+        </div>
+
+        <!-- Marketing -->
+        <div class="team-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="team-avatar">
+            <img src="../images/rabbits_5.jpg" alt="Hype Rabbit">
+          </div>
+          <h3>Hype Rabbit</h3>
+          <div class="team-role">Marketing Lead</div>
+          <p>Spreading the word about Stoned Rabbits and building strategic partnerships in the NFT space.</p>
+          <div class="team-social">
+            <a href="https://x.com/StonedRabbitts" target="_blank"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+
+        <!-- Operations -->
+        <div class="team-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="team-avatar">
+            <img src="../images/rabbits_6.jpg" alt="Ops Rabbit">
+          </div>
+          <h3>Ops Rabbit</h3>
+          <div class="team-role">Operations Manager</div>
+          <p>Keeping everything running smoothly. Managing partnerships, utilities, and project operations.</p>
+          <div class="team-social">
+            <a href="https://discord.gg/px9kyxbBhc" target="_blank"><i class="fab fa-discord"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Join the Team Section -->
+      <div style="margin-top: 5rem; text-align: center; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 3rem;" data-aos="fade-up">
+        <h3 style="color: #ffd166; font-size: 2rem; margin-bottom: 1rem;">Want to Join the Team?</h3>
+        <p style="color: #ccc; font-size: 1.1rem; max-width: 600px; margin: 0 auto 2rem auto; line-height: 1.6;">
+          We're always looking for talented and passionate individuals to join the Stoned Rabbits family.
+          Reach out to us on Discord if you think you'd be a great fit!
+        </p>
+        <a href="https://discord.gg/px9kyxbBhc" target="_blank" class="btn btn-primary">
+          <i class="fab fa-discord"></i> Join Our Discord
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>Stoned Rabbits</h3>
+          <p>A collection of 3,333 unique NFTs living on the Solana blockchain.</p>
+          <div class="social-links">
+            <a href="https://x.com/StonedRabbitts" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://t.me/+9PlKBM3aBeY0MTU0" target="_blank"><i class="fab fa-telegram"></i></a>
+            <a href="https://discord.gg/px9kyxbBhc" target="_blank"><i class="fab fa-discord"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="./stoned-rabbits.html">Stoned Rabbits</a></li>
+            <li><a href="./revenue-pass.html">Revenue Pass</a></li>
+            <li><a href="./lottery.html">Lottery</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Resources</h3>
+          <ul class="footer-links">
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="https://magiceden.us/marketplace/stonned_rabitts" target="_blank">Magic Eden</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="copyright">© 2025 Stoned Rabbits. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    // Initialize AOS
+    AOS.init({
+      duration: 800,
+      once: true
+    });
+  </script>
+</body>
+</html>

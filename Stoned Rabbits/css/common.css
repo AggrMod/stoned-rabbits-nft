@@ -7,13 +7,35 @@
 /* ============================================
    MOBILE MENU FIX
    Ensures hamburger menu works on all pages
+   Uses transform instead of right for better performance
    ============================================ */
+
+/* Lock body scroll when nav is open */
+body.nav-open {
+  overflow: hidden;
+}
+
 @media (max-width: 768px) {
+  /* Ensure header doesn't cause horizontal scroll */
+  header,
+  .header-container {
+    width: 100vw;
+    max-width: 100vw;
+    overflow: hidden;
+  }
+
+  /* Keep header/nav above all content on mobile */
+  header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 2000 !important;
+  }
+
   .mobile-toggle {
     display: block !important;
-    position: relative !important;
-    z-index: 1002 !important;
-    margin-left: auto !important;
+    position: relative;
+    z-index: 2002 !important;
     font-size: 1.5rem;
     cursor: pointer;
     color: #ffffff;
@@ -23,21 +45,24 @@
   .nav-menu {
     display: flex !important;
     position: fixed !important;
-    top: 0 !important;
-    right: -100% !important;
-    width: 80% !important;
-    max-width: 300px !important;
+    inset: 0 0 0 auto !important;
+    right: 0 !important;
+    left: auto !important;
+    width: 75vw !important;
+    max-width: 320px !important;
     height: 100vh !important;
     background-color: #000000 !important;
     flex-direction: column !important;
     justify-content: center !important;
     align-items: center !important;
-    z-index: 1001 !important;
-    transition: right 0.3s ease !important;
+    z-index: 2001 !important;
+    transform: translateX(100%);
+    transition: transform 0.3s ease !important;
+    box-shadow: -8px 0 24px rgba(0, 0, 0, 0.55);
   }
 
   .nav-menu.active {
-    right: 0 !important;
+    transform: translateX(0) !important;
   }
 
   .nav-menu .nav-item,
@@ -50,6 +75,11 @@
     background-color: #000000 !important;
     color: #ffffff !important;
     font-size: 1.1rem;
+  }
+
+  /* Backdrop disabled - was causing stuck overlay on some devices */
+  body.nav-open::after {
+    content: none;
   }
 }
 

@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revenue Sharing Pass - Stoned Rabbits</title>
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon"/>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sen:wght@400;700&display=swap" rel="stylesheet"/>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <!-- AOS Animation Library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"/>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="stylesheet" href="../css/grid-styles.css"/>
+
+  <style>
+    /* Hero fix - ensure visible below fixed header */
+    .hero {
+      padding-top: 100px !important;
+    }
+
+    /* Mobile Menu Fix */
+    @media (max-width: 768px) {
+      .mobile-toggle {
+        display: block !important;
+      }
+      .nav-menu {
+        background-color: #000000 !important;
+        position: fixed !important;
+        top: 0 !important;
+        right: -100% !important;
+        width: 80% !important;
+        max-width: 300px !important;
+        height: 100vh !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        z-index: 1001 !important;
+      }
+      .nav-menu.active {
+        right: 0 !important;
+      }
+      .nav-menu .nav-item,
+      .nav-menu li {
+        background-color: #000000 !important;
+        margin: 1rem 0 !important;
+      }
+      .nav-link {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+      }
+    }
+
+    /* Additional styles for Revenue Pass page */
+    .pass-hero {
+      background: linear-gradient(135deg, rgba(35, 114, 83, 0.3), rgba(237, 104, 62, 0.3));
+      border: 2px solid rgba(255, 209, 102, 0.3);
+      padding: 3rem 2rem;
+      border-radius: 20px;
+      margin: 2rem 0;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 209, 102, 0.5);
+      box-shadow: 0 10px 30px rgba(255, 209, 102, 0.2);
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #ffd166;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 1rem;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .benefit-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .benefit-card:hover {
+      border-color: rgba(237, 104, 62, 0.5);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .benefit-icon {
+      font-size: 3rem;
+      color: #ffd166;
+      margin-bottom: 1rem;
+    }
+
+    .timeline-badge {
+      background: linear-gradient(135deg, #237253, #ed683e);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+
+    .slot-preview {
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid rgba(255, 209, 102, 0.3);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .slot-preview h4 {
+      color: #ffd166;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .price-display {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #ffd166;
+      text-shadow: 0 0 20px rgba(255, 209, 102, 0.5);
+    }
+
+    .magic-eden-badge {
+      background: linear-gradient(135deg, #e42575, #8a42f5);
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .magic-eden-badge:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 30px rgba(228, 37, 117, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-container">
+      <a href="../index.html" class="logo">Stoned<span>Rabbits</span></a>
+      <div class="mobile-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="../index.html" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="./stoned-rabbits.html" class="nav-link">Stoned Rabbits</a></li>
+        <li class="nav-item"><a href="./revenue-pass.html" class="nav-link active">Revenue Pass</a></li>
+        <li class="nav-item"><a href="./lottery.html" class="nav-link">Lottery</a></li>
+        <li class="nav-item"><a href="./utilities.html" class="nav-link">Utilities</a></li>
+        <li class="nav-item"><a href="./team.html" class="nav-link">Team</a></li>
+        <li class="nav-item"><a href="./partners.html" class="nav-link">Partners</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" style="min-height: 70vh;">
+    <div class="hero-content" data-aos="fade">
+      <h1 class="hero-title">Revenue Sharing Pass</h1>
+      <p class="hero-subtitle" style="font-size: 1.5rem; margin: 2rem 0;">
+        <span class="price-display">777 Exclusive Passes</span>
+      </p>
+      <p class="hero-subtitle">
+        Lifetime earnings from 5+ slot machines launching Q1 2026<br/>
+        Mint: <strong>0.77 SOL</strong> | Future art reveal coming soon
+      </p>
+      <div class="hero-btns" data-aos="fade-up" data-aos-delay="100">
+        <a href="https://www.launchmynft.io/collections/FASjLAkEkeDnD68FxdEFBn7zn6ksdphqxRhJcZnRzZWq/31QF4iIaMO27sD6Lhyzs" target="_blank" class="btn btn-primary">
+          <i class="fas fa-rocket"></i> Mint Now
+        </a>
+        <a href="https://magiceden.io/marketplace/stoned_rabbits_revenue_sharing_pass" target="_blank" class="btn">
+          <i class="fas fa-shopping-cart"></i> Buy on Magic Eden
+        </a>
+        <a href="#benefits" class="btn btn-outline">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Collection Stats -->
+  <section class="about">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Collection Stats</h2>
+        <p>Real-time data from the Solana blockchain</p>
+      </div>
+
+      <div class="about-content" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+        <div class="stat-card" data-aos="fade-up">
+          <span class="stat-number">777</span>
+          <span class="stat-label">Total Supply</span>
+        </div>
+
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+          <span class="stat-number">0.77</span>
+          <span class="stat-label">Mint Price (SOL)</span>
+        </div>
+
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+          <span class="stat-number" id="floor-price-pass">Loading...</span>
+          <span class="stat-label">Floor Price (SOL)</span>
+        </div>
+
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+          <span class="stat-number" id="holders-count">Loading...</span>
+          <span class="stat-label">Unique Holders</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section id="benefits" class="nft-showcase">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Pass Holder Benefits</h2>
+        <p>What you get with your Revenue Sharing Pass</p>
+      </div>
+
+      <div class="about-content" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+        <div class="benefit-card" data-aos="fade-up">
+          <div class="benefit-icon">
+            <i class="fas fa-coins"></i>
+          </div>
+          <h3>Lifetime Revenue Share</h3>
+          <p>Earn passive income from 5+ Stoned Rabbits themed slot machines. Monthly distributions directly to your wallet based on casino performance.</p>
+          <div class="timeline-badge">Q1 2026 Launch</div>
+        </div>
+
+        <div class="benefit-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="benefit-icon">
+            <i class="fas fa-palette"></i>
+          </div>
+          <h3>Future Art Reveal</h3>
+          <p>Your pass will transform with exclusive artwork reveal. Each of the 777 passes will have unique traits and rarity.</p>
+          <div class="timeline-badge">Coming Soon</div>
+        </div>
+
+        <div class="benefit-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="benefit-icon">
+            <i class="fas fa-crown"></i>
+          </div>
+          <h3>Exclusive Access</h3>
+          <p>VIP access to holder-only events, early access to new utilities, and special Discord channels for pass holders.</p>
+          <div class="timeline-badge">Active Now</div>
+        </div>
+
+        <div class="benefit-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="benefit-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>No Listing Required</h3>
+          <p>Simply hold your pass in your wallet (unlisted) to receive monthly revenue share. List it anytime you want to sell.</p>
+          <div class="timeline-badge">Passive Income</div>
+        </div>
+
+        <div class="benefit-card" data-aos="fade-up" data-aos-delay="400">
+          <div class="benefit-icon">
+            <i class="fas fa-gift"></i>
+          </div>
+          <h3>Holder Airdrops</h3>
+          <p>Regular airdrops of SOL, tokens, and other surprises. Pass holders always get priority in our ecosystem.</p>
+          <div class="timeline-badge">Ongoing</div>
+        </div>
+
+        <div class="benefit-card" data-aos="fade-up" data-aos-delay="500">
+          <div class="benefit-icon">
+            <i class="fas fa-infinity"></i>
+          </div>
+          <h3>Lifetime Value</h3>
+          <p>No expiration, no fees. Your pass generates revenue for life as long as the slot machines operate.</p>
+          <div class="timeline-badge">Forever</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slot Machine Details -->
+  <section class="about">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>The Slot Machines</h2>
+        <p>Stoned Rabbits themed slots launching on Gamblor.io</p>
+      </div>
+
+      <div class="about-content">
+        <div class="about-text" data-aos="fade-right">
+          <h3>Partnership with Imperious Games</h3>
+          <p>We've partnered with Imperious Games, a leading Web3 gaming studio, to create exclusive Stoned Rabbits themed slot machines on Gamblor.io - one of the top crypto casinos on Solana.</p>
+
+          <div style="margin: 2rem 0;">
+            <h4 style="color: #ffd166; margin-bottom: 1rem;">Revenue Model</h4>
+            <ul style="list-style: none; padding: 0;">
+              <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <i class="fas fa-check" style="color: #237253; margin-right: 10px;"></i>
+                <strong>5+ Slot Machines</strong> launching end of Q1 2026
+              </li>
+              <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <i class="fas fa-check" style="color: #237253; margin-right: 10px;"></i>
+                <strong>Monthly Distributions</strong> to all 777 pass holders
+              </li>
+              <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <i class="fas fa-check" style="color: #237253; margin-right: 10px;"></i>
+                <strong>Lifetime Earnings</strong> as long as slots operate
+              </li>
+              <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <i class="fas fa-check" style="color: #237253; margin-right: 10px;"></i>
+                <strong>Provably Fair</strong> on-chain gaming
+              </li>
+              <li style="padding: 0.5rem 0;">
+                <i class="fas fa-check" style="color: #237253; margin-right: 10px;"></i>
+                <strong>Automatic Distribution</strong> via smart contract
+              </li>
+            </ul>
+          </div>
+
+          <a href="https://gamblor.io" target="_blank" class="btn">
+            <i class="fas fa-dice"></i> Visit Gamblor.io
+          </a>
+        </div>
+
+        <div class="slot-preview" data-aos="fade-left">
+          <h4>Revenue Sharing Calculator</h4>
+          <p style="color: #999; margin-bottom: 2rem;">Estimated monthly earnings per pass holder</p>
+
+          <div style="margin: 2rem 0;">
+            <div style="margin-bottom: 2rem;">
+              <span style="color: #ffd166; font-weight: 600;">Conservative Estimate</span>
+              <div class="price-display" style="font-size: 1.8rem; margin: 0.5rem 0;">~$50/month</div>
+              <span style="color: #999; font-size: 0.9rem;">Based on moderate slot performance</span>
+            </div>
+
+            <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem;">
+              <span style="color: #ffd166; font-weight: 600;">Optimistic Estimate</span>
+              <div class="price-display" style="font-size: 1.8rem; margin: 0.5rem 0;">~$200/month</div>
+              <span style="color: #999; font-size: 0.9rem;">Based on strong slot performance</span>
+            </div>
+          </div>
+
+          <p style="font-size: 0.85rem; color: #666; margin-top: 2rem;">
+            *Estimates based on industry averages. Actual earnings depend on slot machine performance. Past performance does not guarantee future results.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Roadmap Timeline -->
+  <section class="roadmap">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Revenue Pass Roadmap</h2>
+        <p>What's coming for pass holders</p>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item" data-aos="fade-up">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3 class="timeline-date">✓ Completed - November 2025</h3>
+            <p><strong>Pass Minting:</strong> Successfully minted all 777 Revenue Sharing Passes at 0.77 SOL each. Community response exceeded expectations.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item" data-aos="fade-up">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3 class="timeline-date">Q4 2025 - Current Phase</h3>
+            <p><strong>Development Phase:</strong> Imperious Games is designing and developing the Stoned Rabbits themed slot machines. Regular updates in Discord.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item" data-aos="fade-up">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3 class="timeline-date">Q1 2026 - Major Launch</h3>
+            <p><strong>Slot Machine Launch:</strong> 5+ Stoned Rabbits themed slots go live on Gamblor.io. Revenue sharing begins immediately.</p>
+            <p><strong>Art Reveal:</strong> All 777 passes receive their unique artwork with traits and rarity rankings.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item" data-aos="fade-up">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3 class="timeline-date">Q2 2026 & Beyond</h3>
+            <p><strong>Expansion:</strong> Additional slot machines, new casino partnerships, and expanded benefits for pass holders.</p>
+            <p><strong>Ongoing Revenue:</strong> Monthly distributions continue for lifetime of pass ownership.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How to Get Pass -->
+  <section class="about">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Get Your Revenue Sharing Pass</h2>
+        <p>Join the 777 pass holders earning lifetime revenue</p>
+      </div>
+
+      <div class="about-content" style="align-items: stretch;">
+        <div class="contact-form" data-aos="fade-right">
+          <h3 style="margin-bottom: 1rem;">Secondary Market</h3>
+          <p>All 777 passes have been minted. You can purchase them on the secondary market:</p>
+
+          <div style="margin: 2rem 0;">
+            <a href="https://magiceden.io/marketplace/stoned_rabbits_revenue_sharing_pass" target="_blank" class="magic-eden-badge">
+              <i class="fas fa-store"></i>
+              View on Magic Eden
+            </a>
+          </div>
+
+          <div class="account-info" style="margin-top: 2rem;">
+            <p><strong>Current Floor:</strong> <span id="floor-price-display">Loading...</span> SOL</p>
+            <p><strong>Total Volume:</strong> <span id="volume-display">Loading...</span> SOL</p>
+            <p><strong>Listed:</strong> <span id="listed-display">Loading...</span> passes</p>
+          </div>
+        </div>
+
+        <div class="contact-form" data-aos="fade-left">
+          <h3 style="margin-bottom: 1rem;">Why Buy Now?</h3>
+          <ul style="list-style: none; padding: 0;">
+            <li style="padding: 1rem; background: rgba(255,255,255,0.03); border-radius: 12px; margin-bottom: 1rem; border-left: 3px solid #ffd166;">
+              <i class="fas fa-rocket" style="color: #ffd166; margin-right: 10px;"></i>
+              <strong>Limited Supply:</strong> Only 777 passes will ever exist
+            </li>
+            <li style="padding: 1rem; background: rgba(255,255,255,0.03); border-radius: 12px; margin-bottom: 1rem; border-left: 3px solid #237253;">
+              <i class="fas fa-calendar" style="color: #237253; margin-right: 10px;"></i>
+              <strong>Before Launch:</strong> Get in before slots go live Q1 2026
+            </li>
+            <li style="padding: 1rem; background: rgba(255,255,255,0.03); border-radius: 12px; margin-bottom: 1rem; border-left: 3px solid #ed683e;">
+              <i class="fas fa-chart-line" style="color: #ed683e; margin-right: 10px;"></i>
+              <strong>Lifetime Value:</strong> Earn revenue for as long as you hold
+            </li>
+            <li style="padding: 1rem; background: rgba(255,255,255,0.03); border-radius: 12px; border-left: 3px solid #ffd166;">
+              <i class="fas fa-users" style="color: #ffd166; margin-right: 10px;"></i>
+              <strong>Community:</strong> Join exclusive holder-only channels
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="nft-showcase">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Frequently Asked Questions</h2>
+      </div>
+
+      <div style="max-width: 800px; margin: 0 auto;">
+        <div class="benefit-card" data-aos="fade-up">
+          <h3>How does revenue sharing work?</h3>
+          <p>Monthly, a percentage of the slot machine profits is distributed equally among all 777 pass holders. Distributions are automatic via smart contract directly to your wallet.</p>
+        </div>
+
+        <div class="benefit-card" data-aos="fade-up">
+          <h3>Do I need to keep my pass unlisted?</h3>
+          <p>Yes, to receive monthly revenue distributions, your pass must be held in your wallet (not listed for sale). You can list it anytime you want to sell, but you won't receive distributions while listed.</p>
+        </div>
+
+        <div class="benefit-card" data-aos="fade-up">
+          <h3>When do the slot machines launch?</h3>
+          <p>The Stoned Rabbits themed slot machines are scheduled to launch end of Q1 2026 on Gamblor.io. We'll announce the exact date in our Discord.</p>
+        </div>
+
+        <div class="benefit-card" data-aos="fade-up">
+          <h3>What about the art reveal?</h3>
+          <p>All 777 passes will receive unique artwork with traits and rarity. The art reveal is planned to coincide with the slot machine launch in Q1 2026.</p>
+        </div>
+
+        <div class="benefit-card" data-aos="fade-up">
+          <h3>Can I buy multiple passes?</h3>
+          <p>Yes! Each pass you hold entitles you to a share of the revenue. Holding multiple passes means multiple shares of the monthly distribution.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-about">
+          <h3>Stoned Rabbits</h3>
+          <p>A collection of 3,333 unique NFTs + 777 Revenue Sharing Passes on the Solana blockchain.</p>
+          <div class="footer-social">
+            <a href="https://x.com/StonedRabbitts"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://t.me/+9PlKBM3aBeY0MTU0"><i class="fab fa-telegram"></i></a>
+            <a href="https://discord.gg/px9kyxbBhc"><i class="fab fa-discord"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../index.html#about">About</a></li>
+            <li><a href="revenue-pass.html">Revenue Pass</a></li>
+            <li><a href="lottery.html">Lottery</a></li>
+            <li><a href="../index.html#team">Team</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Resources</h3>
+          <ul class="footer-links">
+            <li><a href="https://magiceden.io/marketplace/stoned_rabbits_revenue_sharing_pass" target="_blank">Buy Pass on Magic Eden</a></li>
+            <li><a href="https://gamblor.io" target="_blank">Gamblor.io Casino</a></li>
+            <li><a href="https://discord.gg/px9kyxbBhc" target="_blank">Join Discord</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Stoned Rabbits. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- AOS Animation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      once: true
+    });
+  </script>
+
+  <!-- Mobile Menu Toggle -->
+  <script src="../js/main.js"></script>
+
+  <!-- Collection Stats - Real Data from Magic Eden API -->
+  <script>
+    async function loadPassStats() {
+      try {
+        const url = 'https://api-mainnet.magiceden.dev/v2/collections/stoned_rabbits_revenue_sharing_pass/stats';
+        const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(url)}`;
+        const response = await fetch(proxyUrl);
+        const data = await response.json();
+
+        // Update stats with real data
+        const floorPrice = data.floorPrice ? (data.floorPrice / 1e9).toFixed(2) : '0.77';
+        document.getElementById('floor-price-pass').textContent = floorPrice;
+
+        // Try to get holders count
+        if (document.getElementById('holders-count')) {
+          document.getElementById('holders-count').textContent = data.listedCount || 'N/A';
+        }
+
+        // Update other stats if elements exist
+        if (document.getElementById('floor-price-display')) {
+          document.getElementById('floor-price-display').textContent = floorPrice;
+        }
+        if (document.getElementById('volume-display')) {
+          const volume = data.volumeAll ? (data.volumeAll / 1e9).toFixed(0) : 'N/A';
+          document.getElementById('volume-display').textContent = volume;
+        }
+        if (document.getElementById('listed-display')) {
+          document.getElementById('listed-display').textContent = data.listedCount || 'N/A';
+        }
+      } catch (error) {
+        console.error('Error loading pass stats:', error);
+        // Fallback to mint price if API fails
+        document.getElementById('floor-price-pass').textContent = '0.77';
+        if (document.getElementById('holders-count')) {
+          document.getElementById('holders-count').textContent = 'N/A';
+        }
+      }
+    }
+
+    // Load stats when page loads
+    document.addEventListener('DOMContentLoaded', loadPassStats);
+  </script>
+</body>
+</html>
