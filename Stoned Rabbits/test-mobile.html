@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { margin: 0; padding: 20px; font-family: Arial; }
+    .info { background: #333; color: white; padding: 20px; margin: 10px 0; }
+    .desktop-only { display: block; }
+    .mobile-only { display: none; }
+    
+    @media (max-width: 768px) {
+      .desktop-only { display: none; }
+      .mobile-only { display: block; background: red; }
+      body { background: #222; }
+    }
+  </style>
+</head>
+<body>
+  <div class="info">
+    <h2>Screen Width Test</h2>
+    <p>Window width: <span id="width"></span>px</p>
+    <p>Window height: <span id="height"></span>px</p>
+    <p>Device pixel ratio: <span id="dpr"></span></p>
+  </div>
+  
+  <div class="desktop-only info">
+    <h3>DESKTOP MODE (>768px)</h3>
+    <p>You're seeing the desktop styles</p>
+  </div>
+  
+  <div class="mobile-only info">
+    <h3>MOBILE MODE (≤768px)</h3>
+    <p>You're seeing the mobile styles - background should be dark and this should be RED</p>
+  </div>
+  
+  <script>
+    function update() {
+      document.getElementById('width').textContent = window.innerWidth;
+      document.getElementById('height').textContent = window.innerHeight;
+      document.getElementById('dpr').textContent = window.devicePixelRatio;
+    }
+    update();
+    window.addEventListener('resize', update);
+  </script>
+</body>
+</html>
