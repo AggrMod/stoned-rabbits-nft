@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revenue Pass Contract - Blockchain Test Interface</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stat-box {
+            background: #f7f7f7;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .stat-value.sol {
+            color: #667eea;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .transaction-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .transaction {
+            background: #f7f7f7;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .transaction.deposit {
+            border-left-color: #4caf50;
+        }
+
+        .transaction.claim {
+            border-left-color: #ff9800;
+        }
+
+        .tx-type {
+            font-weight: bold;
+            color: #667eea;
+            text-transform: uppercase;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .tx-amount {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .tx-details {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .alert.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .alert.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .blockchain-viz {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 20px 0;
+        }
+
+        .block {
+            min-width: 120px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .block-height {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .block-txs {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .block-hash {
+            font-size: 10px;
+            opacity: 0.6;
+            margin-top: 5px;
+            word-break: break-all;
+        }
+
+        .emoji {
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎫 Revenue Pass Contract - Blockchain Test Interface</h1>
+            <p class="subtitle">Testing environment for Stoned Rabbits Revenue Distribution System</p>
+            <div class="alert info">
+                <strong>ℹ️ Test Mode:</strong> This is running on a custom local blockchain. No real SOL is involved.
+            </div>
+        </header>
+
+        <div class="grid">
+            <!-- Pool Statistics -->
+            <div class="card">
+                <h2><span class="emoji">📊</span> Pool Statistics</h2>
+                <div class="stat-box">
+                    <div class="stat-label">Pool Balance</div>
+                    <div class="stat-value sol" id="poolBalance">0.0000 SOL</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Total Revenue Processed</div>
+                    <div class="stat-value" id="totalRevenue">0.0000 SOL</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Total Claimed</div>
+                    <div class="stat-value" id="totalClaimed">0.0000 SOL</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Revenue per Pass</div>
+                    <div class="stat-value" id="perPass">0.000000 SOL</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Claims Made</div>
+                    <div class="stat-value" id="claimsMade">0 / 777</div>
+                </div>
+            </div>
+
+            <!-- Blockchain Stats -->
+            <div class="card">
+                <h2><span class="emoji">⛓️</span> Blockchain Stats</h2>
+                <div class="stat-box">
+                    <div class="stat-label">Total Blocks</div>
+                    <div class="stat-value" id="totalBlocks">1</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Total Transactions</div>
+                    <div class="stat-value" id="totalTxs">0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Total Accounts</div>
+                    <div class="stat-value" id="totalAccounts">0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Latest Block Hash</div>
+                    <div style="font-size: 12px; color: #666; word-break: break-all;" id="latestHash">0000...</div>
+                </div>
+            </div>
+
+            <!-- Deposit Revenue -->
+            <div class="card">
+                <h2><span class="emoji">💰</span> Deposit Revenue</h2>
+                <p style="color: #666; font-size: 14px; margin-bottom: 20px;">
+                    Simulate Gamblor sending revenue to the pool
+                </p>
+                <input type="number" id="depositAmount" placeholder="Amount in SOL (e.g., 7.77)" step="0.01" min="0.01">
+                <button onclick="depositRevenue()">
+                    <span id="depositBtn">Deposit Revenue</span>
+                </button>
+                <div id="depositAlert" class="alert hidden"></div>
+            </div>
+
+            <!-- Claim Revenue -->
+            <div class="card">
+                <h2><span class="emoji">🎫</span> Claim Revenue</h2>
+                <p style="color: #666; font-size: 14px; margin-bottom: 20px;">
+                    Claim revenue as a pass holder
+                </p>
+                <input type="number" id="passNumber" placeholder="Pass Number (1-777)" min="1" max="777">
+                <button onclick="claimRevenue()">
+                    <span id="claimBtn">Claim Revenue</span>
+                </button>
+                <div id="claimAlert" class="alert hidden"></div>
+                <div id="claimInfo" style="margin-top: 15px; display: none;">
+                    <div class="stat-box">
+                        <div class="stat-label">Available to Claim</div>
+                        <div class="stat-value sol" id="claimableAmount">0 SOL</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blockchain Visualization -->
+        <div class="card">
+            <h2><span class="emoji">🔗</span> Recent Blocks</h2>
+            <div class="blockchain-viz" id="blockchainViz"></div>
+        </div>
+
+        <!-- Transaction History -->
+        <div class="card">
+            <h2><span class="emoji">📜</span> Transaction History</h2>
+            <div class="transaction-list" id="transactionList">
+                <p style="color: #999; text-align: center; padding: 40px 0;">
+                    No transactions yet. Start by depositing revenue!
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Simulated blockchain state (matches local-blockchain.ts logic)
+        let pool = {
+            totalRevenueCollected: 0,
+            totalRevenueDistributed: 0,
+            totalPasses: 777,
+            isActive: true
+        };
+
+        let claims = new Map();
+        let transactions = [];
+        let blocks = [{ height: 0, transactions: [], hash: '0'.repeat(64) }];
+
+        function solToLamports(sol) {
+            return Math.floor(sol * 1_000_000_000);
+        }
+
+        function lamportsToSol(lamports) {
+            return lamports / 1_000_000_000;
+        }
+
+        window.depositRevenue = function() {
+            const amountInput = document.getElementById('depositAmount');
+            const amount = parseFloat(amountInput.value);
+
+            if (!amount || amount <= 0) {
+                showAlert('depositAlert', 'Please enter a valid amount', 'error');
+                return;
+            }
+
+            const lamports = solToLamports(amount);
+            pool.totalRevenueCollected += lamports;
+
+            transactions.push({
+                type: 'deposit',
+                amount: lamports,
+                timestamp: Date.now(),
+                from: 'Gamblor',
+                to: 'Revenue Pool'
+            });
+
+            mineBlock();
+            updateUI();
+            amountInput.value = '';
+            showAlert('depositAlert', `Successfully deposited ${amount} SOL!`, 'success');
+        };
+
+        window.claimRevenue = function() {
+            const passInput = document.getElementById('passNumber');
+            const passNumber = parseInt(passInput.value);
+
+            if (!passNumber || passNumber < 1 || passNumber > 777) {
+                showAlert('claimAlert', 'Please enter a valid pass number (1-777)', 'error');
+                return;
+            }
+
+            const claimableAmount = calculateClaimableAmount(passNumber);
+
+            if (claimableAmount <= 0) {
+                showAlert('claimAlert', 'No revenue available to claim for this pass', 'error');
+                return;
+            }
+
+            const claimRecord = claims.get(passNumber) || { totalClaimed: 0 };
+            claimRecord.totalClaimed += claimableAmount;
+            claims.set(passNumber, claimRecord);
+
+            pool.totalRevenueDistributed += claimableAmount;
+
+            transactions.push({
+                type: 'claim',
+                amount: claimableAmount,
+                timestamp: Date.now(),
+                from: 'Revenue Pool',
+                to: `Pass #${passNumber}`,
+                passNumber
+            });
+
+            mineBlock();
+            updateUI();
+            passInput.value = '';
+            showAlert('claimAlert', `Pass #${passNumber} claimed ${lamportsToSol(claimableAmount).toFixed(6)} SOL!`, 'success');
+        };
+
+        function calculateClaimableAmount(passNumber) {
+            const revenuePerPass = Math.floor(pool.totalRevenueCollected / pool.totalPasses);
+            const claimRecord = claims.get(passNumber);
+            const alreadyClaimed = claimRecord ? claimRecord.totalClaimed : 0;
+            return revenuePerPass - alreadyClaimed;
+        }
+
+        function mineBlock() {
+            const newBlock = {
+                height: blocks.length,
+                transactions: [...transactions],
+                hash: Math.random().toString(36).substring(2, 18)
+            };
+            blocks.push(newBlock);
+            transactions = [];
+        }
+
+        function updateUI() {
+            const poolBalance = pool.totalRevenueCollected - pool.totalRevenueDistributed;
+
+            document.getElementById('poolBalance').textContent = lamportsToSol(poolBalance).toFixed(4) + ' SOL';
+            document.getElementById('totalRevenue').textContent = lamportsToSol(pool.totalRevenueCollected).toFixed(4) + ' SOL';
+            document.getElementById('totalClaimed').textContent = lamportsToSol(pool.totalRevenueDistributed).toFixed(4) + ' SOL';
+            document.getElementById('perPass').textContent = lamportsToSol(pool.totalRevenueCollected / pool.totalPasses).toFixed(6) + ' SOL';
+            document.getElementById('claimsMade').textContent = `${claims.size} / 777`;
+
+            document.getElementById('totalBlocks').textContent = blocks.length;
+            document.getElementById('totalTxs').textContent = blocks.reduce((sum, b) => sum + b.transactions.length, 0);
+            document.getElementById('totalAccounts').textContent = claims.size + 2; // +2 for pool and Gamblor
+            document.getElementById('latestHash').textContent = blocks[blocks.length - 1].hash;
+
+            updateBlockchainViz();
+            updateTransactionList();
+        }
+
+        function updateBlockchainViz() {
+            const viz = document.getElementById('blockchainViz');
+            viz.innerHTML = blocks.slice(-10).map(block => `
+                <div class="block">
+                    <div class="block-height">Block #${block.height}</div>
+                    <div class="block-txs">${block.transactions.length} TXs</div>
+                    <div class="block-hash">${block.hash}</div>
+                </div>
+            `).join('');
+        }
+
+        function updateTransactionList() {
+            const list = document.getElementById('transactionList');
+            const allTxs = blocks.flatMap(b => b.transactions).reverse();
+
+            if (allTxs.length === 0) {
+                list.innerHTML = '<p style="color: #999; text-align: center; padding: 40px 0;">No transactions yet. Start by depositing revenue!</p>';
+                return;
+            }
+
+            list.innerHTML = allTxs.slice(0, 20).map(tx => `
+                <div class="transaction ${tx.type}">
+                    <div class="tx-type">${tx.type === 'deposit' ? '💰 DEPOSIT' : '🎫 CLAIM'}</div>
+                    <div class="tx-amount">${lamportsToSol(tx.amount).toFixed(6)} SOL</div>
+                    <div class="tx-details">
+                        ${tx.from} → ${tx.to}<br>
+                        ${new Date(tx.timestamp).toLocaleString()}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showAlert(id, message, type) {
+            const alert = document.getElementById(id);
+            alert.textContent = message;
+            alert.className = `alert ${type}`;
+            alert.classList.remove('hidden');
+            setTimeout(() => alert.classList.add('hidden'), 5000);
+        }
+
+        // Initialize UI
+        updateUI();
+    </script>
+</body>
+</html>
